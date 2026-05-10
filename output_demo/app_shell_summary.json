@@ -1,0 +1,71 @@
+{
+  "headline": "No-PHI app shell with Launch Workspace and Dashboard Proof anchor.",
+  "boundary": "synthetic-only",
+  "readiness_score": 93,
+  "first_build": "Claims Pipeline Mapper + Dashboard Proof",
+  "recommended_module": "Claims Pipeline Mapper",
+  "functional_routes": [
+    "/app/intake",
+    "/app/dashboard"
+  ],
+  "reserved_modules": [
+    "Claims Pipeline Mapper",
+    "KPI Dashboard",
+    "EDI Validation",
+    "Coding Readiness",
+    "Clearinghouse Response Tracker",
+    "835 Matchback",
+    "Denial Workqueues",
+    "Evidence/Compliance",
+    "MCP Site QA Console"
+  ],
+  "dashboard_metrics": {
+    "claims_submitted": 772,
+    "clean_claim_rate": 0.9158,
+    "clearinghouse_rejection_rate": 0.0427,
+    "denial_rate": 0.0427,
+    "remit_match_rate": 0.8044,
+    "remits_matched": 621,
+    "average_payment_lag_days": 5.6,
+    "current_ar_exposure": 14100.0,
+    "total_billed": 308850.0,
+    "total_paid": 217200.0
+  },
+  "checklist": [
+    "Confirm no-PHI discovery scope before any file intake.",
+    "Prepare a paid design-partner scope for the first 30-day workflow build.",
+    "Map current EHR/PM, billing, payer-response, remit, and dashboard handoffs.",
+    "Select the first synthetic claim journey to mirror during launch planning.",
+    "Document denial categories and owner queues before automation work starts.",
+    "Define the production-agreement checklist before credentials or files are requested."
+  ],
+  "claims_journey": [
+    {
+      "claim_id": "CLM-LAUNCH-001",
+      "stage": "Paid / posted",
+      "ack": "Accepted",
+      "status": "Accepted",
+      "remit": "Seen",
+      "issue": "None",
+      "owner": "Posting"
+    },
+    {
+      "claim_id": "CLM-LAUNCH-002",
+      "stage": "Front-end rejection",
+      "ack": "Accepted",
+      "status": "Rejected",
+      "remit": "Not due",
+      "issue": "Subscriber detail mismatch",
+      "owner": "Billing ops"
+    },
+    {
+      "claim_id": "CLM-LAUNCH-003",
+      "stage": "Denial follow-up",
+      "ack": "Accepted",
+      "status": "Accepted",
+      "remit": "Seen",
+      "issue": "Missing information",
+      "owner": "Denials"
+    }
+  ]
+}
