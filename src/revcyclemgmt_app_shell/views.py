@@ -5,6 +5,7 @@ from __future__ import annotations
 from html import escape
 from urllib.parse import parse_qs
 
+from .claims_pipeline import build_claims_pipeline_workspace, dollars
 from .data import DASHBOARD_METRICS, DASHBOARD_READOUT, PLACEHOLDER_COPY, ROADMAP_MODULES
 from .privacy import PrivacyBoundaryError
 from .workspace import build_workspace
@@ -37,7 +38,15 @@ def render_route(path: str = "/", query: str = "") -> tuple[int, str, str]:
         return 404, "text/html; charset=utf-8", render_page("not-found", "<h1>Route not found</h1>")
     params = {key: values[-1] for key, values in parse_qs(query).items()}
     try:
-        body = render_launch(params) if slug == "launch-workspace" else render_dashboard() if slug == "dashboard" else render_placeholder(slug)
+        body = (
+            render_launch(params)
+            if slug == "launch-workspace"
+            else render_claims_pipeline(params)
+            if slug == "claims-pipeline"
+            else render_dashboard()
+            if slug == "dashboard"
+            else render_placeholder(slug)
+        )
         return 200, "text/html; charset=utf-8", render_page(slug, body)
     except PrivacyBoundaryError as exc:
         body = f"""
@@ -175,6 +184,114 @@ def render_dashboard() -> str:
     """
 
 
+def render_claims_pipeline(params: dict[str, str]) -> str:
+    workspace = build_claims_pipeline_workspace(params.get("path"))
+    selected = workspace.selected_path
+    path_links = "".join(
+        f'<a class="path-chip {"active" if path.slug == selected.slug else ""}" href="/app/claims-pipeline?path={escape(path.slug)}">'
+        f'<strong>{escape(path.label)}</strong><span>{escape(path.current_status)}</span></a>'
+        for path in workspace.paths
+    )
+    timeline_nodes = "".join(
+        f"""
+        <article class="timeline-node {escape(node.status)}">
+          <span>{escape(node.status)}</span>
+          <h3>{escape(node.stage)}</h3>
+          <p>{node.elapsed_days} elapsed days</p>
+          <small>{escape(node.owner)}</small>
+        </article>
+        """
+        for node in selected.nodes
+    )
+    ownership_rows = "".join(
+        f"""
+        <tr class="{'loud' if row.unassigned or row.owner == 'Unassigned' else ''}">
+          <td>{escape(row.stage)}</td>
+          <td>{escape(row.owner)}</td>
+          <td>{escape(row.role)}</td>
+          <td>{row.queue_load}</td>
+          <td>{row.unassigned}</td>
+          <td>{escape(row.note)}</td>
+        </tr>
+        """
+        for row in workspace.ownership
+    )
+    stuck_rows = "".join(
+        f"""
+        <tr>
+          <td>{escape(row.group)}</td>
+          <td>{escape(row.stuck_at)}</td>
+          <td>{row.count}</td>
+          <td>{row.aged_days}</td>
+          <td>{dollars(row.dollars_at_risk)} synthetic</td>
+          <td>{escape(row.action)}</td>
+        </tr>
+        """
+        for row in workspace.stuck_points
+    )
+    action_items = "".join(
+        f"""
+        <article class="action-item">
+          <span>{escape(item.day_range)}</span>
+          <h3>{escape(item.action)}</h3>
+          <dl>
+            <div><dt>Owner</dt><dd>{escape(item.owner)}</dd></div>
+            <div><dt>Effort</dt><dd>{escape(item.effort)}</dd></div>
+            <div><dt>Impact</dt><dd>{escape(item.impact)}</dd></div>
+          </dl>
+        </article>
+        """
+        for item in workspace.action_plan
+    )
+    risk_total = sum(row.dollars_at_risk for row in workspace.stuck_points)
+    unassigned_total = sum(row.unassigned for row in workspace.ownership)
+    return f"""
+    <section class="panel mapper-hero">
+      <div>
+        <p class="eyebrow">Live workspace</p>
+        <h2>Claims Pipeline Mapper</h2>
+        <p>See exactly where synthetic claims move, stall, and need ownership before a startup clinic adds more volume.</p>
+      </div>
+      <div class="mapper-stats">
+        <div><span>Sample paths</span><strong>{len(workspace.paths)}</strong></div>
+        <div><span>Unassigned slots</span><strong>{unassigned_total}</strong></div>
+        <div><span>Dollars at risk</span><strong>{dollars(risk_total)}</strong><em>synthetic</em></div>
+      </div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Claim Path Timeline</p>
+      <div class="path-picker">{path_links}</div>
+      <div class="selected-claim">
+        <h2>{escape(selected.label)}: {escape(selected.claim_id)}</h2>
+        <p>{escape(selected.summary)}</p>
+        <span>{dollars(selected.billed_amount)} billed | {dollars(selected.dollars_at_risk)} synthetic dollars at risk</span>
+      </div>
+      <div class="timeline">{timeline_nodes}</div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Ownership Map</p>
+      <h2>Owner gaps are intentionally loud.</h2>
+      <table>
+        <thead><tr><th>Stage</th><th>Owner</th><th>Role</th><th>Queue</th><th>Unassigned</th><th>Operating note</th></tr></thead>
+        <tbody>{ownership_rows}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Stuck-Point Inventory</p>
+      <h2>Synthetic cohorts grouped by where the claim path stalls.</h2>
+      <table>
+        <thead><tr><th>Cohort</th><th>Stuck at</th><th>Count</th><th>Aged days</th><th>Dollars at risk</th><th>Recommended next action</th></tr></thead>
+        <tbody>{stuck_rows}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">First 30-Day Action Plan</p>
+      <h2>Week-one operating moves after the Launch Workspace handoff.</h2>
+      <div class="action-grid">{action_items}</div>
+    </section>
+    """
+
+
 def render_placeholder(slug: str) -> str:
     module = next(item for item in ROADMAP_MODULES if item["slug"] == slug)
     return f"""
@@ -207,7 +324,7 @@ nav { display:grid; gap:7px; }
 nav a { color:var(--text); text-decoration:none; padding:11px 12px; border:1px solid transparent; border-radius:8px; display:grid; gap:2px; }
 nav a.active, nav a:hover { background:#10242a; border-color:#1f5960; }
 nav small { color:var(--muted); }
-.shell { width:100%; padding:28px; }
+.shell { flex:1 1 auto; min-width:0; padding:28px; }
 .topbar { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:24px; }
 h1, h2 { margin:0; letter-spacing:0; }
 h1 { font-size:34px; }
@@ -216,14 +333,14 @@ h2 { font-size:24px; margin-bottom:14px; }
 .status, .button, button { background:var(--teal); color:#021415; border:0; border-radius:8px; padding:11px 14px; font-weight:800; text-decoration:none; display:inline-block; }
 .grid { display:grid; gap:20px; }
 .hero-grid { grid-template-columns:minmax(340px, 1.05fr) minmax(340px, .95fr); align-items:stretch; }
-.panel { background:rgba(16,27,32,.92); border:1px solid var(--line); border-radius:8px; padding:22px; box-shadow:0 22px 70px rgba(0,0,0,.25); margin-bottom:20px; }
+.panel { background:rgba(16,27,32,.92); border:1px solid var(--line); border-radius:8px; padding:22px; box-shadow:0 22px 70px rgba(0,0,0,.25); margin-bottom:20px; max-width:100%; overflow-x:auto; }
 form { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
 label { display:grid; gap:6px; color:var(--muted); font-size:13px; }
 input { width:100%; border:1px solid #31545c; border-radius:8px; background:#071316; color:var(--text); padding:11px 12px; font:inherit; }
 button { grid-column:1 / -1; cursor:pointer; }
 .score-ring { width:118px; height:118px; border-radius:999px; display:grid; place-items:center; border:12px solid var(--teal); font-size:34px; font-weight:900; margin-bottom:18px; background:#071316; }
 ol { padding-left:20px; color:#d8e7e5; }
-table { width:100%; border-collapse:collapse; overflow:hidden; border-radius:8px; }
+table { width:100%; min-width:760px; border-collapse:collapse; overflow:hidden; border-radius:8px; }
 th, td { text-align:left; padding:12px; border-bottom:1px solid var(--line); }
 th { color:var(--steel); background:#0b171a; }
 .kpis { display:grid; grid-template-columns:repeat(6, minmax(120px, 1fr)); gap:12px; margin:18px 0; }
@@ -232,5 +349,37 @@ th { color:var(--steel); background:#0b171a; }
 .kpi strong { color:var(--steel); font-size:24px; }
 .proof { width:100%; max-height:680px; object-fit:contain; border:1px solid var(--line); border-radius:8px; background:#081216; }
 .alert { border-color:#7f1d1d; }
-@media (max-width: 940px) { body { display:block; } .sidebar { position:relative; width:auto; min-height:0; } .shell { padding:18px; } .hero-grid, form { grid-template-columns:1fr; } .kpis { grid-template-columns:1fr 1fr; } .topbar { display:block; } }
+.mapper-hero { display:flex; justify-content:space-between; gap:24px; align-items:stretch; }
+.mapper-hero p { color:var(--muted); max-width:720px; }
+.mapper-stats { display:grid; grid-template-columns:repeat(3, minmax(130px,1fr)); gap:12px; min-width:min(100%, 520px); }
+.mapper-stats div { background:#071316; border:1px solid #21414a; border-radius:8px; padding:14px; display:grid; gap:4px; }
+.mapper-stats span, .mapper-stats em { color:var(--muted); font-style:normal; }
+.mapper-stats strong { color:var(--steel); font-size:26px; }
+.path-picker { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:18px 0; }
+.path-chip { color:var(--text); text-decoration:none; border:1px solid #21414a; background:#071316; border-radius:8px; padding:12px; display:grid; gap:4px; min-height:72px; }
+.path-chip.active { border-color:var(--teal); box-shadow:0 0 0 1px rgba(0,179,164,.35), 0 0 22px rgba(0,179,164,.12); }
+.path-chip span { color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; }
+.selected-claim { background:#071316; border:1px solid #21414a; border-radius:8px; padding:16px; margin-bottom:18px; }
+.selected-claim p { color:var(--muted); margin-top:8px; }
+.selected-claim span { display:inline-block; margin-top:10px; color:var(--steel); font-weight:800; }
+.timeline { display:grid; grid-template-columns:repeat(8,minmax(130px,1fr)); gap:10px; overflow-x:auto; padding-bottom:8px; }
+.timeline-node { min-width:130px; border:1px solid #21414a; border-radius:8px; padding:12px; background:#071316; position:relative; }
+.timeline-node span { display:inline-block; color:#021415; background:var(--steel); border-radius:999px; padding:3px 7px; font-size:11px; font-weight:900; text-transform:uppercase; }
+.timeline-node.paid span { background:var(--teal); }
+.timeline-node.stuck span { background:#facc15; }
+.timeline-node.denied span { background:#fb7185; }
+.timeline-node h3 { margin:10px 0 8px; font-size:15px; }
+.timeline-node p, .timeline-node small { color:var(--muted); }
+tr.loud td { background:rgba(251,113,133,.12); color:#ffe8ee; }
+tr.loud td:nth-child(2), tr.loud td:nth-child(5) { color:#fb7185; font-weight:900; }
+.action-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.action-item { background:#071316; border:1px solid #21414a; border-radius:8px; padding:16px; }
+.action-item > span { color:var(--teal); font-weight:900; text-transform:uppercase; font-size:12px; letter-spacing:.06em; }
+.action-item h3 { margin:10px 0 14px; font-size:17px; line-height:1.3; }
+dl { display:grid; gap:9px; margin:0; }
+dl div { display:grid; gap:3px; }
+dt { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+dd { margin:0; color:#d8e7e5; }
+@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } }
+@media (max-width: 940px) { body { display:block; overflow-x:hidden; } .sidebar { position:relative; width:auto; min-height:0; } .shell { padding:18px; width:100%; } .hero-grid, form { grid-template-columns:1fr; } .kpis, .mapper-stats, .path-picker, .action-grid { grid-template-columns:1fr; } .topbar { display:block; } .timeline { grid-template-columns:1fr; overflow-x:visible; } table { min-width:680px; } }
 """

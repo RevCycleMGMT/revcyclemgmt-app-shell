@@ -6,11 +6,10 @@
   "recommended_module": "Claims Pipeline Mapper",
   "functional_routes": [
     "/app/intake",
+    "/app/claims-pipeline",
     "/app/dashboard"
   ],
   "reserved_modules": [
-    "Claims Pipeline Mapper",
-    "KPI Dashboard",
     "EDI Validation",
     "Coding Readiness",
     "Clearinghouse Response Tracker",
@@ -67,5 +66,235 @@
       "issue": "Missing information",
       "owner": "Denials"
     }
-  ]
+  ],
+  "claims_pipeline_mapper": {
+    "boundary": "synthetic-only",
+    "selected_path": "denied-carc-16",
+    "sample_paths": [
+      "clean",
+      "rejected-at-999",
+      "denied-carc-16",
+      "partial-pay-co-45",
+      "patient-responsibility-balance"
+    ],
+    "timeline_nodes": [
+      {
+        "stage": "Eligibility check",
+        "status": "paid",
+        "elapsed_days": 0,
+        "owner": "Front desk"
+      },
+      {
+        "stage": "Charge capture",
+        "status": "paid",
+        "elapsed_days": 0,
+        "owner": "Clinical ops"
+      },
+      {
+        "stage": "Coding",
+        "status": "paid",
+        "elapsed_days": 1,
+        "owner": "Coder"
+      },
+      {
+        "stage": "837P submission",
+        "status": "paid",
+        "elapsed_days": 1,
+        "owner": "Biller"
+      },
+      {
+        "stage": "999 acknowledgment",
+        "status": "paid",
+        "elapsed_days": 1,
+        "owner": "Biller"
+      },
+      {
+        "stage": "277CA acceptance",
+        "status": "paid",
+        "elapsed_days": 2,
+        "owner": "AR follow-up"
+      },
+      {
+        "stage": "835 remit",
+        "status": "denied",
+        "elapsed_days": 9,
+        "owner": "Denials specialist"
+      },
+      {
+        "stage": "Payment posting",
+        "status": "stuck",
+        "elapsed_days": 9,
+        "owner": "Denials specialist"
+      }
+    ],
+    "ownership_rows": [
+      {
+        "stage": "Eligibility check",
+        "owner": "Front desk",
+        "role": "Front-end intake",
+        "queue_load": 36,
+        "unassigned": 0,
+        "note": "Verify coverage category before service."
+      },
+      {
+        "stage": "Charge capture",
+        "owner": "Clinical ops",
+        "role": "Visit closeout",
+        "queue_load": 18,
+        "unassigned": 2,
+        "note": "Close same-day charge gaps."
+      },
+      {
+        "stage": "Coding",
+        "owner": "Coder",
+        "role": "Coding readiness",
+        "queue_load": 27,
+        "unassigned": 0,
+        "note": "Review documentation and modifier prompts."
+      },
+      {
+        "stage": "837P submission",
+        "owner": "Biller",
+        "role": "Claim build",
+        "queue_load": 42,
+        "unassigned": 0,
+        "note": "Submit clean synthetic batches."
+      },
+      {
+        "stage": "999 acknowledgment",
+        "owner": "Biller",
+        "role": "Implementation response",
+        "queue_load": 11,
+        "unassigned": 3,
+        "note": "Assign reject repair ownership."
+      },
+      {
+        "stage": "277CA acceptance",
+        "owner": "AR follow-up",
+        "role": "Payer acceptance",
+        "queue_load": 14,
+        "unassigned": 1,
+        "note": "Separate payer rejects from waiting claims."
+      },
+      {
+        "stage": "835 remit",
+        "owner": "Posting",
+        "role": "ERA review",
+        "queue_load": 24,
+        "unassigned": 0,
+        "note": "Match remit and variance rows."
+      },
+      {
+        "stage": "Payment posting",
+        "owner": "Unassigned",
+        "role": "Balance follow-up",
+        "queue_load": 9,
+        "unassigned": 5,
+        "note": "Name owner before launch volume grows."
+      }
+    ],
+    "stuck_points": [
+      {
+        "group": "Eligibility mismatch",
+        "stuck_at": "Eligibility check",
+        "count": 18,
+        "aged_days": 6,
+        "dollars_at_risk": 4860.0,
+        "action": "Run front-desk coverage script and retry before claim build."
+      },
+      {
+        "group": "Missing documentation",
+        "stuck_at": "Coding",
+        "count": 11,
+        "aged_days": 8,
+        "dollars_at_risk": 3375.0,
+        "action": "Create coder-owned note completion queue."
+      },
+      {
+        "group": "999 reject",
+        "stuck_at": "999 acknowledgment",
+        "count": 7,
+        "aged_days": 3,
+        "dollars_at_risk": 1540.0,
+        "action": "Repair implementation errors and resubmit same week."
+      },
+      {
+        "group": "277CA reject",
+        "stuck_at": "277CA acceptance",
+        "count": 9,
+        "aged_days": 5,
+        "dollars_at_risk": 2610.0,
+        "action": "Separate payer-accepted claims from payer-rejected claims."
+      },
+      {
+        "group": "Denial pending appeal",
+        "stuck_at": "835 remit",
+        "count": 13,
+        "aged_days": 14,
+        "dollars_at_risk": 6820.0,
+        "action": "Build denial packet queue with due dates."
+      },
+      {
+        "group": "No-response payer",
+        "stuck_at": "277CA acceptance",
+        "count": 16,
+        "aged_days": 12,
+        "dollars_at_risk": 5520.0,
+        "action": "Start payer follow-up cadence and owner log."
+      },
+      {
+        "group": "Posting backlog",
+        "stuck_at": "Payment posting",
+        "count": 21,
+        "aged_days": 9,
+        "dollars_at_risk": 4185.0,
+        "action": "Clear remit posting backlog before new batch submission."
+      }
+    ],
+    "action_plan": [
+      {
+        "day_range": "Days 1-3",
+        "action": "Name one accountable owner for every unassigned stage.",
+        "owner": "Operations lead",
+        "effort": "Low",
+        "impact": "Stops claims from aging without a queue owner."
+      },
+      {
+        "day_range": "Days 4-7",
+        "action": "Stand up daily 999 and 277CA review for rejected synthetic cohorts.",
+        "owner": "Biller",
+        "effort": "Medium",
+        "impact": "Cuts front-end rework before payer follow-up starts."
+      },
+      {
+        "day_range": "Days 8-12",
+        "action": "Create coding-readiness checklist for missing documentation cohorts.",
+        "owner": "Coder",
+        "effort": "Medium",
+        "impact": "Reduces CARC 16-style denial exposure."
+      },
+      {
+        "day_range": "Days 13-18",
+        "action": "Build denial and remit variance workqueues by owner, age, and dollars at risk.",
+        "owner": "Denials specialist",
+        "effort": "Medium",
+        "impact": "Turns backlog into recoverable work."
+      },
+      {
+        "day_range": "Days 19-24",
+        "action": "Install posting cadence for 835 matchback and responsibility balance separation.",
+        "owner": "Posting",
+        "effort": "Medium",
+        "impact": "Prevents cash and patient-balance confusion."
+      },
+      {
+        "day_range": "Days 25-30",
+        "action": "Review the first synthetic operating dashboard and update weekly controls.",
+        "owner": "AR follow-up",
+        "effort": "Low",
+        "impact": "Makes week-two operations measurable."
+      }
+    ],
+    "synthetic_dollars_at_risk": 28910.0
+  }
 }

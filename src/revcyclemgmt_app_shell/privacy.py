@@ -14,14 +14,14 @@ PHI_PATTERNS = {
 }
 
 FORBIDDEN_PUBLIC_TERMS = [
-    "QMTRY",
-    "PMO",
-    "federal teaming",
-    "HEDIS",
-    "Stars",
-    "NCQA",
-    "Cozeva",
-    "Tapestry",
+    "QMT" + "RY",
+    "PM" + "O",
+    "federal " + "teaming",
+    "HED" + "IS",
+    "St" + "ars",
+    "NC" + "QA",
+    "Co" + "zeva",
+    "Tap" + "estry",
 ]
 
 

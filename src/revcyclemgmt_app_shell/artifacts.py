@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .claims_pipeline import build_claims_pipeline_workspace, claims_pipeline_summary, render_claims_pipeline_svg
 from .data import DASHBOARD_METRICS, ROADMAP_MODULES
 from .workspace import build_workspace
 
@@ -20,8 +21,12 @@ def generate_summary() -> dict[str, object]:
         "readiness_score": workspace.readiness_score,
         "first_build": workspace.first_build,
         "recommended_module": workspace.recommended_module,
-        "functional_routes": ["/app/intake", "/app/dashboard"],
-        "reserved_modules": [module["label"] for module in ROADMAP_MODULES if module["status"] != "Live intake"],
+        "functional_routes": ["/app/intake", "/app/claims-pipeline", "/app/dashboard"],
+        "reserved_modules": [
+            module["label"]
+            for module in ROADMAP_MODULES
+            if module["status"] not in {"Live intake", "Live workspace", "Synthetic proof"}
+        ],
         "dashboard_metrics": DASHBOARD_METRICS,
         "checklist": workspace.checklist,
         "claims_journey": workspace.claims_journey,
@@ -33,7 +38,7 @@ def generate_svg(summary: dict[str, object]) -> str:
     rows = []
     y = 236
     for module in modules:
-        color = "#00B3A4" if module["status"] in {"Live intake", "Synthetic proof"} else "#31545c"
+        color = "#00B3A4" if module["status"] in {"Live intake", "Live workspace", "Synthetic proof"} else "#31545c"
         rows.append(
             f'<rect x="54" y="{y}" width="292" height="42" rx="8" fill="#0d1a1f" stroke="{color}" />'
             f'<text x="72" y="{y + 25}" fill="#f4fbfa" font-size="15" font-weight="700">{esc(module["label"])}</text>'
@@ -97,7 +102,7 @@ def generate_svg(summary: dict[str, object]) -> str:
   <text x="424" y="354" fill="#f4fbfa" font-size="24" font-weight="900">Generated readiness checklist</text>
   {''.join(checklist_rows)}
   {''.join(metric_svg)}
-  <text x="400" y="710" fill="#9ab5b5" font-size="15">Functional now: Launch Workspace and KPI Dashboard. Roadmap modules are reserved without accepting real client data.</text>
+  <text x="400" y="710" fill="#9ab5b5" font-size="15">Functional now: Launch Workspace, Claims Pipeline Mapper, and KPI Dashboard. Roadmap modules remain no-PHI.</text>
 </svg>"""
 
 
@@ -116,9 +121,16 @@ def write_artifacts(out_dir: Path) -> dict[str, object]:
     assets_dir.mkdir(parents=True, exist_ok=True)
     summary = generate_summary()
     svg = generate_svg(summary)
+    claims_workspace = build_claims_pipeline_workspace("denied-carc-16")
+    claims_summary = claims_pipeline_summary(claims_workspace)
+    claims_svg = render_claims_pipeline_svg(claims_workspace)
+    summary["claims_pipeline_mapper"] = claims_summary
     (out_dir / "app_shell_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     (out_dir / "app_shell_proof.svg").write_text(svg, encoding="utf-8")
+    (out_dir / "claims_pipeline_mapper_summary.json").write_text(json.dumps(claims_summary, indent=2) + "\n", encoding="utf-8")
+    (out_dir / "claims_pipeline_mapper_proof.svg").write_text(claims_svg, encoding="utf-8")
     (assets_dir / "app-shell-proof.svg").write_text(svg, encoding="utf-8")
+    (assets_dir / "claims-pipeline-mapper-proof.svg").write_text(claims_svg, encoding="utf-8")
     return summary
 
 
@@ -127,7 +139,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--out", default="output_demo")
     args = parser.parse_args(argv)
     summary = write_artifacts(Path(args.out))
-    print(json.dumps({"artifact_count": 3, "readiness_score": summary["readiness_score"]}, indent=2))
+    print(json.dumps({"artifact_count": 6, "readiness_score": summary["readiness_score"]}, indent=2))
 
 
 if __name__ == "__main__":

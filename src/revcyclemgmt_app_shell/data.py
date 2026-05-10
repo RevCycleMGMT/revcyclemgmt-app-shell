@@ -15,7 +15,7 @@ ROADMAP_MODULES = [
     {
         "slug": "claims-pipeline",
         "label": "Claims Pipeline Mapper",
-        "status": "Coming next",
+        "status": "Live workspace",
         "description": "Claim journey, ownership map, stuck-point inventory, and first action plan.",
     },
     {
@@ -129,7 +129,6 @@ CLAIMS_JOURNEY = [
 ]
 
 PLACEHOLDER_COPY = {
-    "claims-pipeline": "This pass reserves the route and shows the synthetic journey preview from the Launch Workspace. The full mapper comes next.",
     "edi-validation": "This module will expose synthetic 837P, 999, 277CA, and 835 validation reports. Public mode will not accept real files.",
     "coding-readiness": "This module will show documentation and coding-readiness prompts without claiming final coding authority.",
     "clearinghouse-responses": "This module requires production agreements before any live status feed or credentials are used.",
