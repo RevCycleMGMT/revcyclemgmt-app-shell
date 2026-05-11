@@ -13,6 +13,7 @@ from .dashboard import (
     pct as dashboard_pct,
     worst_three,
 )
+from .edi_validation import build_edi_validation_workspace
 from .data import PLACEHOLDER_COPY, ROADMAP_MODULES
 from .privacy import PrivacyBoundaryError
 from .workspace import build_workspace
@@ -52,6 +53,8 @@ def render_route(path: str = "/", query: str = "") -> tuple[int, str, str]:
             if slug == "claims-pipeline"
             else render_dashboard()
             if slug == "dashboard"
+            else render_edi_validation()
+            if slug == "edi-validation"
             else render_placeholder(slug)
         )
         return 200, "text/html; charset=utf-8", render_page(slug, body)
@@ -72,6 +75,7 @@ def render_page(active_slug: str, body: str) -> str:
         "launch-workspace": "App Shell + Launch Workspace",
         "claims-pipeline": "Claims Pipeline Mapper",
         "dashboard": "RCM Dashboard KPI Workspace",
+        "edi-validation": "EDI Validation Harness",
     }
     page_title = titles.get(active_slug, "Roadmap Module")
     return f"""<!doctype html>
@@ -338,6 +342,131 @@ def render_breakdown_slice(slice_name: str, rows) -> str:
     """
 
 
+def render_edi_validation() -> str:
+    workspace = build_edi_validation_workspace()
+    readiness_cards = "".join(
+        f"""
+        <article class="kpi-card {'green' if label == 'Ready' else 'amber'}">
+          <div class="kpi-card-top"><span>{escape(label)}</span><em class="freshness fresh">synthetic</em></div>
+          <strong>{value}</strong>
+          <p>{escape(note)}</p>
+        </article>
+        """
+        for label, value, note in (
+            ("Ready", f"{workspace.ready_to_submit} / {workspace.total_claims}", "Ready to submit synthetic claims after envelope, structure, and business-rule checks."),
+            ("Envelope pass", str(workspace.envelope_pass), "Claims passing ISA, GS, ST, SE, GE, and IEA envelope checks."),
+            ("Structure pass", str(workspace.structure_pass), "Claims passing the 837P required segment checks."),
+            ("Business-rule pass", str(workspace.business_rule_pass), "Claims passing synthetic payer-specific pre-submission rules."),
+        )
+    )
+    stacked_bar = render_readiness_bar(workspace)
+    failure_rows = "".join(
+        f"""
+        <tr>
+          <td><strong>{escape(entry.name)}</strong><span>{escape(entry.evidence)}</span></td>
+          <td>{escape(entry.trigger)}</td>
+          <td>{escape(entry.fix)}</td>
+          <td>{entry.frequency}</td>
+          <td>{dollars(entry.dollars_at_risk)} synthetic</td>
+          <td>{escape(entry.owner)}</td>
+        </tr>
+        """
+        for entry in workspace.failure_catalog
+    )
+    variance_rows = "".join(
+        f"""
+        <tr>
+          <td><strong>{escape(row.payer)}</strong><span>{escape(row.note)}</span></td>
+          {variance_cell(row.auth_ref_g1)}
+          {variance_cell(row.dx_pointer_order)}
+          {variance_cell(row.cob_single_coverage)}
+          {variance_cell(row.rendering_taxonomy)}
+          {variance_cell(row.service_location)}
+          <td>{escape(row.owner)}</td>
+          <td>{row.weekly_claims_at_risk} / {dollars(row.weekly_dollars_at_risk)} synthetic</td>
+        </tr>
+        """
+        for row in workspace.payer_variance
+    )
+    action_items = "".join(
+        f"""
+        <article class="action-item">
+          <span>{escape(item.day_range)}</span>
+          <h3>{escape(item.action)}</h3>
+          <dl>
+            <div><dt>Owner</dt><dd>{escape(item.owner)}</dd></div>
+            <div><dt>Effort</dt><dd>{escape(item.effort)}</dd></div>
+            <div><dt>Impact</dt><dd>{escape(item.impact)}</dd></div>
+            <div><dt>Source</dt><dd>{escape(item.source)}</dd></div>
+          </dl>
+        </article>
+        """
+        for item in workspace.action_plan
+    )
+    return f"""
+    <section class="panel mapper-hero dashboard-hero">
+      <div>
+        <p class="eyebrow">Live workspace</p>
+        <h2>EDI Validation Harness</h2>
+        <p>See which synthetic claims are ready to submit, which defects block the batch, and which owner should repair them before a launch workflow scales.</p>
+      </div>
+      <div class="mapper-stats">
+        <div><span>Ready to submit</span><strong>{workspace.ready_to_submit}</strong><em>of {workspace.total_claims}</em></div>
+        <div><span>Failure entries</span><strong>{len(workspace.failure_catalog)}</strong></div>
+        <div><span>Synthetic payers</span><strong>{len(workspace.payer_variance)}</strong></div>
+      </div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Submission Readiness Check</p>
+      <h2>Ready to submit: {workspace.ready_to_submit} of {workspace.total_claims} synthetic claims.</h2>
+      <div class="dashboard-kpis edi-kpis">{readiness_cards}</div>
+      {stacked_bar}
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Failure Catalog</p>
+      <h2>The top pre-submission blockers are translated into owner-ready work.</h2>
+      <table>
+        <thead><tr><th>Failure</th><th>Trigger</th><th>Operating fix</th><th>Frequency</th><th>Dollars at risk</th><th>Owner</th></tr></thead>
+        <tbody>{failure_rows}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Payer Variance Map</p>
+      <h2>Five synthetic payer routes show requirement drift before a batch goes out.</h2>
+      <table>
+        <thead><tr><th>Payer</th><th>Auth REF G1</th><th>Dx pointer</th><th>COB single coverage</th><th>Rendering taxonomy</th><th>Service location</th><th>Owner</th><th>Weekly risk</th></tr></thead>
+        <tbody>{variance_rows}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">30-Day Readiness Plan</p>
+      <h2>Readiness work is generated from the highest-risk failure and payer rows.</h2>
+      <div class="action-grid">{action_items}</div>
+    </section>
+    """
+
+
+def render_readiness_bar(workspace) -> str:
+    parts = []
+    for item in workspace.failure_mix:
+        width = max(5, item.count / workspace.total_claims * 100)
+        parts.append(
+            f'<span style="width:{width:.2f}%;background:{item.color}"><strong>{escape(item.label)}</strong><em>{item.count}</em></span>'
+        )
+    legend = "".join(
+        f'<li><i style="background:{item.color}"></i>{escape(item.label)}: {item.count}</li>'
+        for item in workspace.failure_mix
+    )
+    return f"""
+    <div class="stacked-bar">{''.join(parts)}</div>
+    <ul class="bar-legend">{legend}</ul>
+    """
+
+
+def variance_cell(value: str) -> str:
+    return f'<td><span class="variance-cell {escape(value.lower().replace("-", ""))}">{escape(value)}</span></td>'
+
+
 def render_claims_pipeline(params: dict[str, str]) -> str:
     workspace = build_claims_pipeline_workspace(params.get("path"))
     selected = workspace.selected_path
@@ -513,8 +642,20 @@ th { color:var(--steel); background:#0b171a; }
 .kpi-card-top span { color:var(--muted); font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
 .kpi-card strong { color:#fff; font-size:31px; line-height:1; }
 .kpi-card p { color:#cbd5e1; margin:0; }
+.edi-kpis { grid-template-columns:repeat(4,minmax(180px,1fr)); }
 .freshness { flex:0 0 auto; border-radius:999px; padding:4px 7px; font-style:normal; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.05em; color:#021415; background:var(--teal); }
 .freshness.stale { background:#facc15; }
+.stacked-bar { display:flex; min-height:48px; overflow:hidden; border:1px solid #21414a; border-radius:8px; background:#071316; margin:18px 0 12px; }
+.stacked-bar span { display:flex; align-items:center; justify-content:space-between; min-width:84px; padding:0 10px; color:#021415; font-size:12px; font-weight:900; }
+.stacked-bar em { font-style:normal; opacity:.8; }
+.bar-legend { display:flex; flex-wrap:wrap; gap:12px; padding:0; margin:0; list-style:none; color:#d8e7e5; }
+.bar-legend li { display:flex; gap:7px; align-items:center; }
+.bar-legend i { width:10px; height:10px; border-radius:999px; display:inline-block; }
+td > span { display:block; color:var(--muted); margin-top:4px; font-size:12px; }
+.variance-cell { display:inline-block; min-width:54px; text-align:center; margin:0; border-radius:999px; padding:5px 8px; color:#021415; font-weight:900; text-transform:uppercase; font-size:11px; }
+.variance-cell.pass { background:var(--teal); }
+.variance-cell.fail { background:#fb7185; }
+.variance-cell.na { background:#64748b; color:#f8fafc; }
 .trend-wrap { display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:22px; align-items:center; }
 .trend-chart { width:100%; min-height:250px; background:#071316; border:1px solid #21414a; border-radius:8px; }
 .trend-legend { display:grid; gap:12px; }
@@ -559,6 +700,6 @@ dl { display:grid; gap:9px; margin:0; }
 dl div { display:grid; gap:3px; }
 dt { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
 dd { margin:0; color:#d8e7e5; }
-@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid, .dashboard-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } .trend-wrap { grid-template-columns:1fr; } .trend-legend { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid, .dashboard-kpis, .edi-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } .trend-wrap { grid-template-columns:1fr; } .trend-legend { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width: 940px) { body { display:block; overflow-x:hidden; } .sidebar { position:relative; width:auto; min-height:0; padding:16px; border-right:0; border-bottom:1px solid var(--line); } .env { margin-bottom:12px; } nav { display:flex; overflow-x:auto; gap:8px; padding-bottom:4px; } nav a { flex:0 0 210px; } .shell { padding:18px; width:100%; } .hero-grid, form { grid-template-columns:1fr; } .kpis, .mapper-stats, .path-picker, .action-grid, .dashboard-kpis, .trend-legend { grid-template-columns:1fr; } .topbar { display:block; } .timeline { grid-template-columns:1fr; overflow-x:visible; } table { min-width:680px; } }
 """

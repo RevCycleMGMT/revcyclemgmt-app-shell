@@ -17,6 +17,7 @@ Startup clinicians do not just need a billing vendor list. They need to see wher
 | No-PHI Launch Workspace | Synthetic startup-clinic intake generates a launch readiness score, first-build recommendation, readiness checklist, and synthetic claims journey preview. |
 | Claims Pipeline Mapper | Five synthetic claim paths render a timeline, ownership map, stuck-point inventory, and first 30-day action plan. |
 | KPI Dashboard | Five action-grade KPIs render with targets, owner cues, freshness badges, 13-week trend lines, breakdown risk, and a generated 30-day action plan. |
+| EDI Validation Harness | Synthetic claim batches render readiness checks, failure catalog, payer variance map, and a 30-day repair plan. |
 | Safety boundary | Intake validation rejects PHI-shaped input and forbidden public-positioning terms before a workspace is generated. |
 | Testable surface | Route tests verify every app path returns 200, PHI-shaped inputs are rejected, and generated artifacts remain synthetic. |
 
@@ -24,8 +25,8 @@ Startup clinicians do not just need a billing vendor list. They need to see wher
 
 | Category | Current status |
 |---|---|
-| Proven | This repo generates a local app shell, SVG proof artifacts, route-rendered HTML views, synthetic launch workspace output, Claims Pipeline Mapper workspace, KPI Dashboard workspace, and tests. The five workflow proof tracks remain the source proof set for EDI validation, coding review, and remit/denial operations. |
-| Demo-only | The Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, reserved modules, synthetic claim journey, readiness checklist, and first 30-day action plans are public demo surfaces. They do not process production files. |
+| Proven | This repo generates a local app shell, SVG proof artifacts, route-rendered HTML views, synthetic launch workspace output, Claims Pipeline Mapper workspace, KPI Dashboard workspace, EDI Validation Harness workspace, and tests. The five workflow proof tracks remain the source proof set for coding review and remit/denial operations. |
+| Demo-only | The Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, EDI Validation Harness, reserved modules, synthetic claim journey, readiness checklist, and first 30-day action plans are public demo surfaces. They do not process production files. |
 | Requires production agreements | Real client data, EHR/PM exports, payer credentials, clearinghouse credentials, claim files, remittance files, production integrations, secure file intake, user accounts, and client-specific operational work. |
 
 ## Claims Pipeline Mapper
@@ -102,6 +103,38 @@ src/revcyclemgmt_app_shell/dashboard.py
 
 The dashboard uses invented KPI values, payer labels, CARC examples, specialties, dates, dollar figures, queue signals, and owner assignments. It does not accept or ship PHI, production claim files, production remits, payer credentials, client exports, or live source-system data.
 
+## EDI Validation Harness
+
+A clinic owner does not need to read transaction syntax to know whether a batch is safe to send. The EDI Validation Harness turns pre-submission defects into a readiness score, a repair catalog, payer-specific requirement map, and a 30-day owner plan before production healthcare data is introduced.
+
+![RevCycleMGMT EDI Validation Harness proof](docs/assets/edi-validation-harness-proof.svg)
+
+Open the running route locally:
+
+```text
+http://127.0.0.1:8765/app/edi-validation
+```
+
+The workspace has four views:
+
+| View | What it proves |
+|---|---|
+| Submission Readiness Check | Shows how many synthetic claims are ready to submit after envelope, structure, and synthetic business-rule checks. |
+| Failure Catalog | Ranks the top pre-submission failures by synthetic frequency and dollar exposure, then translates each into an operating fix. |
+| Payer Variance Map | Compares five synthetic payer routes so requirement drift is visible before a batch goes out. |
+| 30-Day Readiness Plan | Converts the highest-risk failure and payer rows into owner-ready work with effort and expected impact. |
+
+Synthetic data path:
+
+```text
+src/revcyclemgmt_app_shell/edi_validation.py
+  -> /app/edi-validation
+  -> docs/assets/edi-validation-harness-proof.svg
+  -> output_demo/edi_validation_summary.json
+```
+
+The harness uses invented claim IDs, payer labels, segment values, dates, dollar figures, requirement outcomes, and validation results. It does not accept or ship PHI, production claim files, production payer responses, credentials, client exports, or live source-system data.
+
 ## App Routes
 
 | Route | Status |
@@ -110,7 +143,7 @@ The dashboard uses invented KPI values, payer labels, CARC examples, specialties
 | `/app/launch-workspace` | Functional Launch Workspace |
 | `/app/dashboard` | Functional KPI Dashboard |
 | `/app/claims-pipeline` | Functional Claims Pipeline Mapper |
-| `/app/edi-validation` | Coming next placeholder |
+| `/app/edi-validation` | Functional EDI Validation Harness |
 | `/app/coding-readiness` | Coming next placeholder |
 | `/app/clearinghouse-responses` | Requires agreement placeholder |
 | `/app/835-matchback` | Coming next placeholder |
@@ -128,7 +161,8 @@ flowchart LR
     D --> E[Synthetic stuck-point inventory]
     E --> F[First 30-day action plan]
     F --> G[KPI Dashboard]
-    G --> H[Contact handoff / first-build recommendation]
+    G --> H[EDI Validation Harness]
+    H --> I[Contact handoff / first-build recommendation]
 ```
 
 ## Local Quickstart
@@ -148,7 +182,7 @@ Expected artifact summary:
 
 ```json
 {
-  "artifact_count": 9,
+  "artifact_count": 11,
   "readiness_score": 93
 }
 ```
@@ -160,11 +194,14 @@ Expected artifact summary:
 | `docs/assets/app-shell-proof.svg` | README-facing SVG proof of the app shell and Launch Workspace. |
 | `docs/assets/claims-pipeline-mapper-proof.svg` | README-facing SVG proof of the four-view Claims Pipeline Mapper. |
 | `docs/assets/rcm-dashboard-proof.svg` | README-facing SVG proof of the four-view KPI Dashboard workspace. |
+| `docs/assets/edi-validation-harness-proof.svg` | README-facing SVG proof of the four-view EDI Validation Harness. |
 | `docs/assets/dashboard-proof-anchor.svg` | Dashboard Proof visual anchor copied from the existing synthetic dashboard track. |
 | `output_demo/app_shell_proof.svg` | Regenerated proof artifact. |
 | `output_demo/claims_pipeline_mapper_proof.svg` | Regenerated Claims Pipeline Mapper proof artifact. |
 | `output_demo/rcm_dashboard_proof.svg` | Regenerated RCM Dashboard KPI proof artifact. |
 | `output_demo/rcm_dashboard_summary.json` | Synthetic dashboard data used by the route and SVG. |
+| `output_demo/edi_validation_harness_proof.svg` | Regenerated EDI Validation Harness proof artifact. |
+| `output_demo/edi_validation_summary.json` | Synthetic EDI validation data used by the route and SVG. |
 | `output_demo/claims_pipeline_mapper_summary.json` | Synthetic mapper data used by the route and SVG. |
 | `output_demo/app_shell_summary.json` | Synthetic workspace summary, dashboard metrics, and checklist. |
 
@@ -175,6 +212,7 @@ Expected artifact summary:
 docs/assets/app-shell-proof.svg          # Generated README visual proof
 docs/assets/claims-pipeline-mapper-proof.svg # Generated mapper visual proof
 docs/assets/rcm-dashboard-proof.svg      # Generated dashboard visual proof
+docs/assets/edi-validation-harness-proof.svg # Generated EDI validation visual proof
 docs/assets/dashboard-proof-anchor.svg   # Dashboard visual anchor
 docs/website-card-copy.md                # Sixth-card / Apps-page copy
 output_demo/                             # Generated synthetic artifacts

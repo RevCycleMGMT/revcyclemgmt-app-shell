@@ -84,3 +84,34 @@ Synthetic demo only. The dashboard uses invented KPI values, payer labels, CARC 
 ### Recommended placement
 
 Use as the Dashboard Proof card on `/apps/` after the Claims Pipeline Mapper card. Keep the card focused on buyer action: scorecard, trends, breakdowns, and 30-day plan.
+
+## EDI Validation Harness
+
+### Card title
+
+EDI Validation Harness
+
+### Short description
+
+A no-PHI readiness workspace that shows whether a synthetic claim batch is safe to submit before defects turn into payer rejects. It ranks pre-submission failures, maps synthetic payer requirements, and turns the highest-risk rows into a 30-day repair plan.
+
+### Status
+
+Live workspace
+
+### Proof cue
+
+Inspect first: `docs/assets/edi-validation-harness-proof.svg` and `/app/edi-validation`
+
+### Button labels
+
+- Open EDI Workspace
+- View GitHub proof
+
+### Public safety note
+
+Synthetic demo only. The harness uses invented claim IDs, payer labels, segment values, dates, dollar figures, requirement outcomes, and validation results. Production claim validation requires formal agreements, secure source validation, access controls, and approved data handling workflows.
+
+### Recommended placement
+
+Use after the RCM Dashboard KPI Workspace card on `/apps/`. Keep the card focused on buyer action: readiness, failure repair, payer variance, and 30-day ownership.

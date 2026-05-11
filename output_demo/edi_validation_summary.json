@@ -1,0 +1,542 @@
+{
+  "boundary": "synthetic-only",
+  "ready_to_submit": 412,
+  "total_claims": 487,
+  "envelope_pass": 463,
+  "structure_pass": 432,
+  "business_rule_pass": 412,
+  "failure_mix": [
+    {
+      "label": "Ready to submit",
+      "count": 412,
+      "color": "#00B3A4"
+    },
+    {
+      "label": "Envelope repair",
+      "count": 24,
+      "color": "#facc15"
+    },
+    {
+      "label": "Structure repair",
+      "count": 31,
+      "color": "#fb7185"
+    },
+    {
+      "label": "Business-rule repair",
+      "count": 20,
+      "color": "#7dd3d8"
+    }
+  ],
+  "validation_runs": [
+    {
+      "claim_id": "SYN-EDI-READY-001",
+      "payer": "Synthetic Payer A",
+      "billed_amount": 240.0,
+      "category": "Ready",
+      "business_rule_errors": [],
+      "validation_report": {
+        "valid": false,
+        "transaction_type": "837P",
+        "errors": [
+          "SE01 declares 11 segments, but ST-to-SE count is 10."
+        ],
+        "warnings": [],
+        "segment_count": 14,
+        "control_numbers": {
+          "isa13": "0001",
+          "iea02": "0001",
+          "gs06": "0001",
+          "ge02": "0001",
+          "st02": "0001",
+          "se02": "0001"
+        },
+        "required_segments": [
+          "ISA",
+          "GS",
+          "ST",
+          "SE",
+          "GE",
+          "IEA",
+          "BHT",
+          "NM1",
+          "CLM",
+          "LX",
+          "SV1"
+        ],
+        "present_segments": {
+          "ISA": 1,
+          "GS": 1,
+          "ST": 1,
+          "BHT": 1,
+          "NM1": 4,
+          "CLM": 1,
+          "LX": 1,
+          "SV1": 1,
+          "SE": 1,
+          "GE": 1,
+          "IEA": 1
+        }
+      }
+    },
+    {
+      "claim_id": "SYN-EDI-MISS-NM1-002",
+      "payer": "Synthetic Payer B",
+      "billed_amount": 360.0,
+      "category": "Structure repair",
+      "business_rule_errors": [],
+      "validation_report": {
+        "valid": false,
+        "transaction_type": "837P",
+        "errors": [
+          "SE01 declares 11 segments, but ST-to-SE count is 9."
+        ],
+        "warnings": [],
+        "segment_count": 13,
+        "control_numbers": {
+          "isa13": "0002",
+          "iea02": "0002",
+          "gs06": "0002",
+          "ge02": "0002",
+          "st02": "0002",
+          "se02": "0002"
+        },
+        "required_segments": [
+          "ISA",
+          "GS",
+          "ST",
+          "SE",
+          "GE",
+          "IEA",
+          "BHT",
+          "NM1",
+          "CLM",
+          "LX",
+          "SV1"
+        ],
+        "present_segments": {
+          "ISA": 1,
+          "GS": 1,
+          "ST": 1,
+          "BHT": 1,
+          "NM1": 3,
+          "CLM": 1,
+          "LX": 1,
+          "SV1": 1,
+          "SE": 1,
+          "GE": 1,
+          "IEA": 1
+        }
+      }
+    },
+    {
+      "claim_id": "SYN-EDI-MISS-SV1-003",
+      "payer": "Synthetic Payer C",
+      "billed_amount": 185.0,
+      "category": "Structure repair",
+      "business_rule_errors": [],
+      "validation_report": {
+        "valid": false,
+        "transaction_type": "837P",
+        "errors": [
+          "Missing required 837P segment SV1.",
+          "Claim segment exists but no professional or institutional service line was found.",
+          "SE01 declares 11 segments, but ST-to-SE count is 9."
+        ],
+        "warnings": [],
+        "segment_count": 13,
+        "control_numbers": {
+          "isa13": "0003",
+          "iea02": "0003",
+          "gs06": "0003",
+          "ge02": "0003",
+          "st02": "0003",
+          "se02": "0003"
+        },
+        "required_segments": [
+          "ISA",
+          "GS",
+          "ST",
+          "SE",
+          "GE",
+          "IEA",
+          "BHT",
+          "NM1",
+          "CLM",
+          "LX",
+          "SV1"
+        ],
+        "present_segments": {
+          "ISA": 1,
+          "GS": 1,
+          "ST": 1,
+          "BHT": 1,
+          "NM1": 4,
+          "CLM": 1,
+          "LX": 1,
+          "SE": 1,
+          "GE": 1,
+          "IEA": 1
+        }
+      }
+    },
+    {
+      "claim_id": "SYN-EDI-CTRL-004",
+      "payer": "Synthetic Payer D",
+      "billed_amount": 510.0,
+      "category": "Envelope repair",
+      "business_rule_errors": [],
+      "validation_report": {
+        "valid": false,
+        "transaction_type": "837P",
+        "errors": [
+          "ST02 does not match SE02 transaction set control number.",
+          "SE01 declares 11 segments, but ST-to-SE count is 10."
+        ],
+        "warnings": [],
+        "segment_count": 14,
+        "control_numbers": {
+          "isa13": "0004",
+          "iea02": "0004",
+          "gs06": "0004",
+          "ge02": "0004",
+          "st02": "0004",
+          "se02": "9999"
+        },
+        "required_segments": [
+          "ISA",
+          "GS",
+          "ST",
+          "SE",
+          "GE",
+          "IEA",
+          "BHT",
+          "NM1",
+          "CLM",
+          "LX",
+          "SV1"
+        ],
+        "present_segments": {
+          "ISA": 1,
+          "GS": 1,
+          "ST": 1,
+          "BHT": 1,
+          "NM1": 4,
+          "CLM": 1,
+          "LX": 1,
+          "SV1": 1,
+          "SE": 1,
+          "GE": 1,
+          "IEA": 1
+        }
+      }
+    },
+    {
+      "claim_id": "SYN-EDI-BIZ-005",
+      "payer": "Synthetic Payer E",
+      "billed_amount": 295.0,
+      "category": "Business-rule repair",
+      "business_rule_errors": [
+        "Authorization format missing for synthetic payer rule."
+      ],
+      "validation_report": {
+        "valid": false,
+        "transaction_type": "837P",
+        "errors": [
+          "SE01 declares 11 segments, but ST-to-SE count is 10."
+        ],
+        "warnings": [],
+        "segment_count": 14,
+        "control_numbers": {
+          "isa13": "0005",
+          "iea02": "0005",
+          "gs06": "0005",
+          "ge02": "0005",
+          "st02": "0005",
+          "se02": "0005"
+        },
+        "required_segments": [
+          "ISA",
+          "GS",
+          "ST",
+          "SE",
+          "GE",
+          "IEA",
+          "BHT",
+          "NM1",
+          "CLM",
+          "LX",
+          "SV1"
+        ],
+        "present_segments": {
+          "ISA": 1,
+          "GS": 1,
+          "ST": 1,
+          "BHT": 1,
+          "NM1": 4,
+          "CLM": 1,
+          "LX": 1,
+          "SV1": 1,
+          "SE": 1,
+          "GE": 1,
+          "IEA": 1
+        }
+      }
+    }
+  ],
+  "failure_catalog": [
+    {
+      "name": "Missing rendering provider record",
+      "trigger": "NM1 loop with rendering-provider role is absent.",
+      "fix": "Assign rendering owner and complete provider record before release.",
+      "frequency": 21,
+      "dollars_at_risk": 12600,
+      "category": "Structure repair",
+      "owner": "Biller",
+      "evidence": "Missing required 837P segment NM1."
+    },
+    {
+      "name": "Service line not attached",
+      "trigger": "Claim header exists but no SV1 professional service line is present.",
+      "fix": "Hold the claim until charge capture attaches a service line.",
+      "frequency": 18,
+      "dollars_at_risk": 9800,
+      "category": "Structure repair",
+      "owner": "Coder",
+      "evidence": "Claim segment exists but no service line was found."
+    },
+    {
+      "name": "Control numbers do not match",
+      "trigger": "Transaction control number disagrees between ST and SE.",
+      "fix": "Regenerate the batch envelope before any payer route.",
+      "frequency": 15,
+      "dollars_at_risk": 8400,
+      "category": "Envelope repair",
+      "owner": "Biller",
+      "evidence": "ST02 does not match SE02 transaction set control number."
+    },
+    {
+      "name": "Authorization reference missing",
+      "trigger": "Synthetic payer rule expects authorization evidence in REF G1.",
+      "fix": "Front desk confirms authorization before claim build.",
+      "frequency": 14,
+      "dollars_at_risk": 7600,
+      "category": "Business-rule repair",
+      "owner": "Front desk",
+      "evidence": "REF*G1 synthetic payer requirement failed."
+    },
+    {
+      "name": "Diagnosis pointer order failed",
+      "trigger": "Primary diagnosis pointer is not first on the service line.",
+      "fix": "Coder reviews diagnosis ordering before the batch closes.",
+      "frequency": 12,
+      "dollars_at_risk": 6900,
+      "category": "Business-rule repair",
+      "owner": "Coder",
+      "evidence": "SV1 diagnosis pointer ordering failed."
+    },
+    {
+      "name": "COB segment not allowed",
+      "trigger": "Single-coverage claim still carries coordination-of-benefits detail.",
+      "fix": "Remove COB detail when the intake record shows single coverage.",
+      "frequency": 10,
+      "dollars_at_risk": 5400,
+      "category": "Business-rule repair",
+      "owner": "Biller",
+      "evidence": "COB segment disallowed for synthetic payer rule."
+    },
+    {
+      "name": "Envelope closeout segment missing",
+      "trigger": "Batch has transaction content but no IEA closeout.",
+      "fix": "Repair envelope generation and rerun validator.",
+      "frequency": 9,
+      "dollars_at_risk": 5100,
+      "category": "Envelope repair",
+      "owner": "Biller",
+      "evidence": "Missing required envelope segment IEA."
+    },
+    {
+      "name": "Service location incomplete",
+      "trigger": "Claim lacks the service-location information required by payer rule.",
+      "fix": "Front desk completes location field before claim release.",
+      "frequency": 8,
+      "dollars_at_risk": 4200,
+      "category": "Business-rule repair",
+      "owner": "Front desk",
+      "evidence": "Synthetic service-location rule failed."
+    }
+  ],
+  "payer_variance": [
+    {
+      "payer": "Synthetic Payer A",
+      "auth_ref_g1": "pass",
+      "dx_pointer_order": "pass",
+      "cob_single_coverage": "N-A",
+      "rendering_taxonomy": "pass",
+      "service_location": "fail",
+      "note": "Service location required before release.",
+      "owner": "Front desk",
+      "weekly_claims_at_risk": 9,
+      "weekly_dollars_at_risk": 4300
+    },
+    {
+      "payer": "Synthetic Payer B",
+      "auth_ref_g1": "N-A",
+      "dx_pointer_order": "fail",
+      "cob_single_coverage": "pass",
+      "rendering_taxonomy": "pass",
+      "service_location": "pass",
+      "note": "Diagnosis pointer order is the main blocker.",
+      "owner": "Coder",
+      "weekly_claims_at_risk": 11,
+      "weekly_dollars_at_risk": 6100
+    },
+    {
+      "payer": "Synthetic Payer C",
+      "auth_ref_g1": "pass",
+      "dx_pointer_order": "pass",
+      "cob_single_coverage": "fail",
+      "rendering_taxonomy": "N-A",
+      "service_location": "pass",
+      "note": "COB detail must be removed for single coverage.",
+      "owner": "Biller",
+      "weekly_claims_at_risk": 7,
+      "weekly_dollars_at_risk": 3600
+    },
+    {
+      "payer": "Synthetic Payer D",
+      "auth_ref_g1": "fail",
+      "dx_pointer_order": "N-A",
+      "cob_single_coverage": "pass",
+      "rendering_taxonomy": "pass",
+      "service_location": "pass",
+      "note": "Authorization reference format needs intake cleanup.",
+      "owner": "Front desk",
+      "weekly_claims_at_risk": 13,
+      "weekly_dollars_at_risk": 7200
+    },
+    {
+      "payer": "Synthetic Payer E",
+      "auth_ref_g1": "pass",
+      "dx_pointer_order": "pass",
+      "cob_single_coverage": "N-A",
+      "rendering_taxonomy": "fail",
+      "service_location": "pass",
+      "note": "Rendering taxonomy evidence needs review.",
+      "owner": "Biller",
+      "weekly_claims_at_risk": 6,
+      "weekly_dollars_at_risk": 3100
+    }
+  ],
+  "action_plan": [
+    {
+      "day_range": "Days 1-3",
+      "action": "Assign rendering owner and complete provider record before release.",
+      "owner": "Biller",
+      "effort": "M",
+      "impact": "Unblocks 14-18 synthetic claims per week and about $8K weekly exposure.",
+      "source": "Missing rendering provider record"
+    },
+    {
+      "day_range": "Days 4-7",
+      "action": "Hold the claim until charge capture attaches a service line.",
+      "owner": "Coder",
+      "effort": "S",
+      "impact": "Unblocks 10-14 synthetic claims per week and reduces service-line repair.",
+      "source": "Service line not attached"
+    },
+    {
+      "day_range": "Days 8-12",
+      "action": "Authorization reference format needs intake cleanup.",
+      "owner": "Front desk",
+      "effort": "M",
+      "impact": "Unblocks 13 synthetic claims per week and $7,200 weekly exposure.",
+      "source": "Synthetic Payer D"
+    },
+    {
+      "day_range": "Days 13-18",
+      "action": "Regenerate the batch envelope before any payer route.",
+      "owner": "Biller",
+      "effort": "M",
+      "impact": "Reduces envelope rework before the next batch is staged.",
+      "source": "Control numbers do not match"
+    },
+    {
+      "day_range": "Days 19-24",
+      "action": "Diagnosis pointer order is the main blocker.",
+      "owner": "Coder",
+      "effort": "S",
+      "impact": "Unblocks 11 synthetic claims per week.",
+      "source": "Synthetic Payer B"
+    },
+    {
+      "day_range": "Days 25-30",
+      "action": "Service location required before release.",
+      "owner": "Front desk",
+      "effort": "S",
+      "impact": "Unblocks 9 synthetic claims per week.",
+      "source": "Synthetic Payer A"
+    }
+  ],
+  "transaction_rules": {
+    "837P": [
+      "BHT",
+      "NM1",
+      "CLM",
+      "LX",
+      "SV1"
+    ],
+    "837I": [
+      "BHT",
+      "NM1",
+      "CLM",
+      "LX",
+      "SV2"
+    ],
+    "835": [
+      "BPR",
+      "TRN",
+      "CLP"
+    ],
+    "999": [
+      "AK1",
+      "AK2",
+      "IK5",
+      "AK9"
+    ],
+    "277CA": [
+      "BHT",
+      "HL",
+      "TRN",
+      "STC"
+    ],
+    "270": [
+      "BHT",
+      "HL",
+      "NM1",
+      "EQ"
+    ],
+    "271": [
+      "BHT",
+      "HL",
+      "NM1",
+      "EB"
+    ],
+    "276": [
+      "BHT",
+      "HL",
+      "NM1",
+      "TRN"
+    ],
+    "277": [
+      "BHT",
+      "HL",
+      "NM1",
+      "TRN",
+      "STC"
+    ],
+    "275": [
+      "BGN",
+      "NM1"
+    ]
+  }
+}

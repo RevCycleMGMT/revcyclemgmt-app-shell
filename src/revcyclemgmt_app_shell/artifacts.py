@@ -9,6 +9,7 @@ from pathlib import Path
 from .claims_pipeline import build_claims_pipeline_workspace, claims_pipeline_summary, render_claims_pipeline_svg
 from .data import DASHBOARD_METRICS, ROADMAP_MODULES
 from .dashboard import build_dashboard_workspace, dashboard_summary, render_dashboard_svg
+from .edi_validation import build_edi_validation_workspace, edi_validation_summary, render_edi_validation_svg
 from .workspace import build_workspace
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -22,7 +23,7 @@ def generate_summary() -> dict[str, object]:
         "readiness_score": workspace.readiness_score,
         "first_build": workspace.first_build,
         "recommended_module": workspace.recommended_module,
-        "functional_routes": ["/app/intake", "/app/claims-pipeline", "/app/dashboard"],
+        "functional_routes": ["/app/intake", "/app/claims-pipeline", "/app/dashboard", "/app/edi-validation"],
         "reserved_modules": [
             module["label"]
             for module in ROADMAP_MODULES
@@ -103,7 +104,7 @@ def generate_svg(summary: dict[str, object]) -> str:
   <text x="424" y="354" fill="#f4fbfa" font-size="24" font-weight="900">Generated readiness checklist</text>
   {''.join(checklist_rows)}
   {''.join(metric_svg)}
-  <text x="400" y="710" fill="#9ab5b5" font-size="15">Functional now: Launch Workspace, Claims Pipeline Mapper, and KPI Dashboard. Roadmap modules remain no-PHI.</text>
+  <text x="400" y="710" fill="#9ab5b5" font-size="15">Functional now: Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, and EDI Validation. Roadmap modules remain no-PHI.</text>
 </svg>"""
 
 
@@ -128,17 +129,24 @@ def write_artifacts(out_dir: Path) -> dict[str, object]:
     dashboard_workspace = build_dashboard_workspace()
     dashboard_data = dashboard_summary(dashboard_workspace)
     dashboard_svg = render_dashboard_svg(dashboard_workspace)
+    edi_workspace = build_edi_validation_workspace()
+    edi_data = edi_validation_summary(edi_workspace)
+    edi_svg = render_edi_validation_svg(edi_workspace)
     summary["claims_pipeline_mapper"] = claims_summary
     summary["rcm_dashboard_kpi_workspace"] = dashboard_data
+    summary["edi_validation_harness"] = edi_data
     (out_dir / "app_shell_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     (out_dir / "app_shell_proof.svg").write_text(svg, encoding="utf-8")
     (out_dir / "claims_pipeline_mapper_summary.json").write_text(json.dumps(claims_summary, indent=2) + "\n", encoding="utf-8")
     (out_dir / "claims_pipeline_mapper_proof.svg").write_text(claims_svg, encoding="utf-8")
     (out_dir / "rcm_dashboard_summary.json").write_text(json.dumps(dashboard_data, indent=2) + "\n", encoding="utf-8")
     (out_dir / "rcm_dashboard_proof.svg").write_text(dashboard_svg, encoding="utf-8")
+    (out_dir / "edi_validation_summary.json").write_text(json.dumps(edi_data, indent=2) + "\n", encoding="utf-8")
+    (out_dir / "edi_validation_harness_proof.svg").write_text(edi_svg, encoding="utf-8")
     (assets_dir / "app-shell-proof.svg").write_text(svg, encoding="utf-8")
     (assets_dir / "claims-pipeline-mapper-proof.svg").write_text(claims_svg, encoding="utf-8")
     (assets_dir / "rcm-dashboard-proof.svg").write_text(dashboard_svg, encoding="utf-8")
+    (assets_dir / "edi-validation-harness-proof.svg").write_text(edi_svg, encoding="utf-8")
     return summary
 
 
@@ -147,7 +155,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--out", default="output_demo")
     args = parser.parse_args(argv)
     summary = write_artifacts(Path(args.out))
-    print(json.dumps({"artifact_count": 9, "readiness_score": summary["readiness_score"]}, indent=2))
+    print(json.dumps({"artifact_count": 11, "readiness_score": summary["readiness_score"]}, indent=2))
 
 
 if __name__ == "__main__":

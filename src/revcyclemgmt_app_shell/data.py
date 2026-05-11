@@ -27,8 +27,8 @@ ROADMAP_MODULES = [
     {
         "slug": "edi-validation",
         "label": "EDI Validation",
-        "status": "Coming next",
-        "description": "837P readiness, acknowledgments, status mapping, and validation report.",
+        "status": "Live workspace",
+        "description": "Submission readiness, failure catalog, payer variance map, and readiness plan.",
     },
     {
         "slug": "coding-readiness",

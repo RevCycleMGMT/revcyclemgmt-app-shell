@@ -1,0 +1,589 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1420" viewBox="0 0 1280 1420" role="img" aria-labelledby="title desc">
+  <title id="title">RevCycleMGMT EDI Validation Harness proof</title>
+  <desc id="desc">Synthetic four-view EDI validation workspace: submission readiness, failure catalog, payer variance map, and 30-day readiness plan.</desc>
+  <metadata>{
+  &quot;boundary&quot;: &quot;synthetic-only&quot;,
+  &quot;ready_to_submit&quot;: 412,
+  &quot;total_claims&quot;: 487,
+  &quot;envelope_pass&quot;: 463,
+  &quot;structure_pass&quot;: 432,
+  &quot;business_rule_pass&quot;: 412,
+  &quot;failure_mix&quot;: [
+    {
+      &quot;label&quot;: &quot;Ready to submit&quot;,
+      &quot;count&quot;: 412,
+      &quot;color&quot;: &quot;#00B3A4&quot;
+    },
+    {
+      &quot;label&quot;: &quot;Envelope repair&quot;,
+      &quot;count&quot;: 24,
+      &quot;color&quot;: &quot;#facc15&quot;
+    },
+    {
+      &quot;label&quot;: &quot;Structure repair&quot;,
+      &quot;count&quot;: 31,
+      &quot;color&quot;: &quot;#fb7185&quot;
+    },
+    {
+      &quot;label&quot;: &quot;Business-rule repair&quot;,
+      &quot;count&quot;: 20,
+      &quot;color&quot;: &quot;#7dd3d8&quot;
+    }
+  ],
+  &quot;validation_runs&quot;: [
+    {
+      &quot;claim_id&quot;: &quot;SYN-EDI-READY-001&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;billed_amount&quot;: 240.0,
+      &quot;category&quot;: &quot;Ready&quot;,
+      &quot;business_rule_errors&quot;: [],
+      &quot;validation_report&quot;: {
+        &quot;valid&quot;: false,
+        &quot;transaction_type&quot;: &quot;837P&quot;,
+        &quot;errors&quot;: [
+          &quot;SE01 declares 11 segments, but ST-to-SE count is 10.&quot;
+        ],
+        &quot;warnings&quot;: [],
+        &quot;segment_count&quot;: 14,
+        &quot;control_numbers&quot;: {
+          &quot;isa13&quot;: &quot;0001&quot;,
+          &quot;iea02&quot;: &quot;0001&quot;,
+          &quot;gs06&quot;: &quot;0001&quot;,
+          &quot;ge02&quot;: &quot;0001&quot;,
+          &quot;st02&quot;: &quot;0001&quot;,
+          &quot;se02&quot;: &quot;0001&quot;
+        },
+        &quot;required_segments&quot;: [
+          &quot;ISA&quot;,
+          &quot;GS&quot;,
+          &quot;ST&quot;,
+          &quot;SE&quot;,
+          &quot;GE&quot;,
+          &quot;IEA&quot;,
+          &quot;BHT&quot;,
+          &quot;NM1&quot;,
+          &quot;CLM&quot;,
+          &quot;LX&quot;,
+          &quot;SV1&quot;
+        ],
+        &quot;present_segments&quot;: {
+          &quot;ISA&quot;: 1,
+          &quot;GS&quot;: 1,
+          &quot;ST&quot;: 1,
+          &quot;BHT&quot;: 1,
+          &quot;NM1&quot;: 4,
+          &quot;CLM&quot;: 1,
+          &quot;LX&quot;: 1,
+          &quot;SV1&quot;: 1,
+          &quot;SE&quot;: 1,
+          &quot;GE&quot;: 1,
+          &quot;IEA&quot;: 1
+        }
+      }
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-EDI-MISS-NM1-002&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer B&quot;,
+      &quot;billed_amount&quot;: 360.0,
+      &quot;category&quot;: &quot;Structure repair&quot;,
+      &quot;business_rule_errors&quot;: [],
+      &quot;validation_report&quot;: {
+        &quot;valid&quot;: false,
+        &quot;transaction_type&quot;: &quot;837P&quot;,
+        &quot;errors&quot;: [
+          &quot;SE01 declares 11 segments, but ST-to-SE count is 9.&quot;
+        ],
+        &quot;warnings&quot;: [],
+        &quot;segment_count&quot;: 13,
+        &quot;control_numbers&quot;: {
+          &quot;isa13&quot;: &quot;0002&quot;,
+          &quot;iea02&quot;: &quot;0002&quot;,
+          &quot;gs06&quot;: &quot;0002&quot;,
+          &quot;ge02&quot;: &quot;0002&quot;,
+          &quot;st02&quot;: &quot;0002&quot;,
+          &quot;se02&quot;: &quot;0002&quot;
+        },
+        &quot;required_segments&quot;: [
+          &quot;ISA&quot;,
+          &quot;GS&quot;,
+          &quot;ST&quot;,
+          &quot;SE&quot;,
+          &quot;GE&quot;,
+          &quot;IEA&quot;,
+          &quot;BHT&quot;,
+          &quot;NM1&quot;,
+          &quot;CLM&quot;,
+          &quot;LX&quot;,
+          &quot;SV1&quot;
+        ],
+        &quot;present_segments&quot;: {
+          &quot;ISA&quot;: 1,
+          &quot;GS&quot;: 1,
+          &quot;ST&quot;: 1,
+          &quot;BHT&quot;: 1,
+          &quot;NM1&quot;: 3,
+          &quot;CLM&quot;: 1,
+          &quot;LX&quot;: 1,
+          &quot;SV1&quot;: 1,
+          &quot;SE&quot;: 1,
+          &quot;GE&quot;: 1,
+          &quot;IEA&quot;: 1
+        }
+      }
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-EDI-MISS-SV1-003&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer C&quot;,
+      &quot;billed_amount&quot;: 185.0,
+      &quot;category&quot;: &quot;Structure repair&quot;,
+      &quot;business_rule_errors&quot;: [],
+      &quot;validation_report&quot;: {
+        &quot;valid&quot;: false,
+        &quot;transaction_type&quot;: &quot;837P&quot;,
+        &quot;errors&quot;: [
+          &quot;Missing required 837P segment SV1.&quot;,
+          &quot;Claim segment exists but no professional or institutional service line was found.&quot;,
+          &quot;SE01 declares 11 segments, but ST-to-SE count is 9.&quot;
+        ],
+        &quot;warnings&quot;: [],
+        &quot;segment_count&quot;: 13,
+        &quot;control_numbers&quot;: {
+          &quot;isa13&quot;: &quot;0003&quot;,
+          &quot;iea02&quot;: &quot;0003&quot;,
+          &quot;gs06&quot;: &quot;0003&quot;,
+          &quot;ge02&quot;: &quot;0003&quot;,
+          &quot;st02&quot;: &quot;0003&quot;,
+          &quot;se02&quot;: &quot;0003&quot;
+        },
+        &quot;required_segments&quot;: [
+          &quot;ISA&quot;,
+          &quot;GS&quot;,
+          &quot;ST&quot;,
+          &quot;SE&quot;,
+          &quot;GE&quot;,
+          &quot;IEA&quot;,
+          &quot;BHT&quot;,
+          &quot;NM1&quot;,
+          &quot;CLM&quot;,
+          &quot;LX&quot;,
+          &quot;SV1&quot;
+        ],
+        &quot;present_segments&quot;: {
+          &quot;ISA&quot;: 1,
+          &quot;GS&quot;: 1,
+          &quot;ST&quot;: 1,
+          &quot;BHT&quot;: 1,
+          &quot;NM1&quot;: 4,
+          &quot;CLM&quot;: 1,
+          &quot;LX&quot;: 1,
+          &quot;SE&quot;: 1,
+          &quot;GE&quot;: 1,
+          &quot;IEA&quot;: 1
+        }
+      }
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-EDI-CTRL-004&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer D&quot;,
+      &quot;billed_amount&quot;: 510.0,
+      &quot;category&quot;: &quot;Envelope repair&quot;,
+      &quot;business_rule_errors&quot;: [],
+      &quot;validation_report&quot;: {
+        &quot;valid&quot;: false,
+        &quot;transaction_type&quot;: &quot;837P&quot;,
+        &quot;errors&quot;: [
+          &quot;ST02 does not match SE02 transaction set control number.&quot;,
+          &quot;SE01 declares 11 segments, but ST-to-SE count is 10.&quot;
+        ],
+        &quot;warnings&quot;: [],
+        &quot;segment_count&quot;: 14,
+        &quot;control_numbers&quot;: {
+          &quot;isa13&quot;: &quot;0004&quot;,
+          &quot;iea02&quot;: &quot;0004&quot;,
+          &quot;gs06&quot;: &quot;0004&quot;,
+          &quot;ge02&quot;: &quot;0004&quot;,
+          &quot;st02&quot;: &quot;0004&quot;,
+          &quot;se02&quot;: &quot;9999&quot;
+        },
+        &quot;required_segments&quot;: [
+          &quot;ISA&quot;,
+          &quot;GS&quot;,
+          &quot;ST&quot;,
+          &quot;SE&quot;,
+          &quot;GE&quot;,
+          &quot;IEA&quot;,
+          &quot;BHT&quot;,
+          &quot;NM1&quot;,
+          &quot;CLM&quot;,
+          &quot;LX&quot;,
+          &quot;SV1&quot;
+        ],
+        &quot;present_segments&quot;: {
+          &quot;ISA&quot;: 1,
+          &quot;GS&quot;: 1,
+          &quot;ST&quot;: 1,
+          &quot;BHT&quot;: 1,
+          &quot;NM1&quot;: 4,
+          &quot;CLM&quot;: 1,
+          &quot;LX&quot;: 1,
+          &quot;SV1&quot;: 1,
+          &quot;SE&quot;: 1,
+          &quot;GE&quot;: 1,
+          &quot;IEA&quot;: 1
+        }
+      }
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-EDI-BIZ-005&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer E&quot;,
+      &quot;billed_amount&quot;: 295.0,
+      &quot;category&quot;: &quot;Business-rule repair&quot;,
+      &quot;business_rule_errors&quot;: [
+        &quot;Authorization format missing for synthetic payer rule.&quot;
+      ],
+      &quot;validation_report&quot;: {
+        &quot;valid&quot;: false,
+        &quot;transaction_type&quot;: &quot;837P&quot;,
+        &quot;errors&quot;: [
+          &quot;SE01 declares 11 segments, but ST-to-SE count is 10.&quot;
+        ],
+        &quot;warnings&quot;: [],
+        &quot;segment_count&quot;: 14,
+        &quot;control_numbers&quot;: {
+          &quot;isa13&quot;: &quot;0005&quot;,
+          &quot;iea02&quot;: &quot;0005&quot;,
+          &quot;gs06&quot;: &quot;0005&quot;,
+          &quot;ge02&quot;: &quot;0005&quot;,
+          &quot;st02&quot;: &quot;0005&quot;,
+          &quot;se02&quot;: &quot;0005&quot;
+        },
+        &quot;required_segments&quot;: [
+          &quot;ISA&quot;,
+          &quot;GS&quot;,
+          &quot;ST&quot;,
+          &quot;SE&quot;,
+          &quot;GE&quot;,
+          &quot;IEA&quot;,
+          &quot;BHT&quot;,
+          &quot;NM1&quot;,
+          &quot;CLM&quot;,
+          &quot;LX&quot;,
+          &quot;SV1&quot;
+        ],
+        &quot;present_segments&quot;: {
+          &quot;ISA&quot;: 1,
+          &quot;GS&quot;: 1,
+          &quot;ST&quot;: 1,
+          &quot;BHT&quot;: 1,
+          &quot;NM1&quot;: 4,
+          &quot;CLM&quot;: 1,
+          &quot;LX&quot;: 1,
+          &quot;SV1&quot;: 1,
+          &quot;SE&quot;: 1,
+          &quot;GE&quot;: 1,
+          &quot;IEA&quot;: 1
+        }
+      }
+    }
+  ],
+  &quot;failure_catalog&quot;: [
+    {
+      &quot;name&quot;: &quot;Missing rendering provider record&quot;,
+      &quot;trigger&quot;: &quot;NM1 loop with rendering-provider role is absent.&quot;,
+      &quot;fix&quot;: &quot;Assign rendering owner and complete provider record before release.&quot;,
+      &quot;frequency&quot;: 21,
+      &quot;dollars_at_risk&quot;: 12600,
+      &quot;category&quot;: &quot;Structure repair&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;evidence&quot;: &quot;Missing required 837P segment NM1.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Service line not attached&quot;,
+      &quot;trigger&quot;: &quot;Claim header exists but no SV1 professional service line is present.&quot;,
+      &quot;fix&quot;: &quot;Hold the claim until charge capture attaches a service line.&quot;,
+      &quot;frequency&quot;: 18,
+      &quot;dollars_at_risk&quot;: 9800,
+      &quot;category&quot;: &quot;Structure repair&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;evidence&quot;: &quot;Claim segment exists but no service line was found.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Control numbers do not match&quot;,
+      &quot;trigger&quot;: &quot;Transaction control number disagrees between ST and SE.&quot;,
+      &quot;fix&quot;: &quot;Regenerate the batch envelope before any payer route.&quot;,
+      &quot;frequency&quot;: 15,
+      &quot;dollars_at_risk&quot;: 8400,
+      &quot;category&quot;: &quot;Envelope repair&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;evidence&quot;: &quot;ST02 does not match SE02 transaction set control number.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Authorization reference missing&quot;,
+      &quot;trigger&quot;: &quot;Synthetic payer rule expects authorization evidence in REF G1.&quot;,
+      &quot;fix&quot;: &quot;Front desk confirms authorization before claim build.&quot;,
+      &quot;frequency&quot;: 14,
+      &quot;dollars_at_risk&quot;: 7600,
+      &quot;category&quot;: &quot;Business-rule repair&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;evidence&quot;: &quot;REF*G1 synthetic payer requirement failed.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Diagnosis pointer order failed&quot;,
+      &quot;trigger&quot;: &quot;Primary diagnosis pointer is not first on the service line.&quot;,
+      &quot;fix&quot;: &quot;Coder reviews diagnosis ordering before the batch closes.&quot;,
+      &quot;frequency&quot;: 12,
+      &quot;dollars_at_risk&quot;: 6900,
+      &quot;category&quot;: &quot;Business-rule repair&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;evidence&quot;: &quot;SV1 diagnosis pointer ordering failed.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;COB segment not allowed&quot;,
+      &quot;trigger&quot;: &quot;Single-coverage claim still carries coordination-of-benefits detail.&quot;,
+      &quot;fix&quot;: &quot;Remove COB detail when the intake record shows single coverage.&quot;,
+      &quot;frequency&quot;: 10,
+      &quot;dollars_at_risk&quot;: 5400,
+      &quot;category&quot;: &quot;Business-rule repair&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;evidence&quot;: &quot;COB segment disallowed for synthetic payer rule.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Envelope closeout segment missing&quot;,
+      &quot;trigger&quot;: &quot;Batch has transaction content but no IEA closeout.&quot;,
+      &quot;fix&quot;: &quot;Repair envelope generation and rerun validator.&quot;,
+      &quot;frequency&quot;: 9,
+      &quot;dollars_at_risk&quot;: 5100,
+      &quot;category&quot;: &quot;Envelope repair&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;evidence&quot;: &quot;Missing required envelope segment IEA.&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Service location incomplete&quot;,
+      &quot;trigger&quot;: &quot;Claim lacks the service-location information required by payer rule.&quot;,
+      &quot;fix&quot;: &quot;Front desk completes location field before claim release.&quot;,
+      &quot;frequency&quot;: 8,
+      &quot;dollars_at_risk&quot;: 4200,
+      &quot;category&quot;: &quot;Business-rule repair&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;evidence&quot;: &quot;Synthetic service-location rule failed.&quot;
+    }
+  ],
+  &quot;payer_variance&quot;: [
+    {
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;auth_ref_g1&quot;: &quot;pass&quot;,
+      &quot;dx_pointer_order&quot;: &quot;pass&quot;,
+      &quot;cob_single_coverage&quot;: &quot;N-A&quot;,
+      &quot;rendering_taxonomy&quot;: &quot;pass&quot;,
+      &quot;service_location&quot;: &quot;fail&quot;,
+      &quot;note&quot;: &quot;Service location required before release.&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;weekly_claims_at_risk&quot;: 9,
+      &quot;weekly_dollars_at_risk&quot;: 4300
+    },
+    {
+      &quot;payer&quot;: &quot;Synthetic Payer B&quot;,
+      &quot;auth_ref_g1&quot;: &quot;N-A&quot;,
+      &quot;dx_pointer_order&quot;: &quot;fail&quot;,
+      &quot;cob_single_coverage&quot;: &quot;pass&quot;,
+      &quot;rendering_taxonomy&quot;: &quot;pass&quot;,
+      &quot;service_location&quot;: &quot;pass&quot;,
+      &quot;note&quot;: &quot;Diagnosis pointer order is the main blocker.&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;weekly_claims_at_risk&quot;: 11,
+      &quot;weekly_dollars_at_risk&quot;: 6100
+    },
+    {
+      &quot;payer&quot;: &quot;Synthetic Payer C&quot;,
+      &quot;auth_ref_g1&quot;: &quot;pass&quot;,
+      &quot;dx_pointer_order&quot;: &quot;pass&quot;,
+      &quot;cob_single_coverage&quot;: &quot;fail&quot;,
+      &quot;rendering_taxonomy&quot;: &quot;N-A&quot;,
+      &quot;service_location&quot;: &quot;pass&quot;,
+      &quot;note&quot;: &quot;COB detail must be removed for single coverage.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;weekly_claims_at_risk&quot;: 7,
+      &quot;weekly_dollars_at_risk&quot;: 3600
+    },
+    {
+      &quot;payer&quot;: &quot;Synthetic Payer D&quot;,
+      &quot;auth_ref_g1&quot;: &quot;fail&quot;,
+      &quot;dx_pointer_order&quot;: &quot;N-A&quot;,
+      &quot;cob_single_coverage&quot;: &quot;pass&quot;,
+      &quot;rendering_taxonomy&quot;: &quot;pass&quot;,
+      &quot;service_location&quot;: &quot;pass&quot;,
+      &quot;note&quot;: &quot;Authorization reference format needs intake cleanup.&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;weekly_claims_at_risk&quot;: 13,
+      &quot;weekly_dollars_at_risk&quot;: 7200
+    },
+    {
+      &quot;payer&quot;: &quot;Synthetic Payer E&quot;,
+      &quot;auth_ref_g1&quot;: &quot;pass&quot;,
+      &quot;dx_pointer_order&quot;: &quot;pass&quot;,
+      &quot;cob_single_coverage&quot;: &quot;N-A&quot;,
+      &quot;rendering_taxonomy&quot;: &quot;fail&quot;,
+      &quot;service_location&quot;: &quot;pass&quot;,
+      &quot;note&quot;: &quot;Rendering taxonomy evidence needs review.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;weekly_claims_at_risk&quot;: 6,
+      &quot;weekly_dollars_at_risk&quot;: 3100
+    }
+  ],
+  &quot;action_plan&quot;: [
+    {
+      &quot;day_range&quot;: &quot;Days 1-3&quot;,
+      &quot;action&quot;: &quot;Assign rendering owner and complete provider record before release.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Unblocks 14-18 synthetic claims per week and about $8K weekly exposure.&quot;,
+      &quot;source&quot;: &quot;Missing rendering provider record&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 4-7&quot;,
+      &quot;action&quot;: &quot;Hold the claim until charge capture attaches a service line.&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Unblocks 10-14 synthetic claims per week and reduces service-line repair.&quot;,
+      &quot;source&quot;: &quot;Service line not attached&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 8-12&quot;,
+      &quot;action&quot;: &quot;Authorization reference format needs intake cleanup.&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Unblocks 13 synthetic claims per week and $7,200 weekly exposure.&quot;,
+      &quot;source&quot;: &quot;Synthetic Payer D&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 13-18&quot;,
+      &quot;action&quot;: &quot;Regenerate the batch envelope before any payer route.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Reduces envelope rework before the next batch is staged.&quot;,
+      &quot;source&quot;: &quot;Control numbers do not match&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 19-24&quot;,
+      &quot;action&quot;: &quot;Diagnosis pointer order is the main blocker.&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Unblocks 11 synthetic claims per week.&quot;,
+      &quot;source&quot;: &quot;Synthetic Payer B&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 25-30&quot;,
+      &quot;action&quot;: &quot;Service location required before release.&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Unblocks 9 synthetic claims per week.&quot;,
+      &quot;source&quot;: &quot;Synthetic Payer A&quot;
+    }
+  ],
+  &quot;transaction_rules&quot;: {
+    &quot;837P&quot;: [
+      &quot;BHT&quot;,
+      &quot;NM1&quot;,
+      &quot;CLM&quot;,
+      &quot;LX&quot;,
+      &quot;SV1&quot;
+    ],
+    &quot;837I&quot;: [
+      &quot;BHT&quot;,
+      &quot;NM1&quot;,
+      &quot;CLM&quot;,
+      &quot;LX&quot;,
+      &quot;SV2&quot;
+    ],
+    &quot;835&quot;: [
+      &quot;BPR&quot;,
+      &quot;TRN&quot;,
+      &quot;CLP&quot;
+    ],
+    &quot;999&quot;: [
+      &quot;AK1&quot;,
+      &quot;AK2&quot;,
+      &quot;IK5&quot;,
+      &quot;AK9&quot;
+    ],
+    &quot;277CA&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;TRN&quot;,
+      &quot;STC&quot;
+    ],
+    &quot;270&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;NM1&quot;,
+      &quot;EQ&quot;
+    ],
+    &quot;271&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;NM1&quot;,
+      &quot;EB&quot;
+    ],
+    &quot;276&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;NM1&quot;,
+      &quot;TRN&quot;
+    ],
+    &quot;277&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;NM1&quot;,
+      &quot;TRN&quot;,
+      &quot;STC&quot;
+    ],
+    &quot;275&quot;: [
+      &quot;BGN&quot;,
+      &quot;NM1&quot;
+    ]
+  }
+}</metadata>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#071012" offset="0"/>
+      <stop stop-color="#123238" offset="1"/>
+    </linearGradient>
+    <style>
+      .title { font: 900 42px Inter, Arial, sans-serif; fill: #f8fafc; }
+      .subtitle { font: 600 17px Inter, Arial, sans-serif; fill: #cbd5e1; }
+      .kicker { font: 900 12px Inter, Arial, sans-serif; fill: #7dd3d8; letter-spacing: .12em; text-transform: uppercase; }
+      .metric { font: 900 38px Inter, Arial, sans-serif; fill: #ffffff; }
+      .small { font: 800 14px Inter, Arial, sans-serif; fill: #f8fafc; }
+      .tiny { font: 650 12px Inter, Arial, sans-serif; fill: #cbd5e1; }
+      .strong { font-weight: 900; fill: #f8fafc; }
+    </style>
+  </defs>
+  <rect width="1280" height="1420" fill="url(#bg)"/>
+  <rect x="28" y="28" width="1224" height="1364" rx="18" fill="#091316" stroke="#21414a"/>
+  <text x="58" y="76" class="kicker">EDI Validation Harness | Synthetic only</text>
+  <text x="58" y="124" class="title">Catch batch defects before claims leave the building.</text>
+  <text x="58" y="154" class="subtitle">Ready to submit: 412 of 487 synthetic claims with failure mix, repair catalog, payer variance, and owner-ready readiness plan.</text>
+  <rect x="58" y="178" width="268" height="108" rx="12" fill="#071316" stroke="#21414a"/><text x="76" y="210" class="kicker">Total claims</text><text x="76" y="250" class="metric">487</text><text x="76" y="274" class="tiny">synthetic batch</text><rect x="350" y="178" width="268" height="108" rx="12" fill="#071316" stroke="#21414a"/><text x="368" y="210" class="kicker">Envelope pass</text><text x="368" y="250" class="metric">463</text><text x="368" y="274" class="tiny">ISA/GS/ST/SE/GE/IEA</text><rect x="642" y="178" width="268" height="108" rx="12" fill="#071316" stroke="#21414a"/><text x="660" y="210" class="kicker">Structure pass</text><text x="660" y="250" class="metric">432</text><text x="660" y="274" class="tiny">837P required segments</text><rect x="934" y="178" width="268" height="108" rx="12" fill="#071316" stroke="#21414a"/><text x="952" y="210" class="kicker">Rules pass</text><text x="952" y="250" class="metric">412</text><text x="952" y="274" class="tiny">synthetic payer rules</text>
+  <rect x="58" y="314" width="1162" height="86" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="344" class="kicker">Submission Readiness Check</text>
+  <rect x="100" y="336" width="1080" height="38" rx="19" fill="#071316" stroke="#21414a"/>
+  <rect x="100.0" y="336" width="913.7" height="38" fill="#00B3A4"/><text x="112.0" y="361" fill="#031719" font-size="12" font-weight="900">Ready to submit 412</text><rect x="1013.7" y="336" width="53.2" height="38" fill="#facc15"/><text x="1025.7" y="361" fill="#031719" font-size="12" font-weight="900">Envelope repair 24</text><rect x="1066.9" y="336" width="68.7" height="38" fill="#fb7185"/><text x="1078.9" y="361" fill="#031719" font-size="12" font-weight="900">Structure repair 31</text><rect x="1135.6" y="336" width="44.4" height="38" fill="#7dd3d8"/><text x="1147.6" y="361" fill="#031719" font-size="12" font-weight="900">Business-rule repair 20</text>
+  <rect x="58" y="428" width="564" height="540" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="76" y="460" class="kicker">Failure Catalog</text>
+  <rect x="58" y="456" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="476" class="small strong">Missing rendering provider record</text><text x="76" y="496" class="tiny">21 synthetic | $12,600 at risk | Biller</text><rect x="58" y="518" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="538" class="small strong">Service line not attached</text><text x="76" y="558" class="tiny">18 synthetic | $9,800 at risk | Coder</text><rect x="58" y="580" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="600" class="small strong">Control numbers do not match</text><text x="76" y="620" class="tiny">15 synthetic | $8,400 at risk | Biller</text><rect x="58" y="642" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="662" class="small strong">Authorization reference missing</text><text x="76" y="682" class="tiny">14 synthetic | $7,600 at risk | Front desk</text><rect x="58" y="704" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="724" class="small strong">Diagnosis pointer order failed</text><text x="76" y="744" class="tiny">12 synthetic | $6,900 at risk | Coder</text><rect x="58" y="766" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="786" class="small strong">COB segment not allowed</text><text x="76" y="806" class="tiny">10 synthetic | $5,400 at risk | Biller</text><rect x="58" y="828" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="848" class="small strong">Envelope closeout segment missing</text><text x="76" y="868" class="tiny">9 synthetic | $5,100 at risk | Biller</text><rect x="58" y="890" width="544" height="54" rx="8" fill="#071316" stroke="#21414a"/><text x="76" y="910" class="small strong">Service location incomplete</text><text x="76" y="930" class="tiny">8 synthetic | $4,200 at risk | Front desk</text>
+  <rect x="638" y="428" width="582" height="320" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="656" y="460" class="kicker">Payer Variance Map</text>
+  <text x="840" y="438" class="tiny">Auth</text><text x="906" y="438" class="tiny">Dx</text><text x="972" y="438" class="tiny">COB</text><text x="1038" y="438" class="tiny">Tax</text><text x="1104" y="438" class="tiny">Loc</text>
+  <text x="652" y="468" class="small strong">Synthetic Payer A</text><rect x="840" y="450" width="54" height="26" rx="6" fill="#00B3A4"/><text x="867" y="468" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="906" y="450" width="54" height="26" rx="6" fill="#00B3A4"/><text x="933" y="468" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="972" y="450" width="54" height="26" rx="6" fill="#64748b"/><text x="999" y="468" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">N-A</text><rect x="1038" y="450" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1065" y="468" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="1104" y="450" width="54" height="26" rx="6" fill="#fb7185"/><text x="1131" y="468" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">fail</text><text x="652" y="514" class="small strong">Synthetic Payer B</text><rect x="840" y="496" width="54" height="26" rx="6" fill="#64748b"/><text x="867" y="514" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">N-A</text><rect x="906" y="496" width="54" height="26" rx="6" fill="#fb7185"/><text x="933" y="514" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">fail</text><rect x="972" y="496" width="54" height="26" rx="6" fill="#00B3A4"/><text x="999" y="514" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="1038" y="496" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1065" y="514" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="1104" y="496" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1131" y="514" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><text x="652" y="560" class="small strong">Synthetic Payer C</text><rect x="840" y="542" width="54" height="26" rx="6" fill="#00B3A4"/><text x="867" y="560" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="906" y="542" width="54" height="26" rx="6" fill="#00B3A4"/><text x="933" y="560" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="972" y="542" width="54" height="26" rx="6" fill="#fb7185"/><text x="999" y="560" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">fail</text><rect x="1038" y="542" width="54" height="26" rx="6" fill="#64748b"/><text x="1065" y="560" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">N-A</text><rect x="1104" y="542" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1131" y="560" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><text x="652" y="606" class="small strong">Synthetic Payer D</text><rect x="840" y="588" width="54" height="26" rx="6" fill="#fb7185"/><text x="867" y="606" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">fail</text><rect x="906" y="588" width="54" height="26" rx="6" fill="#64748b"/><text x="933" y="606" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">N-A</text><rect x="972" y="588" width="54" height="26" rx="6" fill="#00B3A4"/><text x="999" y="606" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="1038" y="588" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1065" y="606" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="1104" y="588" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1131" y="606" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><text x="652" y="652" class="small strong">Synthetic Payer E</text><rect x="840" y="634" width="54" height="26" rx="6" fill="#00B3A4"/><text x="867" y="652" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="906" y="634" width="54" height="26" rx="6" fill="#00B3A4"/><text x="933" y="652" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text><rect x="972" y="634" width="54" height="26" rx="6" fill="#64748b"/><text x="999" y="652" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">N-A</text><rect x="1038" y="634" width="54" height="26" rx="6" fill="#fb7185"/><text x="1065" y="652" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">fail</text><rect x="1104" y="634" width="54" height="26" rx="6" fill="#00B3A4"/><text x="1131" y="652" fill="#031719" font-size="11" font-weight="900" text-anchor="middle">pass</text>
+  <rect x="638" y="770" width="582" height="198" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="656" y="802" class="kicker">Validator Evidence</text>
+  <text x="656" y="836" class="small">Rules reused from proof harness TRANSACTION_RULES.</text>
+  <text x="656" y="864" class="tiny">837P required segments: BHT / NM1 / CLM / LX / SV1.</text>
+  <text x="656" y="892" class="tiny">Envelope checks: ISA / GS / ST / SE / GE / IEA.</text>
+  <text x="656" y="920" class="tiny">Business rules remain synthetic payer-specific rules.</text>
+  <rect x="58" y="986" width="1162" height="396" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="76" y="1018" class="kicker">30-Day Readiness Plan</text>
+  <rect x="58" y="1010" width="1162" height="48" rx="9" fill="#071316" stroke="#21414a"/><text x="76" y="1029" class="tiny strong">Days 1-3 | Biller | M | Missing rendering provider record</text><text x="76" y="1048" class="tiny">Assign rendering owner and complete provider record before release. Impact: Unblocks 14-18 synthetic claims per week and about $8K weekly exposure.</text><rect x="58" y="1068" width="1162" height="48" rx="9" fill="#071316" stroke="#21414a"/><text x="76" y="1087" class="tiny strong">Days 4-7 | Coder | S | Service line not attached</text><text x="76" y="1106" class="tiny">Hold the claim until charge capture attaches a service line. Impact: Unblocks 10-14 synthetic claims per week and reduces service-line repair.</text><rect x="58" y="1126" width="1162" height="48" rx="9" fill="#071316" stroke="#21414a"/><text x="76" y="1145" class="tiny strong">Days 8-12 | Front desk | M | Synthetic Payer D</text><text x="76" y="1164" class="tiny">Authorization reference format needs intake cleanup. Impact: Unblocks 13 synthetic claims per week and $7,200 weekly exposure.</text><rect x="58" y="1184" width="1162" height="48" rx="9" fill="#071316" stroke="#21414a"/><text x="76" y="1203" class="tiny strong">Days 13-18 | Biller | M | Control numbers do not match</text><text x="76" y="1222" class="tiny">Regenerate the batch envelope before any payer route. Impact: Reduces envelope rework before the next batch is staged.</text><rect x="58" y="1242" width="1162" height="48" rx="9" fill="#071316" stroke="#21414a"/><text x="76" y="1261" class="tiny strong">Days 19-24 | Coder | S | Synthetic Payer B</text><text x="76" y="1280" class="tiny">Diagnosis pointer order is the main blocker. Impact: Unblocks 11 synthetic claims per week.</text><rect x="58" y="1300" width="1162" height="48" rx="9" fill="#071316" stroke="#21414a"/><text x="76" y="1319" class="tiny strong">Days 25-30 | Front desk | S | Synthetic Payer A</text><text x="76" y="1338" class="tiny">Service location required before release. Impact: Unblocks 9 synthetic claims per week.</text>
+  <rect x="58" y="1350" width="1162" height="30" rx="15" fill="#00B3A4"/>
+  <text x="640" y="1370" text-anchor="middle" fill="#021415" font-size="14" font-weight="900">All segment values, payer labels, claim IDs, dollar figures, and validation outcomes are synthetic demo data.</text>
+</svg>
