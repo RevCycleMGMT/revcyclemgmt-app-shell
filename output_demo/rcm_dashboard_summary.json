@@ -1,0 +1,654 @@
+{
+  "boundary": "synthetic-only",
+  "as_of": "2026-05-11",
+  "freshness_days": 7,
+  "headline_kpis": [
+    {
+      "key": "clean_claim_rate",
+      "label": "Clean claim rate",
+      "current": 0.916,
+      "target": 0.95,
+      "unit": "percent",
+      "status": "red",
+      "stale": false,
+      "owner": "Biller",
+      "definition": "Clean claims divided by submitted synthetic claims."
+    },
+    {
+      "key": "first_pass_yield",
+      "label": "First-pass yield",
+      "current": 0.872,
+      "target": 0.92,
+      "unit": "percent",
+      "status": "red",
+      "stale": false,
+      "owner": "Biller",
+      "definition": "Synthetic claims accepted and adjudicated without rework on the first path."
+    },
+    {
+      "key": "denial_rate",
+      "label": "Denial rate",
+      "current": 0.043,
+      "target": 0.03,
+      "unit": "percent",
+      "status": "amber",
+      "stale": false,
+      "owner": "Denials specialist",
+      "definition": "Denied synthetic claims divided by adjudicated synthetic claims."
+    },
+    {
+      "key": "days_in_ar",
+      "label": "Days in A/R",
+      "current": 38.4,
+      "target": 30.0,
+      "unit": "days",
+      "status": "red",
+      "stale": true,
+      "owner": "A/R follow-up",
+      "definition": "Average synthetic claim age before payment visibility or closure."
+    },
+    {
+      "key": "net_collection_rate",
+      "label": "Net collection rate",
+      "current": 0.934,
+      "target": 0.97,
+      "unit": "percent",
+      "status": "red",
+      "stale": false,
+      "owner": "Posting",
+      "definition": "Synthetic allowed collections divided by synthetic collectible revenue."
+    }
+  ],
+  "trends": [
+    {
+      "week": "2026-02-16",
+      "values": {
+        "clean_claim_rate": 0.8375,
+        "first_pass_yield": 0.7865,
+        "denial_rate": 0.0695,
+        "days_in_ar": 49.2,
+        "net_collection_rate": 0.8825
+      }
+    },
+    {
+      "week": "2026-02-23",
+      "values": {
+        "clean_claim_rate": 0.8467,
+        "first_pass_yield": 0.7963,
+        "denial_rate": 0.0699,
+        "days_in_ar": 48.1,
+        "net_collection_rate": 0.8894
+      }
+    },
+    {
+      "week": "2026-03-02",
+      "values": {
+        "clean_claim_rate": 0.8558,
+        "first_pass_yield": 0.806,
+        "denial_rate": 0.0703,
+        "days_in_ar": 46.9,
+        "net_collection_rate": 0.8963
+      }
+    },
+    {
+      "week": "2026-03-09",
+      "values": {
+        "clean_claim_rate": 0.865,
+        "first_pass_yield": 0.8157,
+        "denial_rate": 0.0708,
+        "days_in_ar": 45.8,
+        "net_collection_rate": 0.9032
+      }
+    },
+    {
+      "week": "2026-03-16",
+      "values": {
+        "clean_claim_rate": 0.8622,
+        "first_pass_yield": 0.8135,
+        "denial_rate": 0.0592,
+        "days_in_ar": 45.7,
+        "net_collection_rate": 0.8982
+      }
+    },
+    {
+      "week": "2026-03-23",
+      "values": {
+        "clean_claim_rate": 0.8713,
+        "first_pass_yield": 0.8233,
+        "denial_rate": 0.0596,
+        "days_in_ar": 44.6,
+        "net_collection_rate": 0.9051
+      }
+    },
+    {
+      "week": "2026-03-30",
+      "values": {
+        "clean_claim_rate": 0.8805,
+        "first_pass_yield": 0.833,
+        "denial_rate": 0.06,
+        "days_in_ar": 43.5,
+        "net_collection_rate": 0.912
+      }
+    },
+    {
+      "week": "2026-04-06",
+      "values": {
+        "clean_claim_rate": 0.8897,
+        "first_pass_yield": 0.8427,
+        "denial_rate": 0.0604,
+        "days_in_ar": 42.4,
+        "net_collection_rate": 0.9189
+      }
+    },
+    {
+      "week": "2026-04-13",
+      "values": {
+        "clean_claim_rate": 0.8868,
+        "first_pass_yield": 0.8405,
+        "denial_rate": 0.0488,
+        "days_in_ar": 42.2,
+        "net_collection_rate": 0.9138
+      }
+    },
+    {
+      "week": "2026-04-20",
+      "values": {
+        "clean_claim_rate": 0.896,
+        "first_pass_yield": 0.8503,
+        "denial_rate": 0.0492,
+        "days_in_ar": 41.1,
+        "net_collection_rate": 0.9208
+      }
+    },
+    {
+      "week": "2026-04-27",
+      "values": {
+        "clean_claim_rate": 0.9052,
+        "first_pass_yield": 0.86,
+        "denial_rate": 0.0497,
+        "days_in_ar": 40.0,
+        "net_collection_rate": 0.9277
+      }
+    },
+    {
+      "week": "2026-05-04",
+      "values": {
+        "clean_claim_rate": 0.9143,
+        "first_pass_yield": 0.8697,
+        "denial_rate": 0.0501,
+        "days_in_ar": 38.9,
+        "net_collection_rate": 0.9346
+      }
+    },
+    {
+      "week": "2026-05-11",
+      "values": {
+        "clean_claim_rate": 0.9115,
+        "first_pass_yield": 0.8675,
+        "denial_rate": 0.0385,
+        "days_in_ar": 38.8,
+        "net_collection_rate": 0.9295
+      }
+    }
+  ],
+  "breakdowns": {
+    "Payer": [
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer B",
+        "clean_claim_rate": 0.891,
+        "first_pass_yield": 0.812,
+        "denial_rate": 0.082,
+        "days_in_ar": 45.6,
+        "net_collection_rate": 0.904,
+        "volume": 147,
+        "dollars_at_risk": 18200,
+        "owner": "Denials specialist",
+        "action": "Pull authorization evidence before resubmission."
+      },
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer D",
+        "clean_claim_rate": 0.866,
+        "first_pass_yield": 0.798,
+        "denial_rate": 0.098,
+        "days_in_ar": 49.1,
+        "net_collection_rate": 0.897,
+        "volume": 82,
+        "dollars_at_risk": 15300,
+        "owner": "Coder",
+        "action": "Review documentation completeness before release."
+      },
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer C",
+        "clean_claim_rate": 0.917,
+        "first_pass_yield": 0.861,
+        "denial_rate": 0.052,
+        "days_in_ar": 39.4,
+        "net_collection_rate": 0.928,
+        "volume": 96,
+        "dollars_at_risk": 7900,
+        "owner": "Front desk",
+        "action": "Repair eligibility detail before next batch."
+      },
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer A",
+        "clean_claim_rate": 0.948,
+        "first_pass_yield": 0.913,
+        "denial_rate": 0.026,
+        "days_in_ar": 27.8,
+        "net_collection_rate": 0.962,
+        "volume": 188,
+        "dollars_at_risk": 6400,
+        "owner": "Posting",
+        "action": "Keep weekly variance audit active."
+      },
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer E",
+        "clean_claim_rate": 0.959,
+        "first_pass_yield": 0.921,
+        "denial_rate": 0.027,
+        "days_in_ar": 25.9,
+        "net_collection_rate": 0.971,
+        "volume": 74,
+        "dollars_at_risk": 4100,
+        "owner": "Posting",
+        "action": "Separate responsibility balances after remit posting."
+      }
+    ],
+    "CARC code": [
+      {
+        "slice_name": "CARC code",
+        "segment": "CARC 16 synthetic",
+        "clean_claim_rate": 0.844,
+        "first_pass_yield": 0.782,
+        "denial_rate": 0.121,
+        "days_in_ar": 52.8,
+        "net_collection_rate": 0.884,
+        "volume": 34,
+        "dollars_at_risk": 11650,
+        "owner": "Denials specialist",
+        "action": "Create missing-information packet checklist."
+      },
+      {
+        "slice_name": "CARC code",
+        "segment": "CO 45 synthetic",
+        "clean_claim_rate": 0.903,
+        "first_pass_yield": 0.842,
+        "denial_rate": 0.065,
+        "days_in_ar": 43.3,
+        "net_collection_rate": 0.911,
+        "volume": 29,
+        "dollars_at_risk": 9400,
+        "owner": "Posting",
+        "action": "Review allowed-amount variance before closeout."
+      },
+      {
+        "slice_name": "CARC code",
+        "segment": "PR balance synthetic",
+        "clean_claim_rate": 0.926,
+        "first_pass_yield": 0.879,
+        "denial_rate": 0.041,
+        "days_in_ar": 36.7,
+        "net_collection_rate": 0.931,
+        "volume": 27,
+        "dollars_at_risk": 5400,
+        "owner": "A/R follow-up",
+        "action": "Separate patient-balance communication lane."
+      },
+      {
+        "slice_name": "CARC code",
+        "segment": "Coverage synthetic",
+        "clean_claim_rate": 0.872,
+        "first_pass_yield": 0.811,
+        "denial_rate": 0.088,
+        "days_in_ar": 47.6,
+        "net_collection_rate": 0.902,
+        "volume": 31,
+        "dollars_at_risk": 8800,
+        "owner": "Front desk",
+        "action": "Run coverage check script before claim build."
+      },
+      {
+        "slice_name": "CARC code",
+        "segment": "Clean remit synthetic",
+        "clean_claim_rate": 0.963,
+        "first_pass_yield": 0.934,
+        "denial_rate": 0.018,
+        "days_in_ar": 24.4,
+        "net_collection_rate": 0.976,
+        "volume": 51,
+        "dollars_at_risk": 2600,
+        "owner": "Posting",
+        "action": "Keep post-remit variance review weekly."
+      }
+    ],
+    "Specialty": [
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic therapy launch",
+        "clean_claim_rate": 0.902,
+        "first_pass_yield": 0.849,
+        "denial_rate": 0.061,
+        "days_in_ar": 41.5,
+        "net_collection_rate": 0.921,
+        "volume": 126,
+        "dollars_at_risk": 12100,
+        "owner": "Coder",
+        "action": "Tighten documentation readiness before charge release."
+      },
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic behavioral launch",
+        "clean_claim_rate": 0.884,
+        "first_pass_yield": 0.821,
+        "denial_rate": 0.074,
+        "days_in_ar": 44.9,
+        "net_collection_rate": 0.909,
+        "volume": 118,
+        "dollars_at_risk": 13700,
+        "owner": "Front desk",
+        "action": "Validate eligibility and authorization fields earlier."
+      },
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic primary-care launch",
+        "clean_claim_rate": 0.937,
+        "first_pass_yield": 0.892,
+        "denial_rate": 0.036,
+        "days_in_ar": 32.4,
+        "net_collection_rate": 0.948,
+        "volume": 163,
+        "dollars_at_risk": 7100,
+        "owner": "Biller",
+        "action": "Monitor clean-claim drift after weekly batches."
+      },
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic specialty-care launch",
+        "clean_claim_rate": 0.871,
+        "first_pass_yield": 0.804,
+        "denial_rate": 0.092,
+        "days_in_ar": 48.6,
+        "net_collection_rate": 0.895,
+        "volume": 88,
+        "dollars_at_risk": 14950,
+        "owner": "Denials specialist",
+        "action": "Split medical-necessity review from posting cleanup."
+      }
+    ],
+    "Claim type": [
+      {
+        "slice_name": "Claim type",
+        "segment": "New visit synthetic",
+        "clean_claim_rate": 0.901,
+        "first_pass_yield": 0.847,
+        "denial_rate": 0.064,
+        "days_in_ar": 42.1,
+        "net_collection_rate": 0.918,
+        "volume": 155,
+        "dollars_at_risk": 12800,
+        "owner": "Coder",
+        "action": "Review first-visit documentation before batch release."
+      },
+      {
+        "slice_name": "Claim type",
+        "segment": "Follow-up visit synthetic",
+        "clean_claim_rate": 0.941,
+        "first_pass_yield": 0.899,
+        "denial_rate": 0.032,
+        "days_in_ar": 29.8,
+        "net_collection_rate": 0.957,
+        "volume": 214,
+        "dollars_at_risk": 6200,
+        "owner": "Biller",
+        "action": "Keep daily acceptance scan active."
+      },
+      {
+        "slice_name": "Claim type",
+        "segment": "Procedure add-on synthetic",
+        "clean_claim_rate": 0.864,
+        "first_pass_yield": 0.793,
+        "denial_rate": 0.101,
+        "days_in_ar": 50.2,
+        "net_collection_rate": 0.889,
+        "volume": 69,
+        "dollars_at_risk": 15100,
+        "owner": "Coder",
+        "action": "Validate modifier and documentation readiness."
+      },
+      {
+        "slice_name": "Claim type",
+        "segment": "Responsibility balance synthetic",
+        "clean_claim_rate": 0.919,
+        "first_pass_yield": 0.866,
+        "denial_rate": 0.046,
+        "days_in_ar": 37.3,
+        "net_collection_rate": 0.929,
+        "volume": 73,
+        "dollars_at_risk": 7600,
+        "owner": "A/R follow-up",
+        "action": "Separate follow-up queue from payment posting."
+      }
+    ]
+  },
+  "worst_three": {
+    "Payer": [
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer D",
+        "clean_claim_rate": 0.866,
+        "first_pass_yield": 0.798,
+        "denial_rate": 0.098,
+        "days_in_ar": 49.1,
+        "net_collection_rate": 0.897,
+        "volume": 82,
+        "dollars_at_risk": 15300,
+        "owner": "Coder",
+        "action": "Review documentation completeness before release."
+      },
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer B",
+        "clean_claim_rate": 0.891,
+        "first_pass_yield": 0.812,
+        "denial_rate": 0.082,
+        "days_in_ar": 45.6,
+        "net_collection_rate": 0.904,
+        "volume": 147,
+        "dollars_at_risk": 18200,
+        "owner": "Denials specialist",
+        "action": "Pull authorization evidence before resubmission."
+      },
+      {
+        "slice_name": "Payer",
+        "segment": "Synthetic Payer C",
+        "clean_claim_rate": 0.917,
+        "first_pass_yield": 0.861,
+        "denial_rate": 0.052,
+        "days_in_ar": 39.4,
+        "net_collection_rate": 0.928,
+        "volume": 96,
+        "dollars_at_risk": 7900,
+        "owner": "Front desk",
+        "action": "Repair eligibility detail before next batch."
+      }
+    ],
+    "CARC code": [
+      {
+        "slice_name": "CARC code",
+        "segment": "CARC 16 synthetic",
+        "clean_claim_rate": 0.844,
+        "first_pass_yield": 0.782,
+        "denial_rate": 0.121,
+        "days_in_ar": 52.8,
+        "net_collection_rate": 0.884,
+        "volume": 34,
+        "dollars_at_risk": 11650,
+        "owner": "Denials specialist",
+        "action": "Create missing-information packet checklist."
+      },
+      {
+        "slice_name": "CARC code",
+        "segment": "Coverage synthetic",
+        "clean_claim_rate": 0.872,
+        "first_pass_yield": 0.811,
+        "denial_rate": 0.088,
+        "days_in_ar": 47.6,
+        "net_collection_rate": 0.902,
+        "volume": 31,
+        "dollars_at_risk": 8800,
+        "owner": "Front desk",
+        "action": "Run coverage check script before claim build."
+      },
+      {
+        "slice_name": "CARC code",
+        "segment": "CO 45 synthetic",
+        "clean_claim_rate": 0.903,
+        "first_pass_yield": 0.842,
+        "denial_rate": 0.065,
+        "days_in_ar": 43.3,
+        "net_collection_rate": 0.911,
+        "volume": 29,
+        "dollars_at_risk": 9400,
+        "owner": "Posting",
+        "action": "Review allowed-amount variance before closeout."
+      }
+    ],
+    "Specialty": [
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic specialty-care launch",
+        "clean_claim_rate": 0.871,
+        "first_pass_yield": 0.804,
+        "denial_rate": 0.092,
+        "days_in_ar": 48.6,
+        "net_collection_rate": 0.895,
+        "volume": 88,
+        "dollars_at_risk": 14950,
+        "owner": "Denials specialist",
+        "action": "Split medical-necessity review from posting cleanup."
+      },
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic behavioral launch",
+        "clean_claim_rate": 0.884,
+        "first_pass_yield": 0.821,
+        "denial_rate": 0.074,
+        "days_in_ar": 44.9,
+        "net_collection_rate": 0.909,
+        "volume": 118,
+        "dollars_at_risk": 13700,
+        "owner": "Front desk",
+        "action": "Validate eligibility and authorization fields earlier."
+      },
+      {
+        "slice_name": "Specialty",
+        "segment": "Synthetic therapy launch",
+        "clean_claim_rate": 0.902,
+        "first_pass_yield": 0.849,
+        "denial_rate": 0.061,
+        "days_in_ar": 41.5,
+        "net_collection_rate": 0.921,
+        "volume": 126,
+        "dollars_at_risk": 12100,
+        "owner": "Coder",
+        "action": "Tighten documentation readiness before charge release."
+      }
+    ],
+    "Claim type": [
+      {
+        "slice_name": "Claim type",
+        "segment": "Procedure add-on synthetic",
+        "clean_claim_rate": 0.864,
+        "first_pass_yield": 0.793,
+        "denial_rate": 0.101,
+        "days_in_ar": 50.2,
+        "net_collection_rate": 0.889,
+        "volume": 69,
+        "dollars_at_risk": 15100,
+        "owner": "Coder",
+        "action": "Validate modifier and documentation readiness."
+      },
+      {
+        "slice_name": "Claim type",
+        "segment": "New visit synthetic",
+        "clean_claim_rate": 0.901,
+        "first_pass_yield": 0.847,
+        "denial_rate": 0.064,
+        "days_in_ar": 42.1,
+        "net_collection_rate": 0.918,
+        "volume": 155,
+        "dollars_at_risk": 12800,
+        "owner": "Coder",
+        "action": "Review first-visit documentation before batch release."
+      },
+      {
+        "slice_name": "Claim type",
+        "segment": "Responsibility balance synthetic",
+        "clean_claim_rate": 0.919,
+        "first_pass_yield": 0.866,
+        "denial_rate": 0.046,
+        "days_in_ar": 37.3,
+        "net_collection_rate": 0.929,
+        "volume": 73,
+        "dollars_at_risk": 7600,
+        "owner": "A/R follow-up",
+        "action": "Separate follow-up queue from payment posting."
+      }
+    ]
+  },
+  "action_plan": [
+    {
+      "day_range": "Days 1-3",
+      "action": "Create missing-information packet checklist.",
+      "owner": "Denials specialist",
+      "effort": "M",
+      "impact": "Improve first-pass yield by 180-260 bps.",
+      "source": "CARC code: CARC 16 synthetic"
+    },
+    {
+      "day_range": "Days 4-7",
+      "action": "Validate modifier and documentation readiness.",
+      "owner": "Coder",
+      "effort": "M",
+      "impact": "Reduce denial pressure by 90-140 bps.",
+      "source": "Claim type: Procedure add-on synthetic"
+    },
+    {
+      "day_range": "Days 8-12",
+      "action": "Review documentation completeness before release.",
+      "owner": "Coder",
+      "effort": "S",
+      "impact": "Lower days in A/R by 2-4 days.",
+      "source": "Payer: Synthetic Payer D"
+    },
+    {
+      "day_range": "Days 13-18",
+      "action": "Split medical-necessity review from posting cleanup.",
+      "owner": "Denials specialist",
+      "effort": "L",
+      "impact": "Protect 220-310 bps of net collection rate.",
+      "source": "Specialty: Synthetic specialty-care launch"
+    },
+    {
+      "day_range": "Days 19-24",
+      "action": "Pull authorization evidence before resubmission.",
+      "owner": "Denials specialist",
+      "effort": "M",
+      "impact": "Cut aged synthetic exposure before month-end review.",
+      "source": "Payer: Synthetic Payer B"
+    },
+    {
+      "day_range": "Days 25-30",
+      "action": "Run coverage check script before claim build.",
+      "owner": "Front desk",
+      "effort": "S",
+      "impact": "Keep weekly scorecard ownership from drifting.",
+      "source": "CARC code: Coverage synthetic"
+    }
+  ]
+}

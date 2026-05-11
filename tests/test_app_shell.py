@@ -7,6 +7,7 @@ import pytest
 
 from revcyclemgmt_app_shell.claims_pipeline import CLAIM_PATHS, build_claims_pipeline_workspace
 from revcyclemgmt_app_shell.artifacts import write_artifacts
+from revcyclemgmt_app_shell.dashboard import build_dashboard_workspace, render_dashboard_svg, worst_three
 from revcyclemgmt_app_shell.privacy import PrivacyBoundaryError, validate_synthetic_payload
 from revcyclemgmt_app_shell.views import ROUTES, render_route
 from revcyclemgmt_app_shell.workspace import build_workspace
@@ -55,16 +56,23 @@ def test_artifacts_generate_svg_and_summary(tmp_path: Path) -> None:
     svg = tmp_path / "app_shell_proof.svg"
     claims_svg = tmp_path / "claims_pipeline_mapper_proof.svg"
     claims_summary = tmp_path / "claims_pipeline_mapper_summary.json"
+    dashboard_svg = tmp_path / "rcm_dashboard_proof.svg"
+    dashboard_summary = tmp_path / "rcm_dashboard_summary.json"
     data = tmp_path / "app_shell_summary.json"
     assert svg.exists()
     assert claims_svg.exists()
     assert claims_summary.exists()
+    assert dashboard_svg.exists()
+    assert dashboard_summary.exists()
     assert data.exists()
     assert "No-PHI" in svg.read_text(encoding="utf-8")
     assert claims_svg.stat().st_size > 8_000
     assert "Claims Pipeline Mapper" in claims_svg.read_text(encoding="utf-8")
+    assert dashboard_svg.stat().st_size > 30_000
+    assert "RCM Dashboard KPI" in dashboard_svg.read_text(encoding="utf-8")
     assert summary["boundary"] == "synthetic-only"
     assert summary["claims_pipeline_mapper"]["boundary"] == "synthetic-only"
+    assert summary["rcm_dashboard_kpi_workspace"]["boundary"] == "synthetic-only"
 
 
 @pytest.mark.parametrize("claim_path", [path.slug for path in CLAIM_PATHS])
@@ -111,6 +119,66 @@ def test_claims_pipeline_generated_artifacts_have_no_phi_shapes(tmp_path: Path) 
     assert "Synthetic" in blob
 
 
+def test_dashboard_workspace_views_render_with_expected_kpis() -> None:
+    workspace = build_dashboard_workspace()
+    assert len(workspace.kpis) == 5
+    assert len(workspace.trends) == 13
+    assert set(workspace.breakdowns) == {"Payer", "CARC code", "Specialty", "Claim type"}
+    assert workspace.action_plan
+    for rows in workspace.breakdowns.values():
+        assert len(worst_three(rows)) == 3
+
+    status, content_type, body = render_route("/app/dashboard")
+    assert status == 200
+    assert "text/html" in content_type
+    expected = [
+        "Headline Scorecard",
+        "13-Week Trend",
+        "Breakdowns",
+        "30-Day Action Plan",
+        "Clean claim rate",
+        "First-pass yield",
+        "Denial rate",
+        "Days in A/R",
+        "Net collection rate",
+        "Worst three",
+    ]
+    for label in expected:
+        assert label in body
+
+
+def test_dashboard_generated_artifacts_have_no_phi_shapes(tmp_path: Path) -> None:
+    write_artifacts(tmp_path)
+    root = Path(__file__).resolve().parents[1]
+    generated = [
+        tmp_path / "rcm_dashboard_proof.svg",
+        tmp_path / "rcm_dashboard_summary.json",
+        root / "docs" / "assets" / "rcm-dashboard-proof.svg",
+    ]
+    blob = "\n".join(path.read_text(encoding="utf-8") for path in generated)
+    blocked_patterns = {
+        "ssn": r"\b\d{3}-\d{2}-\d{4}\b",
+        "mrn": r"\bMRN[A-Z0-9-]{3,}\b",
+        "email": r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b",
+        "phone": r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b",
+        "date_of_birth": r"\b(?:dob|date of birth)\b",
+        "member_id": r"\b(?:member|subscriber|patient)\s*(?:id|#)\b",
+    }
+    import re
+
+    for label, pattern in blocked_patterns.items():
+        assert not re.search(pattern, blob, re.I), label
+    assert not any(_is_luhn_valid(match) for match in re.findall(r"\b\d{13,19}\b", blob))
+    assert not any(_is_valid_npi(match) for match in re.findall(r"\b[12]\d{9}\b", blob))
+    assert "Synthetic" in blob
+
+
+def test_dashboard_svg_is_non_trivial() -> None:
+    svg = render_dashboard_svg(build_dashboard_workspace())
+    assert len(svg.encode("utf-8")) > 30_000
+    assert "Headline" in svg or "RCM Dashboard KPI" in svg
+
+
 def test_no_real_client_or_vendor_partnership_copy_in_repo_docs() -> None:
     root = Path(__file__).resolve().parents[1]
     banned = [
@@ -138,3 +206,20 @@ def test_no_real_client_or_vendor_partnership_copy_in_repo_docs() -> None:
     text = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in scanned_paths)
     for term in banned:
         assert term.lower() not in text.lower(), term
+
+
+def _is_luhn_valid(value: str) -> bool:
+    digits = [int(char) for char in value if char.isdigit()]
+    total = 0
+    parity = len(digits) % 2
+    for index, digit in enumerate(digits):
+        if index % 2 == parity:
+            digit *= 2
+            if digit > 9:
+                digit -= 9
+        total += digit
+    return total % 10 == 0
+
+
+def _is_valid_npi(value: str) -> bool:
+    return _is_luhn_valid(f"80840{value}")

@@ -1,0 +1,694 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1600" viewBox="0 0 1280 1600" role="img" aria-labelledby="title desc">
+  <title id="title">RevCycleMGMT RCM Dashboard KPI workspace proof</title>
+  <desc id="desc">Synthetic four-view dashboard workspace: headline scorecard, 13-week trend, breakdowns, and 30-day action plan.</desc>
+  <metadata>{
+  &quot;boundary&quot;: &quot;synthetic-only&quot;,
+  &quot;as_of&quot;: &quot;2026-05-11&quot;,
+  &quot;freshness_days&quot;: 7,
+  &quot;headline_kpis&quot;: [
+    {
+      &quot;key&quot;: &quot;clean_claim_rate&quot;,
+      &quot;label&quot;: &quot;Clean claim rate&quot;,
+      &quot;current&quot;: 0.916,
+      &quot;target&quot;: 0.95,
+      &quot;unit&quot;: &quot;percent&quot;,
+      &quot;status&quot;: &quot;red&quot;,
+      &quot;stale&quot;: false,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;definition&quot;: &quot;Clean claims divided by submitted synthetic claims.&quot;
+    },
+    {
+      &quot;key&quot;: &quot;first_pass_yield&quot;,
+      &quot;label&quot;: &quot;First-pass yield&quot;,
+      &quot;current&quot;: 0.872,
+      &quot;target&quot;: 0.92,
+      &quot;unit&quot;: &quot;percent&quot;,
+      &quot;status&quot;: &quot;red&quot;,
+      &quot;stale&quot;: false,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;definition&quot;: &quot;Synthetic claims accepted and adjudicated without rework on the first path.&quot;
+    },
+    {
+      &quot;key&quot;: &quot;denial_rate&quot;,
+      &quot;label&quot;: &quot;Denial rate&quot;,
+      &quot;current&quot;: 0.043,
+      &quot;target&quot;: 0.03,
+      &quot;unit&quot;: &quot;percent&quot;,
+      &quot;status&quot;: &quot;amber&quot;,
+      &quot;stale&quot;: false,
+      &quot;owner&quot;: &quot;Denials specialist&quot;,
+      &quot;definition&quot;: &quot;Denied synthetic claims divided by adjudicated synthetic claims.&quot;
+    },
+    {
+      &quot;key&quot;: &quot;days_in_ar&quot;,
+      &quot;label&quot;: &quot;Days in A/R&quot;,
+      &quot;current&quot;: 38.4,
+      &quot;target&quot;: 30.0,
+      &quot;unit&quot;: &quot;days&quot;,
+      &quot;status&quot;: &quot;red&quot;,
+      &quot;stale&quot;: true,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;,
+      &quot;definition&quot;: &quot;Average synthetic claim age before payment visibility or closure.&quot;
+    },
+    {
+      &quot;key&quot;: &quot;net_collection_rate&quot;,
+      &quot;label&quot;: &quot;Net collection rate&quot;,
+      &quot;current&quot;: 0.934,
+      &quot;target&quot;: 0.97,
+      &quot;unit&quot;: &quot;percent&quot;,
+      &quot;status&quot;: &quot;red&quot;,
+      &quot;stale&quot;: false,
+      &quot;owner&quot;: &quot;Posting&quot;,
+      &quot;definition&quot;: &quot;Synthetic allowed collections divided by synthetic collectible revenue.&quot;
+    }
+  ],
+  &quot;trends&quot;: [
+    {
+      &quot;week&quot;: &quot;2026-02-16&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8375,
+        &quot;first_pass_yield&quot;: 0.7865,
+        &quot;denial_rate&quot;: 0.0695,
+        &quot;days_in_ar&quot;: 49.2,
+        &quot;net_collection_rate&quot;: 0.8825
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-02-23&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8467,
+        &quot;first_pass_yield&quot;: 0.7963,
+        &quot;denial_rate&quot;: 0.0699,
+        &quot;days_in_ar&quot;: 48.1,
+        &quot;net_collection_rate&quot;: 0.8894
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-03-02&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8558,
+        &quot;first_pass_yield&quot;: 0.806,
+        &quot;denial_rate&quot;: 0.0703,
+        &quot;days_in_ar&quot;: 46.9,
+        &quot;net_collection_rate&quot;: 0.8963
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-03-09&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.865,
+        &quot;first_pass_yield&quot;: 0.8157,
+        &quot;denial_rate&quot;: 0.0708,
+        &quot;days_in_ar&quot;: 45.8,
+        &quot;net_collection_rate&quot;: 0.9032
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-03-16&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8622,
+        &quot;first_pass_yield&quot;: 0.8135,
+        &quot;denial_rate&quot;: 0.0592,
+        &quot;days_in_ar&quot;: 45.7,
+        &quot;net_collection_rate&quot;: 0.8982
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-03-23&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8713,
+        &quot;first_pass_yield&quot;: 0.8233,
+        &quot;denial_rate&quot;: 0.0596,
+        &quot;days_in_ar&quot;: 44.6,
+        &quot;net_collection_rate&quot;: 0.9051
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-03-30&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8805,
+        &quot;first_pass_yield&quot;: 0.833,
+        &quot;denial_rate&quot;: 0.06,
+        &quot;days_in_ar&quot;: 43.5,
+        &quot;net_collection_rate&quot;: 0.912
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-04-06&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8897,
+        &quot;first_pass_yield&quot;: 0.8427,
+        &quot;denial_rate&quot;: 0.0604,
+        &quot;days_in_ar&quot;: 42.4,
+        &quot;net_collection_rate&quot;: 0.9189
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-04-13&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.8868,
+        &quot;first_pass_yield&quot;: 0.8405,
+        &quot;denial_rate&quot;: 0.0488,
+        &quot;days_in_ar&quot;: 42.2,
+        &quot;net_collection_rate&quot;: 0.9138
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-04-20&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.896,
+        &quot;first_pass_yield&quot;: 0.8503,
+        &quot;denial_rate&quot;: 0.0492,
+        &quot;days_in_ar&quot;: 41.1,
+        &quot;net_collection_rate&quot;: 0.9208
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-04-27&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.9052,
+        &quot;first_pass_yield&quot;: 0.86,
+        &quot;denial_rate&quot;: 0.0497,
+        &quot;days_in_ar&quot;: 40.0,
+        &quot;net_collection_rate&quot;: 0.9277
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-05-04&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.9143,
+        &quot;first_pass_yield&quot;: 0.8697,
+        &quot;denial_rate&quot;: 0.0501,
+        &quot;days_in_ar&quot;: 38.9,
+        &quot;net_collection_rate&quot;: 0.9346
+      }
+    },
+    {
+      &quot;week&quot;: &quot;2026-05-11&quot;,
+      &quot;values&quot;: {
+        &quot;clean_claim_rate&quot;: 0.9115,
+        &quot;first_pass_yield&quot;: 0.8675,
+        &quot;denial_rate&quot;: 0.0385,
+        &quot;days_in_ar&quot;: 38.8,
+        &quot;net_collection_rate&quot;: 0.9295
+      }
+    }
+  ],
+  &quot;breakdowns&quot;: {
+    &quot;Payer&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer B&quot;,
+        &quot;clean_claim_rate&quot;: 0.891,
+        &quot;first_pass_yield&quot;: 0.812,
+        &quot;denial_rate&quot;: 0.082,
+        &quot;days_in_ar&quot;: 45.6,
+        &quot;net_collection_rate&quot;: 0.904,
+        &quot;volume&quot;: 147,
+        &quot;dollars_at_risk&quot;: 18200,
+        &quot;owner&quot;: &quot;Denials specialist&quot;,
+        &quot;action&quot;: &quot;Pull authorization evidence before resubmission.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer D&quot;,
+        &quot;clean_claim_rate&quot;: 0.866,
+        &quot;first_pass_yield&quot;: 0.798,
+        &quot;denial_rate&quot;: 0.098,
+        &quot;days_in_ar&quot;: 49.1,
+        &quot;net_collection_rate&quot;: 0.897,
+        &quot;volume&quot;: 82,
+        &quot;dollars_at_risk&quot;: 15300,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Review documentation completeness before release.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer C&quot;,
+        &quot;clean_claim_rate&quot;: 0.917,
+        &quot;first_pass_yield&quot;: 0.861,
+        &quot;denial_rate&quot;: 0.052,
+        &quot;days_in_ar&quot;: 39.4,
+        &quot;net_collection_rate&quot;: 0.928,
+        &quot;volume&quot;: 96,
+        &quot;dollars_at_risk&quot;: 7900,
+        &quot;owner&quot;: &quot;Front desk&quot;,
+        &quot;action&quot;: &quot;Repair eligibility detail before next batch.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer A&quot;,
+        &quot;clean_claim_rate&quot;: 0.948,
+        &quot;first_pass_yield&quot;: 0.913,
+        &quot;denial_rate&quot;: 0.026,
+        &quot;days_in_ar&quot;: 27.8,
+        &quot;net_collection_rate&quot;: 0.962,
+        &quot;volume&quot;: 188,
+        &quot;dollars_at_risk&quot;: 6400,
+        &quot;owner&quot;: &quot;Posting&quot;,
+        &quot;action&quot;: &quot;Keep weekly variance audit active.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer E&quot;,
+        &quot;clean_claim_rate&quot;: 0.959,
+        &quot;first_pass_yield&quot;: 0.921,
+        &quot;denial_rate&quot;: 0.027,
+        &quot;days_in_ar&quot;: 25.9,
+        &quot;net_collection_rate&quot;: 0.971,
+        &quot;volume&quot;: 74,
+        &quot;dollars_at_risk&quot;: 4100,
+        &quot;owner&quot;: &quot;Posting&quot;,
+        &quot;action&quot;: &quot;Separate responsibility balances after remit posting.&quot;
+      }
+    ],
+    &quot;CARC code&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;CARC 16 synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.844,
+        &quot;first_pass_yield&quot;: 0.782,
+        &quot;denial_rate&quot;: 0.121,
+        &quot;days_in_ar&quot;: 52.8,
+        &quot;net_collection_rate&quot;: 0.884,
+        &quot;volume&quot;: 34,
+        &quot;dollars_at_risk&quot;: 11650,
+        &quot;owner&quot;: &quot;Denials specialist&quot;,
+        &quot;action&quot;: &quot;Create missing-information packet checklist.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;CO 45 synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.903,
+        &quot;first_pass_yield&quot;: 0.842,
+        &quot;denial_rate&quot;: 0.065,
+        &quot;days_in_ar&quot;: 43.3,
+        &quot;net_collection_rate&quot;: 0.911,
+        &quot;volume&quot;: 29,
+        &quot;dollars_at_risk&quot;: 9400,
+        &quot;owner&quot;: &quot;Posting&quot;,
+        &quot;action&quot;: &quot;Review allowed-amount variance before closeout.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;PR balance synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.926,
+        &quot;first_pass_yield&quot;: 0.879,
+        &quot;denial_rate&quot;: 0.041,
+        &quot;days_in_ar&quot;: 36.7,
+        &quot;net_collection_rate&quot;: 0.931,
+        &quot;volume&quot;: 27,
+        &quot;dollars_at_risk&quot;: 5400,
+        &quot;owner&quot;: &quot;A/R follow-up&quot;,
+        &quot;action&quot;: &quot;Separate patient-balance communication lane.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;Coverage synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.872,
+        &quot;first_pass_yield&quot;: 0.811,
+        &quot;denial_rate&quot;: 0.088,
+        &quot;days_in_ar&quot;: 47.6,
+        &quot;net_collection_rate&quot;: 0.902,
+        &quot;volume&quot;: 31,
+        &quot;dollars_at_risk&quot;: 8800,
+        &quot;owner&quot;: &quot;Front desk&quot;,
+        &quot;action&quot;: &quot;Run coverage check script before claim build.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;Clean remit synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.963,
+        &quot;first_pass_yield&quot;: 0.934,
+        &quot;denial_rate&quot;: 0.018,
+        &quot;days_in_ar&quot;: 24.4,
+        &quot;net_collection_rate&quot;: 0.976,
+        &quot;volume&quot;: 51,
+        &quot;dollars_at_risk&quot;: 2600,
+        &quot;owner&quot;: &quot;Posting&quot;,
+        &quot;action&quot;: &quot;Keep post-remit variance review weekly.&quot;
+      }
+    ],
+    &quot;Specialty&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic therapy launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.902,
+        &quot;first_pass_yield&quot;: 0.849,
+        &quot;denial_rate&quot;: 0.061,
+        &quot;days_in_ar&quot;: 41.5,
+        &quot;net_collection_rate&quot;: 0.921,
+        &quot;volume&quot;: 126,
+        &quot;dollars_at_risk&quot;: 12100,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Tighten documentation readiness before charge release.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic behavioral launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.884,
+        &quot;first_pass_yield&quot;: 0.821,
+        &quot;denial_rate&quot;: 0.074,
+        &quot;days_in_ar&quot;: 44.9,
+        &quot;net_collection_rate&quot;: 0.909,
+        &quot;volume&quot;: 118,
+        &quot;dollars_at_risk&quot;: 13700,
+        &quot;owner&quot;: &quot;Front desk&quot;,
+        &quot;action&quot;: &quot;Validate eligibility and authorization fields earlier.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic primary-care launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.937,
+        &quot;first_pass_yield&quot;: 0.892,
+        &quot;denial_rate&quot;: 0.036,
+        &quot;days_in_ar&quot;: 32.4,
+        &quot;net_collection_rate&quot;: 0.948,
+        &quot;volume&quot;: 163,
+        &quot;dollars_at_risk&quot;: 7100,
+        &quot;owner&quot;: &quot;Biller&quot;,
+        &quot;action&quot;: &quot;Monitor clean-claim drift after weekly batches.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic specialty-care launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.871,
+        &quot;first_pass_yield&quot;: 0.804,
+        &quot;denial_rate&quot;: 0.092,
+        &quot;days_in_ar&quot;: 48.6,
+        &quot;net_collection_rate&quot;: 0.895,
+        &quot;volume&quot;: 88,
+        &quot;dollars_at_risk&quot;: 14950,
+        &quot;owner&quot;: &quot;Denials specialist&quot;,
+        &quot;action&quot;: &quot;Split medical-necessity review from posting cleanup.&quot;
+      }
+    ],
+    &quot;Claim type&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;New visit synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.901,
+        &quot;first_pass_yield&quot;: 0.847,
+        &quot;denial_rate&quot;: 0.064,
+        &quot;days_in_ar&quot;: 42.1,
+        &quot;net_collection_rate&quot;: 0.918,
+        &quot;volume&quot;: 155,
+        &quot;dollars_at_risk&quot;: 12800,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Review first-visit documentation before batch release.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;Follow-up visit synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.941,
+        &quot;first_pass_yield&quot;: 0.899,
+        &quot;denial_rate&quot;: 0.032,
+        &quot;days_in_ar&quot;: 29.8,
+        &quot;net_collection_rate&quot;: 0.957,
+        &quot;volume&quot;: 214,
+        &quot;dollars_at_risk&quot;: 6200,
+        &quot;owner&quot;: &quot;Biller&quot;,
+        &quot;action&quot;: &quot;Keep daily acceptance scan active.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;Procedure add-on synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.864,
+        &quot;first_pass_yield&quot;: 0.793,
+        &quot;denial_rate&quot;: 0.101,
+        &quot;days_in_ar&quot;: 50.2,
+        &quot;net_collection_rate&quot;: 0.889,
+        &quot;volume&quot;: 69,
+        &quot;dollars_at_risk&quot;: 15100,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Validate modifier and documentation readiness.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;Responsibility balance synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.919,
+        &quot;first_pass_yield&quot;: 0.866,
+        &quot;denial_rate&quot;: 0.046,
+        &quot;days_in_ar&quot;: 37.3,
+        &quot;net_collection_rate&quot;: 0.929,
+        &quot;volume&quot;: 73,
+        &quot;dollars_at_risk&quot;: 7600,
+        &quot;owner&quot;: &quot;A/R follow-up&quot;,
+        &quot;action&quot;: &quot;Separate follow-up queue from payment posting.&quot;
+      }
+    ]
+  },
+  &quot;worst_three&quot;: {
+    &quot;Payer&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer D&quot;,
+        &quot;clean_claim_rate&quot;: 0.866,
+        &quot;first_pass_yield&quot;: 0.798,
+        &quot;denial_rate&quot;: 0.098,
+        &quot;days_in_ar&quot;: 49.1,
+        &quot;net_collection_rate&quot;: 0.897,
+        &quot;volume&quot;: 82,
+        &quot;dollars_at_risk&quot;: 15300,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Review documentation completeness before release.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer B&quot;,
+        &quot;clean_claim_rate&quot;: 0.891,
+        &quot;first_pass_yield&quot;: 0.812,
+        &quot;denial_rate&quot;: 0.082,
+        &quot;days_in_ar&quot;: 45.6,
+        &quot;net_collection_rate&quot;: 0.904,
+        &quot;volume&quot;: 147,
+        &quot;dollars_at_risk&quot;: 18200,
+        &quot;owner&quot;: &quot;Denials specialist&quot;,
+        &quot;action&quot;: &quot;Pull authorization evidence before resubmission.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Payer&quot;,
+        &quot;segment&quot;: &quot;Synthetic Payer C&quot;,
+        &quot;clean_claim_rate&quot;: 0.917,
+        &quot;first_pass_yield&quot;: 0.861,
+        &quot;denial_rate&quot;: 0.052,
+        &quot;days_in_ar&quot;: 39.4,
+        &quot;net_collection_rate&quot;: 0.928,
+        &quot;volume&quot;: 96,
+        &quot;dollars_at_risk&quot;: 7900,
+        &quot;owner&quot;: &quot;Front desk&quot;,
+        &quot;action&quot;: &quot;Repair eligibility detail before next batch.&quot;
+      }
+    ],
+    &quot;CARC code&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;CARC 16 synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.844,
+        &quot;first_pass_yield&quot;: 0.782,
+        &quot;denial_rate&quot;: 0.121,
+        &quot;days_in_ar&quot;: 52.8,
+        &quot;net_collection_rate&quot;: 0.884,
+        &quot;volume&quot;: 34,
+        &quot;dollars_at_risk&quot;: 11650,
+        &quot;owner&quot;: &quot;Denials specialist&quot;,
+        &quot;action&quot;: &quot;Create missing-information packet checklist.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;Coverage synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.872,
+        &quot;first_pass_yield&quot;: 0.811,
+        &quot;denial_rate&quot;: 0.088,
+        &quot;days_in_ar&quot;: 47.6,
+        &quot;net_collection_rate&quot;: 0.902,
+        &quot;volume&quot;: 31,
+        &quot;dollars_at_risk&quot;: 8800,
+        &quot;owner&quot;: &quot;Front desk&quot;,
+        &quot;action&quot;: &quot;Run coverage check script before claim build.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;CARC code&quot;,
+        &quot;segment&quot;: &quot;CO 45 synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.903,
+        &quot;first_pass_yield&quot;: 0.842,
+        &quot;denial_rate&quot;: 0.065,
+        &quot;days_in_ar&quot;: 43.3,
+        &quot;net_collection_rate&quot;: 0.911,
+        &quot;volume&quot;: 29,
+        &quot;dollars_at_risk&quot;: 9400,
+        &quot;owner&quot;: &quot;Posting&quot;,
+        &quot;action&quot;: &quot;Review allowed-amount variance before closeout.&quot;
+      }
+    ],
+    &quot;Specialty&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic specialty-care launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.871,
+        &quot;first_pass_yield&quot;: 0.804,
+        &quot;denial_rate&quot;: 0.092,
+        &quot;days_in_ar&quot;: 48.6,
+        &quot;net_collection_rate&quot;: 0.895,
+        &quot;volume&quot;: 88,
+        &quot;dollars_at_risk&quot;: 14950,
+        &quot;owner&quot;: &quot;Denials specialist&quot;,
+        &quot;action&quot;: &quot;Split medical-necessity review from posting cleanup.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic behavioral launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.884,
+        &quot;first_pass_yield&quot;: 0.821,
+        &quot;denial_rate&quot;: 0.074,
+        &quot;days_in_ar&quot;: 44.9,
+        &quot;net_collection_rate&quot;: 0.909,
+        &quot;volume&quot;: 118,
+        &quot;dollars_at_risk&quot;: 13700,
+        &quot;owner&quot;: &quot;Front desk&quot;,
+        &quot;action&quot;: &quot;Validate eligibility and authorization fields earlier.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Specialty&quot;,
+        &quot;segment&quot;: &quot;Synthetic therapy launch&quot;,
+        &quot;clean_claim_rate&quot;: 0.902,
+        &quot;first_pass_yield&quot;: 0.849,
+        &quot;denial_rate&quot;: 0.061,
+        &quot;days_in_ar&quot;: 41.5,
+        &quot;net_collection_rate&quot;: 0.921,
+        &quot;volume&quot;: 126,
+        &quot;dollars_at_risk&quot;: 12100,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Tighten documentation readiness before charge release.&quot;
+      }
+    ],
+    &quot;Claim type&quot;: [
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;Procedure add-on synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.864,
+        &quot;first_pass_yield&quot;: 0.793,
+        &quot;denial_rate&quot;: 0.101,
+        &quot;days_in_ar&quot;: 50.2,
+        &quot;net_collection_rate&quot;: 0.889,
+        &quot;volume&quot;: 69,
+        &quot;dollars_at_risk&quot;: 15100,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Validate modifier and documentation readiness.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;New visit synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.901,
+        &quot;first_pass_yield&quot;: 0.847,
+        &quot;denial_rate&quot;: 0.064,
+        &quot;days_in_ar&quot;: 42.1,
+        &quot;net_collection_rate&quot;: 0.918,
+        &quot;volume&quot;: 155,
+        &quot;dollars_at_risk&quot;: 12800,
+        &quot;owner&quot;: &quot;Coder&quot;,
+        &quot;action&quot;: &quot;Review first-visit documentation before batch release.&quot;
+      },
+      {
+        &quot;slice_name&quot;: &quot;Claim type&quot;,
+        &quot;segment&quot;: &quot;Responsibility balance synthetic&quot;,
+        &quot;clean_claim_rate&quot;: 0.919,
+        &quot;first_pass_yield&quot;: 0.866,
+        &quot;denial_rate&quot;: 0.046,
+        &quot;days_in_ar&quot;: 37.3,
+        &quot;net_collection_rate&quot;: 0.929,
+        &quot;volume&quot;: 73,
+        &quot;dollars_at_risk&quot;: 7600,
+        &quot;owner&quot;: &quot;A/R follow-up&quot;,
+        &quot;action&quot;: &quot;Separate follow-up queue from payment posting.&quot;
+      }
+    ]
+  },
+  &quot;action_plan&quot;: [
+    {
+      &quot;day_range&quot;: &quot;Days 1-3&quot;,
+      &quot;action&quot;: &quot;Create missing-information packet checklist.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Improve first-pass yield by 180-260 bps.&quot;,
+      &quot;source&quot;: &quot;CARC code: CARC 16 synthetic&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 4-7&quot;,
+      &quot;action&quot;: &quot;Validate modifier and documentation readiness.&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Reduce denial pressure by 90-140 bps.&quot;,
+      &quot;source&quot;: &quot;Claim type: Procedure add-on synthetic&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 8-12&quot;,
+      &quot;action&quot;: &quot;Review documentation completeness before release.&quot;,
+      &quot;owner&quot;: &quot;Coder&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Lower days in A/R by 2-4 days.&quot;,
+      &quot;source&quot;: &quot;Payer: Synthetic Payer D&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 13-18&quot;,
+      &quot;action&quot;: &quot;Split medical-necessity review from posting cleanup.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;,
+      &quot;effort&quot;: &quot;L&quot;,
+      &quot;impact&quot;: &quot;Protect 220-310 bps of net collection rate.&quot;,
+      &quot;source&quot;: &quot;Specialty: Synthetic specialty-care launch&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 19-24&quot;,
+      &quot;action&quot;: &quot;Pull authorization evidence before resubmission.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Cut aged synthetic exposure before month-end review.&quot;,
+      &quot;source&quot;: &quot;Payer: Synthetic Payer B&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 25-30&quot;,
+      &quot;action&quot;: &quot;Run coverage check script before claim build.&quot;,
+      &quot;owner&quot;: &quot;Front desk&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Keep weekly scorecard ownership from drifting.&quot;,
+      &quot;source&quot;: &quot;CARC code: Coverage synthetic&quot;
+    }
+  ]
+}</metadata>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#071012" offset="0"/>
+      <stop stop-color="#123238" offset="1"/>
+    </linearGradient>
+    <style>
+      .title { font: 900 42px Inter, Arial, sans-serif; fill: #f8fafc; }
+      .subtitle { font: 600 17px Inter, Arial, sans-serif; fill: #cbd5e1; }
+      .kicker { font: 900 12px Inter, Arial, sans-serif; fill: #7dd3d8; letter-spacing: .12em; text-transform: uppercase; }
+      .metric { font: 900 34px Inter, Arial, sans-serif; fill: #ffffff; }
+      .small { font: 800 14px Inter, Arial, sans-serif; fill: #f8fafc; }
+      .tiny { font: 650 12px Inter, Arial, sans-serif; fill: #cbd5e1; }
+      .strong { font-weight: 900; fill: #f8fafc; }
+      .badge { font: 900 10px Inter, Arial, sans-serif; fill: #facc15; letter-spacing: .08em; }
+    </style>
+  </defs>
+  <rect width="1280" height="1600" fill="url(#bg)"/>
+  <rect x="28" y="28" width="1224" height="1544" rx="18" fill="#091316" stroke="#21414a"/>
+  <text x="58" y="76" class="kicker">RCM Dashboard KPI Framework | Synthetic only</text>
+  <text x="58" y="124" class="title">A clinic owner sees what to fix first.</text>
+  <text x="58" y="154" class="subtitle">Headline KPIs, 13-week movement, breakdown risk, and a 30-day operating plan generated from one synthetic batch.</text>
+  <rect x="58" y="174" width="218" height="142" rx="12" fill="#071316" stroke="#fb7185"/><text x="74" y="202" class="kicker">Clean claim rate</text><text x="74" y="244" class="metric">91.6%</text><text x="74" y="272" class="tiny">Target 95.0%</text><text x="74" y="296" class="tiny">-3.4 pts vs target</text><text x="260" y="296" class="badge" text-anchor="end">FRESH</text><rect x="292" y="174" width="218" height="142" rx="12" fill="#071316" stroke="#fb7185"/><text x="308" y="202" class="kicker">First-pass yield</text><text x="308" y="244" class="metric">87.2%</text><text x="308" y="272" class="tiny">Target 92.0%</text><text x="308" y="296" class="tiny">-4.8 pts vs target</text><text x="494" y="296" class="badge" text-anchor="end">FRESH</text><rect x="526" y="174" width="218" height="142" rx="12" fill="#071316" stroke="#facc15"/><text x="542" y="202" class="kicker">Denial rate</text><text x="542" y="244" class="metric">4.3%</text><text x="542" y="272" class="tiny">Target 3.0%</text><text x="542" y="296" class="tiny">+1.3 pts vs target</text><text x="728" y="296" class="badge" text-anchor="end">FRESH</text><rect x="760" y="174" width="218" height="142" rx="12" fill="#071316" stroke="#fb7185"/><text x="776" y="202" class="kicker">Days in A/R</text><text x="776" y="244" class="metric">38.4 days</text><text x="776" y="272" class="tiny">Target 30.0 days</text><text x="776" y="296" class="tiny">+8.4 days vs target</text><text x="962" y="296" class="badge" text-anchor="end">STALE</text><rect x="994" y="174" width="218" height="142" rx="12" fill="#071316" stroke="#fb7185"/><text x="1010" y="202" class="kicker">Net collection rate</text><text x="1010" y="244" class="metric">93.4%</text><text x="1010" y="272" class="tiny">Target 97.0%</text><text x="1010" y="296" class="tiny">-3.6 pts vs target</text><text x="1196" y="296" class="badge" text-anchor="end">FRESH</text>
+  <rect x="58" y="348" width="686" height="210" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="380" class="kicker">13-Week Trend</text>
+  <path d="M82 530 H590 M82 493 H590 M82 456 H590 M82 419 H590 M82 382 H590" stroke="#1f3941" stroke-width="1"/>
+  <polyline points="82.0,530.0 124.3,512.3 166.7,494.7 209.0,477.0 251.3,482.4 293.7,464.9 336.0,447.1 378.3,429.4 420.7,435.0 463.0,417.3 505.3,399.5 547.7,382.0 590.0,387.4" fill="none" stroke="#00B3A4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="82.0,530.0 124.3,512.6 166.7,495.3 209.0,478.1 251.3,482.0 293.7,464.5 336.0,447.3 378.3,430.0 420.7,433.9 463.0,416.5 505.3,399.3 547.7,382.0 590.0,385.9" fill="none" stroke="#7dd3d8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="82.0,524.0 124.3,525.9 166.7,527.7 209.0,530.0 251.3,476.8 293.7,478.7 336.0,480.5 378.3,482.3 420.7,429.2 463.0,431.0 505.3,433.3 547.7,435.2 590.0,382.0" fill="none" stroke="#fb7185" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="82.0,530.0 124.3,514.3 166.7,497.3 209.0,481.6 251.3,480.2 293.7,464.5 336.0,448.9 378.3,433.2 420.7,430.4 463.0,414.7 505.3,399.1 547.7,383.4 590.0,382.0" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="82.0,530.0 124.3,510.4 166.7,490.8 209.0,471.2 251.3,485.4 293.7,465.8 336.0,446.2 378.3,426.6 420.7,441.1 463.0,421.2 505.3,401.6 547.7,382.0 590.0,396.5" fill="none" stroke="#a7f3d0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="646" cy="388" r="5" fill="#00B3A4"/><text x="660" y="393" class="tiny">Clean claim rate</text><circle cx="646" cy="414" r="5" fill="#7dd3d8"/><text x="660" y="419" class="tiny">First-pass yield</text><circle cx="646" cy="440" r="5" fill="#fb7185"/><text x="660" y="445" class="tiny">Denial rate</text><circle cx="646" cy="466" r="5" fill="#facc15"/><text x="660" y="471" class="tiny">Days in A/R</text><circle cx="646" cy="492" r="5" fill="#a7f3d0"/><text x="660" y="497" class="tiny">Net collection rate</text>
+  <rect x="774" y="348" width="446" height="320" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="798" y="380" class="kicker">30-Day Action Plan</text>
+  <rect x="790" y="390" width="406" height="46" rx="9" fill="#071316" stroke="#21414a"/><text x="808" y="408" class="tiny strong">Days 1-3 | Denials specialist | M</text><text x="808" y="426" class="tiny">Create missing-information packet checklist.</text><rect x="790" y="446" width="406" height="46" rx="9" fill="#071316" stroke="#21414a"/><text x="808" y="464" class="tiny strong">Days 4-7 | Coder | M</text><text x="808" y="482" class="tiny">Validate modifier and documentation readiness.</text><rect x="790" y="502" width="406" height="46" rx="9" fill="#071316" stroke="#21414a"/><text x="808" y="520" class="tiny strong">Days 8-12 | Coder | S</text><text x="808" y="538" class="tiny">Review documentation completeness before release.</text><rect x="790" y="558" width="406" height="46" rx="9" fill="#071316" stroke="#21414a"/><text x="808" y="576" class="tiny strong">Days 13-18 | Denials specialist | L</text><text x="808" y="594" class="tiny">Split medical-necessity review from posting cleanup.</text><rect x="790" y="614" width="406" height="46" rx="9" fill="#071316" stroke="#21414a"/><text x="808" y="632" class="tiny strong">Days 19-24 | Denials specialist | M</text><text x="808" y="650" class="tiny">Pull authorization evidence before resubmission.</text>
+  <rect x="58" y="602" width="562" height="128" rx="12" fill="#101b20" stroke="#21414a"/><text x="76" y="632" class="kicker">Payer worst three</text><rect x="76" y="638" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="88" y="658" class="small">Synthetic Payer D</text><text x="386" y="658" class="tiny">Denial 9.8% | A/R 49.1d</text><text x="566" y="658" class="tiny" text-anchor="end">$15,300</text><rect x="76" y="670" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="88" y="690" class="small">Synthetic Payer B</text><text x="386" y="690" class="tiny">Denial 8.2% | A/R 45.6d</text><text x="566" y="690" class="tiny" text-anchor="end">$18,200</text><rect x="76" y="702" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="88" y="722" class="small">Synthetic Payer C</text><text x="386" y="722" class="tiny">Denial 5.2% | A/R 39.4d</text><text x="566" y="722" class="tiny" text-anchor="end">$7,900</text><rect x="652" y="602" width="562" height="128" rx="12" fill="#101b20" stroke="#21414a"/><text x="670" y="632" class="kicker">CARC code worst three</text><rect x="670" y="638" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="682" y="658" class="small">CARC 16 synthetic</text><text x="980" y="658" class="tiny">Denial 12.1% | A/R 52.8d</text><text x="1160" y="658" class="tiny" text-anchor="end">$11,650</text><rect x="670" y="670" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="682" y="690" class="small">Coverage synthetic</text><text x="980" y="690" class="tiny">Denial 8.8% | A/R 47.6d</text><text x="1160" y="690" class="tiny" text-anchor="end">$8,800</text><rect x="670" y="702" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="682" y="722" class="small">CO 45 synthetic</text><text x="980" y="722" class="tiny">Denial 6.5% | A/R 43.3d</text><text x="1160" y="722" class="tiny" text-anchor="end">$9,400</text><rect x="58" y="754" width="562" height="128" rx="12" fill="#101b20" stroke="#21414a"/><text x="76" y="784" class="kicker">Specialty worst three</text><rect x="76" y="790" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="88" y="810" class="small">Synthetic specialty-care launch</text><text x="386" y="810" class="tiny">Denial 9.2% | A/R 48.6d</text><text x="566" y="810" class="tiny" text-anchor="end">$14,950</text><rect x="76" y="822" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="88" y="842" class="small">Synthetic behavioral launch</text><text x="386" y="842" class="tiny">Denial 7.4% | A/R 44.9d</text><text x="566" y="842" class="tiny" text-anchor="end">$13,700</text><rect x="76" y="854" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="88" y="874" class="small">Synthetic therapy launch</text><text x="386" y="874" class="tiny">Denial 6.1% | A/R 41.5d</text><text x="566" y="874" class="tiny" text-anchor="end">$12,100</text><rect x="652" y="754" width="562" height="128" rx="12" fill="#101b20" stroke="#21414a"/><text x="670" y="784" class="kicker">Claim type worst three</text><rect x="670" y="790" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="682" y="810" class="small">Procedure add-on synthetic</text><text x="980" y="810" class="tiny">Denial 10.1% | A/R 50.2d</text><text x="1160" y="810" class="tiny" text-anchor="end">$15,100</text><rect x="670" y="822" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="682" y="842" class="small">New visit synthetic</text><text x="980" y="842" class="tiny">Denial 6.4% | A/R 42.1d</text><text x="1160" y="842" class="tiny" text-anchor="end">$12,800</text><rect x="670" y="854" width="526" height="28" rx="7" fill="#071316" stroke="#31545c"/><text x="682" y="874" class="small">Responsibility balance synthetic</text><text x="980" y="874" class="tiny">Denial 4.6% | A/R 37.3d</text><text x="1160" y="874" class="tiny" text-anchor="end">$7,600</text>
+  <rect x="58" y="696" width="1162" height="786" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="734" class="kicker">Full synthetic breakdown evidence</text>
+  <text x="82" y="774" class="kicker">Payer operating ledger</text><rect x="82" y="782" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="800" class="tiny strong">Synthetic Payer B</text><text x="302" y="800" class="tiny">clean 89.1% | first-pass 81.2% | denial 8.2%</text><text x="598" y="800" class="tiny">A/R 45.6d | net collect 90.4% | volume 147</text><text x="890" y="800" class="tiny">$18,200 synthetic | Denials specialist</text><text x="1184" y="800" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="813" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="831" class="tiny strong">Synthetic Payer D</text><text x="302" y="831" class="tiny">clean 86.6% | first-pass 79.8% | denial 9.8%</text><text x="598" y="831" class="tiny">A/R 49.1d | net collect 89.7% | volume 82</text><text x="890" y="831" class="tiny">$15,300 synthetic | Coder</text><text x="1184" y="831" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="844" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="862" class="tiny strong">Synthetic Payer C</text><text x="302" y="862" class="tiny">clean 91.7% | first-pass 86.1% | denial 5.2%</text><text x="598" y="862" class="tiny">A/R 39.4d | net collect 92.8% | volume 96</text><text x="890" y="862" class="tiny">$7,900 synthetic | Front desk</text><text x="1184" y="862" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="875" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="893" class="tiny strong">Synthetic Payer A</text><text x="302" y="893" class="tiny">clean 94.8% | first-pass 91.3% | denial 2.6%</text><text x="598" y="893" class="tiny">A/R 27.8d | net collect 96.2% | volume 188</text><text x="890" y="893" class="tiny">$6,400 synthetic | Posting</text><text x="1184" y="893" class="tiny" text-anchor="end">monitor</text><rect x="82" y="906" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="924" class="tiny strong">Synthetic Payer E</text><text x="302" y="924" class="tiny">clean 95.9% | first-pass 92.1% | denial 2.7%</text><text x="598" y="924" class="tiny">A/R 25.9d | net collect 97.1% | volume 74</text><text x="890" y="924" class="tiny">$4,100 synthetic | Posting</text><text x="1184" y="924" class="tiny" text-anchor="end">monitor</text><text x="82" y="967" class="kicker">CARC code operating ledger</text><rect x="82" y="975" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="993" class="tiny strong">CARC 16 synthetic</text><text x="302" y="993" class="tiny">clean 84.4% | first-pass 78.2% | denial 12.1%</text><text x="598" y="993" class="tiny">A/R 52.8d | net collect 88.4% | volume 34</text><text x="890" y="993" class="tiny">$11,650 synthetic | Denials specialist</text><text x="1184" y="993" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1006" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1024" class="tiny strong">CO 45 synthetic</text><text x="302" y="1024" class="tiny">clean 90.3% | first-pass 84.2% | denial 6.5%</text><text x="598" y="1024" class="tiny">A/R 43.3d | net collect 91.1% | volume 29</text><text x="890" y="1024" class="tiny">$9,400 synthetic | Posting</text><text x="1184" y="1024" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1037" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1055" class="tiny strong">PR balance synthetic</text><text x="302" y="1055" class="tiny">clean 92.6% | first-pass 87.9% | denial 4.1%</text><text x="598" y="1055" class="tiny">A/R 36.7d | net collect 93.1% | volume 27</text><text x="890" y="1055" class="tiny">$5,400 synthetic | A/R follow-up</text><text x="1184" y="1055" class="tiny" text-anchor="end">monitor</text><rect x="82" y="1068" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1086" class="tiny strong">Coverage synthetic</text><text x="302" y="1086" class="tiny">clean 87.2% | first-pass 81.1% | denial 8.8%</text><text x="598" y="1086" class="tiny">A/R 47.6d | net collect 90.2% | volume 31</text><text x="890" y="1086" class="tiny">$8,800 synthetic | Front desk</text><text x="1184" y="1086" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1099" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1117" class="tiny strong">Clean remit synthetic</text><text x="302" y="1117" class="tiny">clean 96.3% | first-pass 93.4% | denial 1.8%</text><text x="598" y="1117" class="tiny">A/R 24.4d | net collect 97.6% | volume 51</text><text x="890" y="1117" class="tiny">$2,600 synthetic | Posting</text><text x="1184" y="1117" class="tiny" text-anchor="end">monitor</text><text x="82" y="1160" class="kicker">Specialty operating ledger</text><rect x="82" y="1168" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1186" class="tiny strong">Synthetic therapy launch</text><text x="302" y="1186" class="tiny">clean 90.2% | first-pass 84.9% | denial 6.1%</text><text x="598" y="1186" class="tiny">A/R 41.5d | net collect 92.1% | volume 126</text><text x="890" y="1186" class="tiny">$12,100 synthetic | Coder</text><text x="1184" y="1186" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1199" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1217" class="tiny strong">Synthetic behavioral launch</text><text x="302" y="1217" class="tiny">clean 88.4% | first-pass 82.1% | denial 7.4%</text><text x="598" y="1217" class="tiny">A/R 44.9d | net collect 90.9% | volume 118</text><text x="890" y="1217" class="tiny">$13,700 synthetic | Front desk</text><text x="1184" y="1217" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1230" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1248" class="tiny strong">Synthetic primary-care launch</text><text x="302" y="1248" class="tiny">clean 93.7% | first-pass 89.2% | denial 3.6%</text><text x="598" y="1248" class="tiny">A/R 32.4d | net collect 94.8% | volume 163</text><text x="890" y="1248" class="tiny">$7,100 synthetic | Biller</text><text x="1184" y="1248" class="tiny" text-anchor="end">monitor</text><rect x="82" y="1261" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1279" class="tiny strong">Synthetic specialty-care launch</text><text x="302" y="1279" class="tiny">clean 87.1% | first-pass 80.4% | denial 9.2%</text><text x="598" y="1279" class="tiny">A/R 48.6d | net collect 89.5% | volume 88</text><text x="890" y="1279" class="tiny">$14,950 synthetic | Denials specialist</text><text x="1184" y="1279" class="tiny" text-anchor="end">worst-three</text><text x="82" y="1322" class="kicker">Claim type operating ledger</text><rect x="82" y="1330" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1348" class="tiny strong">New visit synthetic</text><text x="302" y="1348" class="tiny">clean 90.1% | first-pass 84.7% | denial 6.4%</text><text x="598" y="1348" class="tiny">A/R 42.1d | net collect 91.8% | volume 155</text><text x="890" y="1348" class="tiny">$12,800 synthetic | Coder</text><text x="1184" y="1348" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1361" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1379" class="tiny strong">Follow-up visit synthetic</text><text x="302" y="1379" class="tiny">clean 94.1% | first-pass 89.9% | denial 3.2%</text><text x="598" y="1379" class="tiny">A/R 29.8d | net collect 95.7% | volume 214</text><text x="890" y="1379" class="tiny">$6,200 synthetic | Biller</text><text x="1184" y="1379" class="tiny" text-anchor="end">monitor</text><rect x="82" y="1392" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1410" class="tiny strong">Procedure add-on synthetic</text><text x="302" y="1410" class="tiny">clean 86.4% | first-pass 79.3% | denial 10.1%</text><text x="598" y="1410" class="tiny">A/R 50.2d | net collect 88.9% | volume 69</text><text x="890" y="1410" class="tiny">$15,100 synthetic | Coder</text><text x="1184" y="1410" class="tiny" text-anchor="end">worst-three</text><rect x="82" y="1423" width="1116" height="25" rx="6" fill="#071316" stroke="#1f3941"/><text x="96" y="1441" class="tiny strong">Responsibility balance synthetic</text><text x="302" y="1441" class="tiny">clean 91.9% | first-pass 86.6% | denial 4.6%</text><text x="598" y="1441" class="tiny">A/R 37.3d | net collect 92.9% | volume 73</text><text x="890" y="1441" class="tiny">$7,600 synthetic | A/R follow-up</text><text x="1184" y="1441" class="tiny" text-anchor="end">worst-three</text>
+  <rect x="58" y="1526" width="1162" height="30" rx="15" fill="#00B3A4"/>
+  <text x="640" y="1546" text-anchor="middle" fill="#021415" font-size="14" font-weight="900">All KPI values, payer labels, dates, dollar figures, and workqueue signals are synthetic demo data.</text>
+</svg>

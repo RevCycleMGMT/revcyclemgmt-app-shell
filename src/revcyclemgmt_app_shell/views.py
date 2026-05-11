@@ -6,7 +6,14 @@ from html import escape
 from urllib.parse import parse_qs
 
 from .claims_pipeline import build_claims_pipeline_workspace, dollars
-from .data import DASHBOARD_METRICS, DASHBOARD_READOUT, PLACEHOLDER_COPY, ROADMAP_MODULES
+from .dashboard import (
+    build_dashboard_workspace,
+    delta_label,
+    kpi_value,
+    pct as dashboard_pct,
+    worst_three,
+)
+from .data import PLACEHOLDER_COPY, ROADMAP_MODULES
 from .privacy import PrivacyBoundaryError
 from .workspace import build_workspace
 
@@ -61,6 +68,12 @@ def render_route(path: str = "/", query: str = "") -> tuple[int, str, str]:
 
 
 def render_page(active_slug: str, body: str) -> str:
+    titles = {
+        "launch-workspace": "App Shell + Launch Workspace",
+        "claims-pipeline": "Claims Pipeline Mapper",
+        "dashboard": "RCM Dashboard KPI Workspace",
+    }
+    page_title = titles.get(active_slug, "Roadmap Module")
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -79,7 +92,7 @@ def render_page(active_slug: str, body: str) -> str:
     <header class="topbar">
       <div>
         <p class="eyebrow">Revenue infrastructure for independent healthcare practices</p>
-        <h1>App Shell + Launch Workspace</h1>
+        <h1>{escape(page_title)}</h1>
       </div>
       <div class="status">Synthetic only</div>
     </header>
@@ -163,23 +176,164 @@ def input_field(name: str, label: str, value: str) -> str:
 
 
 def render_dashboard() -> str:
-    cards = [
-        ("Claims", f"{DASHBOARD_METRICS['claims_submitted']:,}"),
-        ("Clean claim", pct(DASHBOARD_METRICS["clean_claim_rate"])),
-        ("Rejection", pct(DASHBOARD_METRICS["clearinghouse_rejection_rate"])),
-        ("Denial", pct(DASHBOARD_METRICS["denial_rate"])),
-        ("835 match", pct(DASHBOARD_METRICS["remit_match_rate"])),
-        ("A/R exposure", dollars(DASHBOARD_METRICS["current_ar_exposure"])),
-    ]
-    card_html = "".join(f'<div class="kpi"><span>{label}</span><strong>{value}</strong></div>' for label, value in cards)
-    readout = "".join(f"<li>{escape(line)}</li>" for line in DASHBOARD_READOUT)
+    workspace = build_dashboard_workspace()
+    card_html = "".join(
+        f"""
+        <article class="kpi-card {escape(kpi.status)}">
+          <div class="kpi-card-top">
+            <span>{escape(kpi.label)}</span>
+            <em class="freshness {'stale' if kpi.stale else 'fresh'}">{'stale data' if kpi.stale else 'fresh batch'}</em>
+          </div>
+          <strong>{escape(kpi_value(kpi))}</strong>
+          <dl>
+            <div><dt>90-day target</dt><dd>{escape(kpi_value(kpi, kpi.target, kpi.unit))}</dd></div>
+            <div><dt>Delta</dt><dd>{escape(delta_label(kpi))}</dd></div>
+            <div><dt>Owner</dt><dd>{escape(kpi.owner)}</dd></div>
+          </dl>
+          <p>{escape(kpi.definition)}</p>
+        </article>
+        """
+        for kpi in workspace.kpis
+    )
+    trend_svg = render_dashboard_trend(workspace)
+    slice_links = "".join(
+        f'<a href="#slice-{escape(slice_name.lower().replace(" ", "-"))}">{escape(slice_name)}</a>'
+        for slice_name in workspace.breakdowns
+    )
+    breakdown_sections = "".join(
+        render_breakdown_slice(slice_name, rows) for slice_name, rows in workspace.breakdowns.items()
+    )
+    action_items = "".join(
+        f"""
+        <article class="action-item">
+          <span>{escape(item.day_range)}</span>
+          <h3>{escape(item.action)}</h3>
+          <dl>
+            <div><dt>Owner</dt><dd>{escape(item.owner)}</dd></div>
+            <div><dt>Effort</dt><dd>{escape(item.effort)}</dd></div>
+            <div><dt>Impact</dt><dd>{escape(item.impact)}</dd></div>
+            <div><dt>Source</dt><dd>{escape(item.source)}</dd></div>
+          </dl>
+        </article>
+        """
+        for item in workspace.action_plan
+    )
     return f"""
+    <section class="panel mapper-hero dashboard-hero">
+      <div>
+        <p class="eyebrow">Live workspace</p>
+        <h2>RCM Dashboard KPI Framework</h2>
+        <p>A clinic owner gets five action-grade metrics, 13 weeks of movement, the worst risk rows, and a 30-day operating plan from one synthetic batch.</p>
+      </div>
+      <div class="mapper-stats">
+        <div><span>Headline KPIs</span><strong>{len(workspace.kpis)}</strong></div>
+        <div><span>Trend buckets</span><strong>{len(workspace.trends)}</strong></div>
+        <div><span>Freshness window</span><strong>{workspace.freshness_days}d</strong><em>synthetic</em></div>
+      </div>
+    </section>
     <section class="panel">
-      <p class="eyebrow">Synthetic proof</p>
-      <h2>Dashboard Proof visual anchor</h2>
-      <div class="kpis">{card_html}</div>
-      <ol>{readout}</ol>
-      <img class="proof" src="/assets/dashboard-proof-anchor.svg" alt="RevCycleMGMT dashboard proof anchor">
+      <p class="eyebrow">Headline Scorecard</p>
+      <h2>Every card has a target, owner, and action signal.</h2>
+      <div class="dashboard-kpis">{card_html}</div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">13-Week Trend</p>
+      <h2>Static SVG trend lines use the same synthetic KPI batch.</h2>
+      {trend_svg}
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Breakdowns</p>
+      <h2>Worst-three callouts show where the owner should look first.</h2>
+      <div class="slice-tabs">{slice_links}</div>
+      <div class="breakdown-grid">{breakdown_sections}</div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">30-Day Action Plan</p>
+      <h2>Programmatic next moves pulled from the highest-risk rows.</h2>
+      <div class="action-grid">{action_items}</div>
+    </section>
+    """
+
+
+def render_dashboard_trend(workspace) -> str:
+    keys = [kpi.key for kpi in workspace.kpis]
+    labels = {kpi.key: kpi.label for kpi in workspace.kpis}
+    colors = {
+        "clean_claim_rate": "#00b3a4",
+        "first_pass_yield": "#7dd3d8",
+        "denial_rate": "#fb7185",
+        "days_in_ar": "#facc15",
+        "net_collection_rate": "#a7f3d0",
+    }
+    polylines = []
+    legend = []
+    for index, key in enumerate(keys):
+        values = [point.values[key] for point in workspace.trends]
+        lower_is_better = key in {"denial_rate", "days_in_ar"}
+        points = svg_points(values, 42, 28, 760, 210, lower_is_better)
+        polylines.append(
+            f'<polyline points="{points}" fill="none" stroke="{colors[key]}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />'
+        )
+        legend.append(
+            f'<span><i style="background:{colors[key]}"></i>{escape(labels[key])}</span>'
+        )
+    first_week = escape(workspace.trends[0].week)
+    last_week = escape(workspace.trends[-1].week)
+    return f"""
+    <div class="trend-wrap">
+      <svg class="trend-chart" viewBox="0 0 860 280" role="img" aria-label="13-week KPI trend">
+        <path d="M42 238 H802 M42 186 H802 M42 134 H802 M42 82 H802 M42 30 H802" stroke="#21414a" stroke-width="1" />
+        {''.join(polylines)}
+        <text x="42" y="268" fill="#9ab5b5" font-size="13">{first_week}</text>
+        <text x="802" y="268" fill="#9ab5b5" font-size="13" text-anchor="end">{last_week}</text>
+      </svg>
+      <div class="trend-legend">{''.join(legend)}</div>
+    </div>
+    """
+
+
+def svg_points(values: list[float], x: int, y: int, width: int, height: int, lower_is_better: bool) -> str:
+    low = min(values)
+    high = max(values)
+    span = high - low or 1
+    step = width / max(len(values) - 1, 1)
+    points = []
+    for index, value in enumerate(values):
+        normalized = (value - low) / span
+        py = y + height - (normalized * height)
+        if lower_is_better:
+            py = y + (normalized * height)
+        points.append(f"{x + index * step:.1f},{py:.1f}")
+    return " ".join(points)
+
+
+def render_breakdown_slice(slice_name: str, rows) -> str:
+    section_id = f"slice-{slice_name.lower().replace(' ', '-')}"
+    worst = {row.segment for row in worst_three(rows)}
+    table_rows = "".join(
+        f"""
+        <tr class="{'worst-three' if row.segment in worst else ''}">
+          <td>{escape(row.segment)}{' <span>Worst three</span>' if row.segment in worst else ''}</td>
+          <td>{dashboard_pct(row.clean_claim_rate)}</td>
+          <td>{dashboard_pct(row.first_pass_yield)}</td>
+          <td>{dashboard_pct(row.denial_rate)}</td>
+          <td>{row.days_in_ar:.1f}</td>
+          <td>{dashboard_pct(row.net_collection_rate)}</td>
+          <td>{row.volume}</td>
+          <td>{dollars(row.dollars_at_risk)} synthetic</td>
+          <td>{escape(row.owner)}</td>
+          <td>{escape(row.action)}</td>
+        </tr>
+        """
+        for row in rows
+    )
+    return f"""
+    <section class="breakdown-slice" id="{escape(section_id)}">
+      <h3>{escape(slice_name)}</h3>
+      <table>
+        <thead><tr><th>Segment</th><th>Clean claim</th><th>First-pass</th><th>Denial</th><th>Days A/R</th><th>Net collect</th><th>Volume</th><th>Risk</th><th>Owner</th><th>Action</th></tr></thead>
+        <tbody>{table_rows}</tbody>
+      </table>
     </section>
     """
 
@@ -349,6 +503,31 @@ th { color:var(--steel); background:#0b171a; }
 .kpi strong { color:var(--steel); font-size:24px; }
 .proof { width:100%; max-height:680px; object-fit:contain; border:1px solid var(--line); border-radius:8px; background:#081216; }
 .alert { border-color:#7f1d1d; }
+.dashboard-hero h2 { font-size:30px; }
+.dashboard-kpis { display:grid; grid-template-columns:repeat(5,minmax(180px,1fr)); gap:14px; }
+.kpi-card { background:#071316; border:1px solid #21414a; border-radius:8px; padding:16px; display:grid; gap:13px; min-height:260px; }
+.kpi-card.green { border-color:#00b3a4; }
+.kpi-card.amber { border-color:#facc15; }
+.kpi-card.red { border-color:#fb7185; }
+.kpi-card-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+.kpi-card-top span { color:var(--muted); font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
+.kpi-card strong { color:#fff; font-size:31px; line-height:1; }
+.kpi-card p { color:#cbd5e1; margin:0; }
+.freshness { flex:0 0 auto; border-radius:999px; padding:4px 7px; font-style:normal; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.05em; color:#021415; background:var(--teal); }
+.freshness.stale { background:#facc15; }
+.trend-wrap { display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:22px; align-items:center; }
+.trend-chart { width:100%; min-height:250px; background:#071316; border:1px solid #21414a; border-radius:8px; }
+.trend-legend { display:grid; gap:12px; }
+.trend-legend span { color:#d8e7e5; display:flex; gap:9px; align-items:center; }
+.trend-legend i { width:12px; height:12px; border-radius:999px; display:inline-block; }
+.slice-tabs { display:flex; flex-wrap:wrap; gap:9px; margin:14px 0 18px; }
+.slice-tabs a { color:#021415; background:var(--steel); border-radius:999px; padding:8px 12px; text-decoration:none; font-weight:900; }
+.breakdown-grid { display:grid; gap:18px; }
+.breakdown-slice { background:#071316; border:1px solid #21414a; border-radius:8px; padding:16px; overflow-x:auto; }
+.breakdown-slice h3 { margin:0 0 12px; font-size:18px; color:var(--steel); }
+tr.worst-three td { background:rgba(250,204,21,.12); color:#fff8d0; }
+tr.worst-three td:first-child { color:#facc15; font-weight:900; }
+tr.worst-three span { display:inline-block; margin-left:8px; color:#021415; background:#facc15; border-radius:999px; padding:3px 7px; font-size:10px; font-weight:900; text-transform:uppercase; }
 .mapper-hero { display:flex; justify-content:space-between; gap:24px; align-items:stretch; }
 .mapper-hero p { color:var(--muted); max-width:720px; }
 .mapper-stats { display:grid; grid-template-columns:repeat(3, minmax(130px,1fr)); gap:12px; min-width:min(100%, 520px); }
@@ -380,6 +559,6 @@ dl { display:grid; gap:9px; margin:0; }
 dl div { display:grid; gap:3px; }
 dt { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
 dd { margin:0; color:#d8e7e5; }
-@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } }
-@media (max-width: 940px) { body { display:block; overflow-x:hidden; } .sidebar { position:relative; width:auto; min-height:0; } .shell { padding:18px; width:100%; } .hero-grid, form { grid-template-columns:1fr; } .kpis, .mapper-stats, .path-picker, .action-grid { grid-template-columns:1fr; } .topbar { display:block; } .timeline { grid-template-columns:1fr; overflow-x:visible; } table { min-width:680px; } }
+@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid, .dashboard-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } .trend-wrap { grid-template-columns:1fr; } .trend-legend { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width: 940px) { body { display:block; overflow-x:hidden; } .sidebar { position:relative; width:auto; min-height:0; padding:16px; border-right:0; border-bottom:1px solid var(--line); } .env { margin-bottom:12px; } nav { display:flex; overflow-x:auto; gap:8px; padding-bottom:4px; } nav a { flex:0 0 210px; } .shell { padding:18px; width:100%; } .hero-grid, form { grid-template-columns:1fr; } .kpis, .mapper-stats, .path-picker, .action-grid, .dashboard-kpis, .trend-legend { grid-template-columns:1fr; } .topbar { display:block; } .timeline { grid-template-columns:1fr; overflow-x:visible; } table { min-width:680px; } }
 """

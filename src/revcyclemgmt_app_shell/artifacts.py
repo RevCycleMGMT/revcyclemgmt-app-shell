@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .claims_pipeline import build_claims_pipeline_workspace, claims_pipeline_summary, render_claims_pipeline_svg
 from .data import DASHBOARD_METRICS, ROADMAP_MODULES
+from .dashboard import build_dashboard_workspace, dashboard_summary, render_dashboard_svg
 from .workspace import build_workspace
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -124,13 +125,20 @@ def write_artifacts(out_dir: Path) -> dict[str, object]:
     claims_workspace = build_claims_pipeline_workspace("denied-carc-16")
     claims_summary = claims_pipeline_summary(claims_workspace)
     claims_svg = render_claims_pipeline_svg(claims_workspace)
+    dashboard_workspace = build_dashboard_workspace()
+    dashboard_data = dashboard_summary(dashboard_workspace)
+    dashboard_svg = render_dashboard_svg(dashboard_workspace)
     summary["claims_pipeline_mapper"] = claims_summary
+    summary["rcm_dashboard_kpi_workspace"] = dashboard_data
     (out_dir / "app_shell_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     (out_dir / "app_shell_proof.svg").write_text(svg, encoding="utf-8")
     (out_dir / "claims_pipeline_mapper_summary.json").write_text(json.dumps(claims_summary, indent=2) + "\n", encoding="utf-8")
     (out_dir / "claims_pipeline_mapper_proof.svg").write_text(claims_svg, encoding="utf-8")
+    (out_dir / "rcm_dashboard_summary.json").write_text(json.dumps(dashboard_data, indent=2) + "\n", encoding="utf-8")
+    (out_dir / "rcm_dashboard_proof.svg").write_text(dashboard_svg, encoding="utf-8")
     (assets_dir / "app-shell-proof.svg").write_text(svg, encoding="utf-8")
     (assets_dir / "claims-pipeline-mapper-proof.svg").write_text(claims_svg, encoding="utf-8")
+    (assets_dir / "rcm-dashboard-proof.svg").write_text(dashboard_svg, encoding="utf-8")
     return summary
 
 
@@ -139,7 +147,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--out", default="output_demo")
     args = parser.parse_args(argv)
     summary = write_artifacts(Path(args.out))
-    print(json.dumps({"artifact_count": 6, "readiness_score": summary["readiness_score"]}, indent=2))
+    print(json.dumps({"artifact_count": 9, "readiness_score": summary["readiness_score"]}, indent=2))
 
 
 if __name__ == "__main__":

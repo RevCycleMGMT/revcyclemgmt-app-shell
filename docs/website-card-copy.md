@@ -53,3 +53,34 @@ Synthetic demo only. The mapper uses invented claim IDs, payer labels, dollar fi
 ### Recommended placement
 
 Use as the next `/apps/` product card after No-PHI App Shell. Do not add it to `/implementation-portfolio/` unless the proof-suite layout has room without crowding the five workflow proof cards.
+
+## RCM Dashboard KPI Workspace
+
+### Card title
+
+RCM Dashboard KPI Workspace
+
+### Short description
+
+A no-PHI dashboard console with five action-grade KPIs, 13-week trend lines, payer/CARC/specialty/claim-type breakdowns, stale-data flags, and an owner-ready 30-day action plan. It shows a clinic owner what is healthy, what is slipping, and what should be assigned first.
+
+### Status
+
+Live workspace
+
+### Proof cue
+
+Inspect first: `docs/assets/rcm-dashboard-proof.svg` and `/app/dashboard`
+
+### Button labels
+
+- Open Dashboard Workspace
+- View GitHub proof
+
+### Public safety note
+
+Synthetic demo only. The dashboard uses invented KPI values, payer labels, CARC examples, specialties, dates, dollar figures, queue signals, and owner assignments. Production dashboards require formal agreements, secure source validation, access controls, and approved metric definitions.
+
+### Recommended placement
+
+Use as the Dashboard Proof card on `/apps/` after the Claims Pipeline Mapper card. Keep the card focused on buyer action: scorecard, trends, breakdowns, and 30-day plan.

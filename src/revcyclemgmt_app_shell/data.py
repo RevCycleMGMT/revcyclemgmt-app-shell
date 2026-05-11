@@ -21,8 +21,8 @@ ROADMAP_MODULES = [
     {
         "slug": "dashboard",
         "label": "KPI Dashboard",
-        "status": "Synthetic proof",
-        "description": "Executive RCM control room anchored to the existing dashboard proof track.",
+        "status": "Live workspace",
+        "description": "Headline scorecard, 13-week trends, breakdowns, and owner-ready action plan.",
     },
     {
         "slug": "edi-validation",
