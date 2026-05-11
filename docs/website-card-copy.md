@@ -115,3 +115,34 @@ Synthetic demo only. The harness uses invented claim IDs, payer labels, segment 
 ### Recommended placement
 
 Use after the RCM Dashboard KPI Workspace card on `/apps/`. Keep the card focused on buyer action: readiness, failure repair, payer variance, and 30-day ownership.
+
+## Clearinghouse Response Tracker
+
+### Card title
+
+Clearinghouse Response Tracker
+
+### Short description
+
+A no-PHI tracking workspace that shows whether synthetic claims are actually moving after submission through 999, 277CA, and 277 response stages. It translates raw response evidence into stuck-claim inventory, owner routing, and a 30-day tracking plan.
+
+### Status
+
+Live workspace
+
+### Proof cue
+
+Inspect first: `docs/assets/clearinghouse-responses-proof.svg` and `/app/clearinghouse-responses`
+
+### Button labels
+
+- Open Response Tracker
+- View GitHub proof
+
+### Public safety note
+
+Synthetic demo only. The tracker uses invented claim IDs, payer labels, segment values, dates, dollar figures, response timestamps, and status codes. Production response tracking requires formal agreements, secure source validation, access controls, and approved data handling workflows.
+
+### Recommended placement
+
+Use after the EDI Validation Harness card on `/apps/`. Keep the card focused on buyer action: response movement, parser interpretation, stuck inventory, and follow-up ownership.

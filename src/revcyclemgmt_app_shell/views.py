@@ -6,6 +6,7 @@ from html import escape
 from urllib.parse import parse_qs
 
 from .claims_pipeline import build_claims_pipeline_workspace, dollars
+from .clearinghouse_responses import build_clearinghouse_responses_workspace
 from .dashboard import (
     build_dashboard_workspace,
     delta_label,
@@ -55,6 +56,8 @@ def render_route(path: str = "/", query: str = "") -> tuple[int, str, str]:
             if slug == "dashboard"
             else render_edi_validation()
             if slug == "edi-validation"
+            else render_clearinghouse_responses()
+            if slug == "clearinghouse-responses"
             else render_placeholder(slug)
         )
         return 200, "text/html; charset=utf-8", render_page(slug, body)
@@ -76,6 +79,7 @@ def render_page(active_slug: str, body: str) -> str:
         "claims-pipeline": "Claims Pipeline Mapper",
         "dashboard": "RCM Dashboard KPI Workspace",
         "edi-validation": "EDI Validation Harness",
+        "clearinghouse-responses": "Clearinghouse Response Tracker",
     }
     page_title = titles.get(active_slug, "Roadmap Module")
     return f"""<!doctype html>
@@ -467,6 +471,119 @@ def variance_cell(value: str) -> str:
     return f'<td><span class="variance-cell {escape(value.lower().replace("-", ""))}">{escape(value)}</span></td>'
 
 
+def render_clearinghouse_responses() -> str:
+    workspace = build_clearinghouse_responses_workspace()
+    state_bar = render_response_state_bar(workspace)
+    timeline_rows = "".join(
+        f"""
+        <tr>
+          <td><strong>{escape(claim.claim_id)}</strong><span>{escape(claim.current_state)}</span></td>
+          <td>{escape(claim.payer)}</td>
+          <td>{escape(claim.submitted_at)}</td>
+          <td>{claim.days_since_submission}</td>
+          <td>{dollars(claim.amount)} synthetic</td>
+          <td>{'Within SLA' if claim.within_sla else 'Watch'}</td>
+        </tr>
+        """
+        for claim in workspace.timeline
+    )
+    parser_cards = "".join(
+        f"""
+        <article class="parser-card">
+          <span>{escape(parser.response_type)}</span>
+          <pre>{escape(chr(10).join(parser.raw_segments))}</pre>
+          <ul>{''.join(f'<li>{escape(line)}</li>' for line in parser.interpretation)}</ul>
+          <small>{escape(parser.owner)} | {parser.frequency} synthetic examples</small>
+        </article>
+        """
+        for parser in workspace.parser_examples
+    )
+    stuck_rows = "".join(
+        f"""
+        <tr>
+          <td>{escape(row.claim_id)}</td>
+          <td>{escape(row.payer)}</td>
+          <td>{escape(row.stuck_stage)}</td>
+          <td>{row.days_stuck}</td>
+          <td>{dollars(row.dollar_exposure)} synthetic</td>
+          <td>{escape(row.recommended_action)}</td>
+          <td>{escape(row.owner)}</td>
+        </tr>
+        """
+        for row in workspace.stuck_inventory
+    )
+    action_items = "".join(
+        f"""
+        <article class="action-item">
+          <span>{escape(item.day_range)}</span>
+          <h3>{escape(item.action)}</h3>
+          <dl>
+            <div><dt>Owner</dt><dd>{escape(item.owner)}</dd></div>
+            <div><dt>Effort</dt><dd>{escape(item.effort)}</dd></div>
+            <div><dt>Impact</dt><dd>{escape(item.impact)}</dd></div>
+            <div><dt>Source</dt><dd>{escape(item.source)}</dd></div>
+          </dl>
+        </article>
+        """
+        for item in workspace.action_plan
+    )
+    return f"""
+    <section class="panel mapper-hero dashboard-hero">
+      <div>
+        <p class="eyebrow">Live workspace</p>
+        <h2>Clearinghouse Response Tracker</h2>
+        <p>See whether synthetic claims are moving through 999, 277CA, and 277 response stages before silent delays turn into aged follow-up.</p>
+      </div>
+      <div class="mapper-stats">
+        <div><span>Tracking</span><strong>{workspace.acknowledged_within_sla}</strong><em>of {workspace.total_claims} in SLA</em></div>
+        <div><span>Parser views</span><strong>{len(workspace.parser_examples)}</strong></div>
+        <div><span>Stuck rows</span><strong>{len(workspace.stuck_inventory)}</strong></div>
+      </div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Submission Timeline</p>
+      <h2>Synthetic claims tracking: {workspace.acknowledged_within_sla} of {workspace.total_claims} acknowledged within SLA.</h2>
+      {state_bar}
+      <table>
+        <thead><tr><th>Claim</th><th>Payer</th><th>Submitted</th><th>Days</th><th>Amount</th><th>SLA</th></tr></thead>
+        <tbody>{timeline_rows}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Response Parser View</p>
+      <h2>Raw responses become operating instructions.</h2>
+      <div class="parser-grid">{parser_cards}</div>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">Stuck-in-Clearinghouse Inventory</p>
+      <h2>Past-SLA synthetic claims are grouped by the missing response stage.</h2>
+      <table>
+        <thead><tr><th>Claim</th><th>Payer</th><th>Stuck stage</th><th>Days stuck</th><th>Exposure</th><th>Recommended action</th><th>Owner</th></tr></thead>
+        <tbody>{stuck_rows}</tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <p class="eyebrow">30-Day Tracking Plan</p>
+      <h2>Response tracking work is generated from worst stuck rows and parser signals.</h2>
+      <div class="action-grid">{action_items}</div>
+    </section>
+    """
+
+
+def render_response_state_bar(workspace) -> str:
+    parts = []
+    for item in workspace.state_mix:
+        width = max(6, item.count / workspace.total_claims * 100)
+        parts.append(
+            f'<span style="width:{width:.2f}%;background:{item.color}"><strong>{escape(item.label)}</strong><em>{item.count}</em></span>'
+        )
+    legend = "".join(
+        f'<li><i style="background:{item.color}"></i>{escape(item.label)}: {item.count}</li>'
+        for item in workspace.state_mix
+    )
+    return f'<div class="stacked-bar">{"".join(parts)}</div><ul class="bar-legend">{legend}</ul>'
+
+
 def render_claims_pipeline(params: dict[str, str]) -> str:
     workspace = build_claims_pipeline_workspace(params.get("path"))
     selected = workspace.selected_path
@@ -656,6 +773,12 @@ td > span { display:block; color:var(--muted); margin-top:4px; font-size:12px; }
 .variance-cell.pass { background:var(--teal); }
 .variance-cell.fail { background:#fb7185; }
 .variance-cell.na { background:#64748b; color:#f8fafc; }
+.parser-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.parser-card { background:#071316; border:1px solid #21414a; border-radius:8px; padding:16px; display:grid; gap:12px; }
+.parser-card > span { color:var(--teal); font-weight:900; text-transform:uppercase; letter-spacing:.08em; font-size:12px; }
+.parser-card pre { white-space:pre-wrap; margin:0; padding:12px; background:#030b0d; border:1px solid #1f3941; border-radius:8px; color:#d8e7e5; font-size:12px; overflow:auto; }
+.parser-card ul { margin:0; padding-left:18px; color:#d8e7e5; }
+.parser-card small { color:var(--muted); }
 .trend-wrap { display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:22px; align-items:center; }
 .trend-chart { width:100%; min-height:250px; background:#071316; border:1px solid #21414a; border-radius:8px; }
 .trend-legend { display:grid; gap:12px; }
@@ -700,6 +823,6 @@ dl { display:grid; gap:9px; margin:0; }
 dl div { display:grid; gap:3px; }
 dt { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
 dd { margin:0; color:#d8e7e5; }
-@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid, .dashboard-kpis, .edi-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } .trend-wrap { grid-template-columns:1fr; } .trend-legend { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (max-width: 940px) { body { display:block; overflow-x:hidden; } .sidebar { position:relative; width:auto; min-height:0; padding:16px; border-right:0; border-bottom:1px solid var(--line); } .env { margin-bottom:12px; } nav { display:flex; overflow-x:auto; gap:8px; padding-bottom:4px; } nav a { flex:0 0 210px; } .shell { padding:18px; width:100%; } .hero-grid, form { grid-template-columns:1fr; } .kpis, .mapper-stats, .path-picker, .action-grid, .dashboard-kpis, .trend-legend { grid-template-columns:1fr; } .topbar { display:block; } .timeline { grid-template-columns:1fr; overflow-x:visible; } table { min-width:680px; } }
+@media (max-width: 1180px) { .timeline { grid-template-columns:repeat(4,minmax(150px,1fr)); } .path-picker, .action-grid, .dashboard-kpis, .edi-kpis, .parser-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .mapper-hero { display:block; } .mapper-stats { margin-top:18px; } .trend-wrap { grid-template-columns:1fr; } .trend-legend { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width: 940px) { body { display:block; overflow-x:hidden; } .sidebar { position:relative; width:auto; min-height:0; padding:16px; border-right:0; border-bottom:1px solid var(--line); } .env { margin-bottom:12px; } nav { display:flex; overflow-x:auto; gap:8px; padding-bottom:4px; } nav a { flex:0 0 210px; } .shell { padding:18px; width:100%; } .hero-grid, form { grid-template-columns:1fr; } .kpis, .mapper-stats, .path-picker, .action-grid, .dashboard-kpis, .trend-legend, .parser-grid { grid-template-columns:1fr; } .topbar { display:block; } .timeline { grid-template-columns:1fr; overflow-x:visible; } table { min-width:680px; } }
 """

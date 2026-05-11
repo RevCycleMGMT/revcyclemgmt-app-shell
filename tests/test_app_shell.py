@@ -7,6 +7,10 @@ import pytest
 
 from revcyclemgmt_app_shell.claims_pipeline import CLAIM_PATHS, build_claims_pipeline_workspace
 from revcyclemgmt_app_shell.artifacts import write_artifacts
+from revcyclemgmt_app_shell.clearinghouse_responses import (
+    build_clearinghouse_responses_workspace,
+    render_clearinghouse_responses_svg,
+)
 from revcyclemgmt_app_shell.dashboard import build_dashboard_workspace, render_dashboard_svg, worst_three
 from revcyclemgmt_app_shell.edi_validation import build_edi_validation_workspace, render_edi_validation_svg
 from revcyclemgmt_app_shell.privacy import PrivacyBoundaryError, validate_synthetic_payload
@@ -61,6 +65,8 @@ def test_artifacts_generate_svg_and_summary(tmp_path: Path) -> None:
     dashboard_summary = tmp_path / "rcm_dashboard_summary.json"
     edi_svg = tmp_path / "edi_validation_harness_proof.svg"
     edi_summary = tmp_path / "edi_validation_summary.json"
+    clearinghouse_svg = tmp_path / "clearinghouse_responses_proof.svg"
+    clearinghouse_summary = tmp_path / "clearinghouse_responses_summary.json"
     data = tmp_path / "app_shell_summary.json"
     assert svg.exists()
     assert claims_svg.exists()
@@ -69,6 +75,8 @@ def test_artifacts_generate_svg_and_summary(tmp_path: Path) -> None:
     assert dashboard_summary.exists()
     assert edi_svg.exists()
     assert edi_summary.exists()
+    assert clearinghouse_svg.exists()
+    assert clearinghouse_summary.exists()
     assert data.exists()
     assert "No-PHI" in svg.read_text(encoding="utf-8")
     assert claims_svg.stat().st_size > 8_000
@@ -77,10 +85,13 @@ def test_artifacts_generate_svg_and_summary(tmp_path: Path) -> None:
     assert "RCM Dashboard KPI" in dashboard_svg.read_text(encoding="utf-8")
     assert edi_svg.stat().st_size > 30_000
     assert "EDI Validation Harness" in edi_svg.read_text(encoding="utf-8")
+    assert clearinghouse_svg.stat().st_size > 30_000
+    assert "Clearinghouse Response Tracker" in clearinghouse_svg.read_text(encoding="utf-8")
     assert summary["boundary"] == "synthetic-only"
     assert summary["claims_pipeline_mapper"]["boundary"] == "synthetic-only"
     assert summary["rcm_dashboard_kpi_workspace"]["boundary"] == "synthetic-only"
     assert summary["edi_validation_harness"]["boundary"] == "synthetic-only"
+    assert summary["clearinghouse_responses"]["boundary"] == "synthetic-only"
 
 
 @pytest.mark.parametrize("claim_path", [path.slug for path in CLAIM_PATHS])
@@ -249,6 +260,61 @@ def test_edi_validation_svg_is_non_trivial() -> None:
     svg = render_edi_validation_svg(build_edi_validation_workspace())
     assert len(svg.encode("utf-8")) > 30_000
     assert "EDI Validation Harness" in svg
+
+
+def test_clearinghouse_responses_workspace_views_render_with_expected_sections() -> None:
+    workspace = build_clearinghouse_responses_workspace()
+    assert len(workspace.timeline) >= 12
+    assert len(workspace.stuck_inventory) >= 8
+    assert {parser.response_type for parser in workspace.parser_examples} == {"999", "277CA", "277"}
+
+    status, content_type, body = render_route("/app/clearinghouse-responses")
+    assert status == 200
+    assert "text/html" in content_type
+    expected = [
+        "Submission Timeline",
+        "Response Parser View",
+        "Stuck-in-Clearinghouse Inventory",
+        "30-Day Tracking Plan",
+        "999",
+        "277CA",
+        "277",
+    ]
+    for label in expected:
+        assert label in body
+
+
+def test_clearinghouse_responses_generated_artifacts_have_no_phi_shapes(tmp_path: Path) -> None:
+    write_artifacts(tmp_path)
+    root = Path(__file__).resolve().parents[1]
+    generated = [
+        tmp_path / "clearinghouse_responses_proof.svg",
+        tmp_path / "clearinghouse_responses_summary.json",
+        root / "docs" / "assets" / "clearinghouse-responses-proof.svg",
+    ]
+    blob = "\n".join(path.read_text(encoding="utf-8") for path in generated)
+    blocked_patterns = {
+        "ssn": r"\b\d{3}-\d{2}-\d{4}\b",
+        "mrn": r"\bMRN[A-Z0-9-]{3,}\b",
+        "email": r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b",
+        "phone": r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b",
+        "date_of_birth": r"\b(?:dob|date of birth)\b",
+        "member_id": r"\b(?:member|subscriber|patient)\s*(?:id|#)\b",
+        "payer_member_id": r"\b(?!Synthetic Payer [A-E]\b)[A-Z]{3}\d{6,12}\b",
+    }
+    import re
+
+    for label, pattern in blocked_patterns.items():
+        assert not re.search(pattern, blob, re.I), label
+    assert not any(_is_luhn_valid(match) for match in re.findall(r"\b\d{13,19}\b", blob))
+    assert not any(_is_valid_npi(match) for match in re.findall(r"\b[12]\d{9}\b", blob))
+    assert "Synthetic" in blob
+
+
+def test_clearinghouse_responses_svg_is_non_trivial() -> None:
+    svg = render_clearinghouse_responses_svg(build_clearinghouse_responses_workspace())
+    assert len(svg.encode("utf-8")) > 30_000
+    assert "Clearinghouse Response Tracker" in svg
 
 
 def test_no_real_client_or_vendor_partnership_copy_in_repo_docs() -> None:

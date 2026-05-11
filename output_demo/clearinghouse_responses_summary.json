@@ -1,0 +1,609 @@
+{
+  "boundary": "synthetic-only",
+  "total_claims": 12,
+  "acknowledged_within_sla": 6,
+  "timeline": [
+    {
+      "claim_id": "SYN-CH-001",
+      "payer": "Synthetic Payer A",
+      "amount": 240,
+      "submitted_at": "2026-05-09 08:00",
+      "current_state": "277-final-status",
+      "days_since_submission": 2,
+      "within_sla": true,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-09 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-09 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-10 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        },
+        {
+          "stage": "277 received",
+          "timestamp": "2026-05-11 08:00",
+          "status": "final",
+          "note": "Synthetic payer status response is available."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-002",
+      "payer": "Synthetic Payer B",
+      "amount": 360,
+      "submitted_at": "2026-05-10 08:00",
+      "current_state": "clean-and-acknowledged",
+      "days_since_submission": 1,
+      "within_sla": true,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-10 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-10 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-11 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        },
+        {
+          "stage": "277 received",
+          "timestamp": "2026-05-11 08:00",
+          "status": "final",
+          "note": "Synthetic payer status response is available."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-003",
+      "payer": "Synthetic Payer C",
+      "amount": 185,
+      "submitted_at": "2026-05-08 08:00",
+      "current_state": "999-rejected",
+      "days_since_submission": 3,
+      "within_sla": false,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-08 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-08 16:00",
+          "status": "rejected",
+          "note": "Functional acknowledgment rejected the transaction set."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-004",
+      "payer": "Synthetic Payer D",
+      "amount": 510,
+      "submitted_at": "2026-05-06 08:00",
+      "current_state": "277CA-rejected",
+      "days_since_submission": 5,
+      "within_sla": false,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-06 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-06 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-07 14:00",
+          "status": "rejected",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-005",
+      "payer": "Synthetic Payer E",
+      "amount": 295,
+      "submitted_at": "2026-04-29 08:00",
+      "current_state": "277-pending",
+      "days_since_submission": 12,
+      "within_sla": false,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-04-29 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-04-29 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-04-30 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-006",
+      "payer": "Synthetic Payer A",
+      "amount": 415,
+      "submitted_at": "2026-05-07 08:00",
+      "current_state": "277-final-status",
+      "days_since_submission": 4,
+      "within_sla": true,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-07 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-07 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-08 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        },
+        {
+          "stage": "277 received",
+          "timestamp": "2026-05-11 08:00",
+          "status": "final",
+          "note": "Synthetic payer status response is available."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-007",
+      "payer": "Synthetic Payer B",
+      "amount": 225,
+      "submitted_at": "2026-05-10 08:00",
+      "current_state": "clean-and-acknowledged",
+      "days_since_submission": 1,
+      "within_sla": true,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-10 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-10 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-11 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        },
+        {
+          "stage": "277 received",
+          "timestamp": "2026-05-11 08:00",
+          "status": "final",
+          "note": "Synthetic payer status response is available."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-008",
+      "payer": "Synthetic Payer C",
+      "amount": 690,
+      "submitted_at": "2026-05-09 08:00",
+      "current_state": "999-rejected",
+      "days_since_submission": 2,
+      "within_sla": false,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-09 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-09 16:00",
+          "status": "rejected",
+          "note": "Functional acknowledgment rejected the transaction set."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-009",
+      "payer": "Synthetic Payer D",
+      "amount": 330,
+      "submitted_at": "2026-05-04 08:00",
+      "current_state": "277CA-rejected",
+      "days_since_submission": 7,
+      "within_sla": false,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-04 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-04 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-05 14:00",
+          "status": "rejected",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-010",
+      "payer": "Synthetic Payer E",
+      "amount": 455,
+      "submitted_at": "2026-04-26 08:00",
+      "current_state": "277-pending",
+      "days_since_submission": 15,
+      "within_sla": false,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-04-26 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-04-26 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-04-27 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-011",
+      "payer": "Synthetic Payer A",
+      "amount": 175,
+      "submitted_at": "2026-05-10 08:00",
+      "current_state": "clean-and-acknowledged",
+      "days_since_submission": 1,
+      "within_sla": true,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-10 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-10 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-11 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        },
+        {
+          "stage": "277 received",
+          "timestamp": "2026-05-11 08:00",
+          "status": "final",
+          "note": "Synthetic payer status response is available."
+        }
+      ]
+    },
+    {
+      "claim_id": "SYN-CH-012",
+      "payer": "Synthetic Payer B",
+      "amount": 820,
+      "submitted_at": "2026-05-05 08:00",
+      "current_state": "277-final-status",
+      "days_since_submission": 6,
+      "within_sla": true,
+      "events": [
+        {
+          "stage": "Claim submitted",
+          "timestamp": "2026-05-05 08:00",
+          "status": "submitted",
+          "note": "Synthetic claim left the billing queue."
+        },
+        {
+          "stage": "999 received",
+          "timestamp": "2026-05-05 14:00",
+          "status": "accepted",
+          "note": "Envelope and transaction set were accepted."
+        },
+        {
+          "stage": "277CA received",
+          "timestamp": "2026-05-06 14:00",
+          "status": "accepted",
+          "note": "Claim acknowledgment returned from the clearinghouse route."
+        },
+        {
+          "stage": "277 received",
+          "timestamp": "2026-05-10 08:00",
+          "status": "final",
+          "note": "Synthetic payer status response is available."
+        }
+      ]
+    }
+  ],
+  "state_mix": [
+    {
+      "label": "clean-and-acknowledged",
+      "count": 3,
+      "color": "#00B3A4"
+    },
+    {
+      "label": "999-rejected",
+      "count": 2,
+      "color": "#fb7185"
+    },
+    {
+      "label": "277CA-rejected",
+      "count": 2,
+      "color": "#f97316"
+    },
+    {
+      "label": "277-pending",
+      "count": 2,
+      "color": "#facc15"
+    },
+    {
+      "label": "277-final-status",
+      "count": 3,
+      "color": "#7dd3d8"
+    }
+  ],
+  "parser_examples": [
+    {
+      "response_type": "999",
+      "raw_segments": [
+        "AK1*HC*000001~",
+        "AK2*837*0001~",
+        "IK5*R*5~",
+        "AK9*R*1*1*0~"
+      ],
+      "interpretation": [
+        "The functional group was received.",
+        "The 837 transaction set was identified.",
+        "The transaction set was rejected.",
+        "The full functional group needs repair before resubmission."
+      ],
+      "frequency": 5,
+      "owner": "Biller"
+    },
+    {
+      "response_type": "277CA",
+      "raw_segments": [
+        "STC*A3:21*20260511*U*240~",
+        "TRN*2*SYN-CH-004~",
+        "BHT*0085*08*SYN277CA~"
+      ],
+      "interpretation": [
+        "The claim reached the acknowledgment layer.",
+        "The status category shows a rejected or unaccepted claim.",
+        "The next action is fixing claim data, not waiting for payment."
+      ],
+      "frequency": 4,
+      "owner": "Biller"
+    },
+    {
+      "response_type": "277",
+      "raw_segments": [
+        "STC*F1:65*20260511*WQ*455~",
+        "TRN*2*SYN-CH-010~",
+        "NM1*PR*2*SYNTHETIC PAYER*****PI*SYN-PAYER~"
+      ],
+      "interpretation": [
+        "The payer status response was received.",
+        "The claim is still pending payer action.",
+        "A/R follow-up should track the next response date."
+      ],
+      "frequency": 6,
+      "owner": "A/R follow-up"
+    }
+  ],
+  "stuck_inventory": [
+    {
+      "claim_id": "SYN-CH-013",
+      "payer": "Synthetic Payer A",
+      "stuck_stage": "No 999 within 24 hours",
+      "days_stuck": 2,
+      "dollar_exposure": 2200,
+      "recommended_action": "Confirm batch receipt and rerun 999 polling.",
+      "owner": "Biller"
+    },
+    {
+      "claim_id": "SYN-CH-014",
+      "payer": "Synthetic Payer C",
+      "stuck_stage": "No 999 within 24 hours",
+      "days_stuck": 3,
+      "dollar_exposure": 1850,
+      "recommended_action": "Check submitter control log and resend if missing.",
+      "owner": "Biller"
+    },
+    {
+      "claim_id": "SYN-CH-015",
+      "payer": "Synthetic Payer D",
+      "stuck_stage": "No 999 within 24 hours",
+      "days_stuck": 4,
+      "dollar_exposure": 4120,
+      "recommended_action": "Escalate missing acknowledgment before next batch.",
+      "owner": "Biller"
+    },
+    {
+      "claim_id": "SYN-CH-016",
+      "payer": "Synthetic Payer B",
+      "stuck_stage": "No 277CA within 72 hours",
+      "days_stuck": 5,
+      "dollar_exposure": 3600,
+      "recommended_action": "Separate accepted 999 from missing claim acknowledgment queue.",
+      "owner": "Biller"
+    },
+    {
+      "claim_id": "SYN-CH-017",
+      "payer": "Synthetic Payer E",
+      "stuck_stage": "No 277CA within 72 hours",
+      "days_stuck": 6,
+      "dollar_exposure": 2950,
+      "recommended_action": "Open clearinghouse status follow-up and owner note.",
+      "owner": "A/R follow-up"
+    },
+    {
+      "claim_id": "SYN-CH-018",
+      "payer": "Synthetic Payer A",
+      "stuck_stage": "No 277CA within 72 hours",
+      "days_stuck": 7,
+      "dollar_exposure": 5400,
+      "recommended_action": "Reconcile submitted claims against accepted acknowledgment list.",
+      "owner": "Biller"
+    },
+    {
+      "claim_id": "SYN-CH-019",
+      "payer": "Synthetic Payer C",
+      "stuck_stage": "No 277 within 14 days",
+      "days_stuck": 16,
+      "dollar_exposure": 6900,
+      "recommended_action": "Start payer-status follow-up cadence.",
+      "owner": "A/R follow-up"
+    },
+    {
+      "claim_id": "SYN-CH-020",
+      "payer": "Synthetic Payer E",
+      "stuck_stage": "No 277 within 14 days",
+      "days_stuck": 18,
+      "dollar_exposure": 7800,
+      "recommended_action": "Move to aged status-response review queue.",
+      "owner": "Denials specialist"
+    },
+    {
+      "claim_id": "SYN-CH-021",
+      "payer": "Synthetic Payer D",
+      "stuck_stage": "No 277 within 14 days",
+      "days_stuck": 21,
+      "dollar_exposure": 9100,
+      "recommended_action": "Escalate unresolved payer-status response lane.",
+      "owner": "Denials specialist"
+    }
+  ],
+  "action_plan": [
+    {
+      "day_range": "Days 1-3",
+      "action": "Escalate unresolved payer-status response lane.",
+      "owner": "Denials specialist",
+      "effort": "M",
+      "impact": "Unblocks 8-12 synthetic claims per week and about $9K weekly exposure.",
+      "source": "No 277 within 14 days"
+    },
+    {
+      "day_range": "Days 4-7",
+      "action": "A/R follow-up should track the next response date.",
+      "owner": "A/R follow-up",
+      "effort": "S",
+      "impact": "Reduces pending-status ambiguity before A/R follow-up starts.",
+      "source": "277"
+    },
+    {
+      "day_range": "Days 8-12",
+      "action": "Move to aged status-response review queue.",
+      "owner": "Denials specialist",
+      "effort": "M",
+      "impact": "Unblocks 6-10 synthetic claims per week.",
+      "source": "No 277 within 14 days"
+    },
+    {
+      "day_range": "Days 13-18",
+      "action": "The full functional group needs repair before resubmission.",
+      "owner": "Biller",
+      "effort": "M",
+      "impact": "Cuts rejected acknowledgment rework before it ages.",
+      "source": "999"
+    },
+    {
+      "day_range": "Days 19-24",
+      "action": "Start payer-status follow-up cadence.",
+      "owner": "A/R follow-up",
+      "effort": "S",
+      "impact": "Protects about $5K of synthetic weekly exposure.",
+      "source": "No 277 within 14 days"
+    },
+    {
+      "day_range": "Days 25-30",
+      "action": "Review the weekly response tracker and reset SLA thresholds.",
+      "owner": "A/R follow-up",
+      "effort": "S",
+      "impact": "Keeps stale response queues from becoming silent A/R.",
+      "source": "Tracker closeout"
+    }
+  ],
+  "transaction_rules": {
+    "999": [
+      "AK1",
+      "AK2",
+      "IK5",
+      "AK9"
+    ],
+    "277CA": [
+      "BHT",
+      "HL",
+      "TRN",
+      "STC"
+    ],
+    "277": [
+      "BHT",
+      "HL",
+      "NM1",
+      "TRN",
+      "STC"
+    ]
+  }
+}

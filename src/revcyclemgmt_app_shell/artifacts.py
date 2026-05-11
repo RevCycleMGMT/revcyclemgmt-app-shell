@@ -7,6 +7,11 @@ import json
 from pathlib import Path
 
 from .claims_pipeline import build_claims_pipeline_workspace, claims_pipeline_summary, render_claims_pipeline_svg
+from .clearinghouse_responses import (
+    build_clearinghouse_responses_workspace,
+    clearinghouse_responses_summary,
+    render_clearinghouse_responses_svg,
+)
 from .data import DASHBOARD_METRICS, ROADMAP_MODULES
 from .dashboard import build_dashboard_workspace, dashboard_summary, render_dashboard_svg
 from .edi_validation import build_edi_validation_workspace, edi_validation_summary, render_edi_validation_svg
@@ -23,7 +28,7 @@ def generate_summary() -> dict[str, object]:
         "readiness_score": workspace.readiness_score,
         "first_build": workspace.first_build,
         "recommended_module": workspace.recommended_module,
-        "functional_routes": ["/app/intake", "/app/claims-pipeline", "/app/dashboard", "/app/edi-validation"],
+        "functional_routes": ["/app/intake", "/app/claims-pipeline", "/app/dashboard", "/app/edi-validation", "/app/clearinghouse-responses"],
         "reserved_modules": [
             module["label"]
             for module in ROADMAP_MODULES
@@ -104,7 +109,7 @@ def generate_svg(summary: dict[str, object]) -> str:
   <text x="424" y="354" fill="#f4fbfa" font-size="24" font-weight="900">Generated readiness checklist</text>
   {''.join(checklist_rows)}
   {''.join(metric_svg)}
-  <text x="400" y="710" fill="#9ab5b5" font-size="15">Functional now: Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, and EDI Validation. Roadmap modules remain no-PHI.</text>
+  <text x="400" y="710" fill="#9ab5b5" font-size="15">Functional now: Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, EDI Validation, and Response Tracker. Roadmap modules remain no-PHI.</text>
 </svg>"""
 
 
@@ -132,9 +137,13 @@ def write_artifacts(out_dir: Path) -> dict[str, object]:
     edi_workspace = build_edi_validation_workspace()
     edi_data = edi_validation_summary(edi_workspace)
     edi_svg = render_edi_validation_svg(edi_workspace)
+    clearinghouse_workspace = build_clearinghouse_responses_workspace()
+    clearinghouse_data = clearinghouse_responses_summary(clearinghouse_workspace)
+    clearinghouse_svg = render_clearinghouse_responses_svg(clearinghouse_workspace)
     summary["claims_pipeline_mapper"] = claims_summary
     summary["rcm_dashboard_kpi_workspace"] = dashboard_data
     summary["edi_validation_harness"] = edi_data
+    summary["clearinghouse_responses"] = clearinghouse_data
     (out_dir / "app_shell_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     (out_dir / "app_shell_proof.svg").write_text(svg, encoding="utf-8")
     (out_dir / "claims_pipeline_mapper_summary.json").write_text(json.dumps(claims_summary, indent=2) + "\n", encoding="utf-8")
@@ -143,10 +152,13 @@ def write_artifacts(out_dir: Path) -> dict[str, object]:
     (out_dir / "rcm_dashboard_proof.svg").write_text(dashboard_svg, encoding="utf-8")
     (out_dir / "edi_validation_summary.json").write_text(json.dumps(edi_data, indent=2) + "\n", encoding="utf-8")
     (out_dir / "edi_validation_harness_proof.svg").write_text(edi_svg, encoding="utf-8")
+    (out_dir / "clearinghouse_responses_summary.json").write_text(json.dumps(clearinghouse_data, indent=2) + "\n", encoding="utf-8")
+    (out_dir / "clearinghouse_responses_proof.svg").write_text(clearinghouse_svg, encoding="utf-8")
     (assets_dir / "app-shell-proof.svg").write_text(svg, encoding="utf-8")
     (assets_dir / "claims-pipeline-mapper-proof.svg").write_text(claims_svg, encoding="utf-8")
     (assets_dir / "rcm-dashboard-proof.svg").write_text(dashboard_svg, encoding="utf-8")
     (assets_dir / "edi-validation-harness-proof.svg").write_text(edi_svg, encoding="utf-8")
+    (assets_dir / "clearinghouse-responses-proof.svg").write_text(clearinghouse_svg, encoding="utf-8")
     return summary
 
 
@@ -155,7 +167,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--out", default="output_demo")
     args = parser.parse_args(argv)
     summary = write_artifacts(Path(args.out))
-    print(json.dumps({"artifact_count": 11, "readiness_score": summary["readiness_score"]}, indent=2))
+    print(json.dumps({"artifact_count": 13, "readiness_score": summary["readiness_score"]}, indent=2))
 
 
 if __name__ == "__main__":

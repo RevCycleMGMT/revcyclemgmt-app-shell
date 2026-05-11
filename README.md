@@ -18,6 +18,7 @@ Startup clinicians do not just need a billing vendor list. They need to see wher
 | Claims Pipeline Mapper | Five synthetic claim paths render a timeline, ownership map, stuck-point inventory, and first 30-day action plan. |
 | KPI Dashboard | Five action-grade KPIs render with targets, owner cues, freshness badges, 13-week trend lines, breakdown risk, and a generated 30-day action plan. |
 | EDI Validation Harness | Synthetic claim batches render readiness checks, failure catalog, payer variance map, and a 30-day repair plan. |
+| Clearinghouse Response Tracker | Synthetic response timelines render 999, 277CA, and 277 movement, parser interpretation, stuck inventory, and a 30-day tracking plan. |
 | Safety boundary | Intake validation rejects PHI-shaped input and forbidden public-positioning terms before a workspace is generated. |
 | Testable surface | Route tests verify every app path returns 200, PHI-shaped inputs are rejected, and generated artifacts remain synthetic. |
 
@@ -25,8 +26,8 @@ Startup clinicians do not just need a billing vendor list. They need to see wher
 
 | Category | Current status |
 |---|---|
-| Proven | This repo generates a local app shell, SVG proof artifacts, route-rendered HTML views, synthetic launch workspace output, Claims Pipeline Mapper workspace, KPI Dashboard workspace, EDI Validation Harness workspace, and tests. The five workflow proof tracks remain the source proof set for coding review and remit/denial operations. |
-| Demo-only | The Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, EDI Validation Harness, reserved modules, synthetic claim journey, readiness checklist, and first 30-day action plans are public demo surfaces. They do not process production files. |
+| Proven | This repo generates a local app shell, SVG proof artifacts, route-rendered HTML views, synthetic launch workspace output, Claims Pipeline Mapper workspace, KPI Dashboard workspace, EDI Validation Harness workspace, Clearinghouse Response Tracker workspace, and tests. The five workflow proof tracks remain the source proof set for coding review and remit/denial operations. |
+| Demo-only | The Launch Workspace, Claims Pipeline Mapper, KPI Dashboard, EDI Validation Harness, Clearinghouse Response Tracker, reserved modules, synthetic claim journey, readiness checklist, and first 30-day action plans are public demo surfaces. They do not process production files. |
 | Requires production agreements | Real client data, EHR/PM exports, payer credentials, clearinghouse credentials, claim files, remittance files, production integrations, secure file intake, user accounts, and client-specific operational work. |
 
 ## Claims Pipeline Mapper
@@ -135,6 +136,38 @@ src/revcyclemgmt_app_shell/edi_validation.py
 
 The harness uses invented claim IDs, payer labels, segment values, dates, dollar figures, requirement outcomes, and validation results. It does not accept or ship PHI, production claim files, production payer responses, credentials, client exports, or live source-system data.
 
+## Clearinghouse Response Tracker
+
+A submitted claim is not operationally safe just because it left the billing queue. The Clearinghouse Response Tracker shows whether synthetic claims are moving through acknowledgment and status-response stages, which claims are stuck past SLA, and what the team should assign next.
+
+![RevCycleMGMT Clearinghouse Response Tracker proof](docs/assets/clearinghouse-responses-proof.svg)
+
+Open the running route locally:
+
+```text
+http://127.0.0.1:8765/app/clearinghouse-responses
+```
+
+The workspace has four views:
+
+| View | What it proves |
+|---|---|
+| Submission Timeline | Tracks 12 synthetic claims across submitted, 999, 277CA, and 277 response stages with current state and SLA signal. |
+| Response Parser View | Turns raw 999, 277CA, and 277 response segments into operating language a buyer can act on. |
+| Stuck-in-Clearinghouse Inventory | Groups past-SLA synthetic claims by missing response stage with owner, exposure, and next action. |
+| 30-Day Tracking Plan | Converts the worst stuck rows and most common parser signals into owner-ready response-tracking work. |
+
+Synthetic data path:
+
+```text
+src/revcyclemgmt_app_shell/clearinghouse_responses.py
+  -> /app/clearinghouse-responses
+  -> docs/assets/clearinghouse-responses-proof.svg
+  -> output_demo/clearinghouse_responses_summary.json
+```
+
+The tracker uses invented claim IDs, payer labels, segment values, dates, dollar figures, response timestamps, and status codes. It does not accept or ship PHI, production payer responses, production claim files, credentials, client exports, or live source-system data.
+
 ## App Routes
 
 | Route | Status |
@@ -145,7 +178,7 @@ The harness uses invented claim IDs, payer labels, segment values, dates, dollar
 | `/app/claims-pipeline` | Functional Claims Pipeline Mapper |
 | `/app/edi-validation` | Functional EDI Validation Harness |
 | `/app/coding-readiness` | Coming next placeholder |
-| `/app/clearinghouse-responses` | Requires agreement placeholder |
+| `/app/clearinghouse-responses` | Functional Clearinghouse Response Tracker |
 | `/app/835-matchback` | Coming next placeholder |
 | `/app/denial-workqueues` | Coming next placeholder |
 | `/app/evidence` | Requires agreement placeholder |
@@ -162,7 +195,8 @@ flowchart LR
     E --> F[First 30-day action plan]
     F --> G[KPI Dashboard]
     G --> H[EDI Validation Harness]
-    H --> I[Contact handoff / first-build recommendation]
+    H --> I[Clearinghouse Response Tracker]
+    I --> J[Contact handoff / first-build recommendation]
 ```
 
 ## Local Quickstart
@@ -182,7 +216,7 @@ Expected artifact summary:
 
 ```json
 {
-  "artifact_count": 11,
+  "artifact_count": 13,
   "readiness_score": 93
 }
 ```
@@ -195,6 +229,7 @@ Expected artifact summary:
 | `docs/assets/claims-pipeline-mapper-proof.svg` | README-facing SVG proof of the four-view Claims Pipeline Mapper. |
 | `docs/assets/rcm-dashboard-proof.svg` | README-facing SVG proof of the four-view KPI Dashboard workspace. |
 | `docs/assets/edi-validation-harness-proof.svg` | README-facing SVG proof of the four-view EDI Validation Harness. |
+| `docs/assets/clearinghouse-responses-proof.svg` | README-facing SVG proof of the four-view Clearinghouse Response Tracker. |
 | `docs/assets/dashboard-proof-anchor.svg` | Dashboard Proof visual anchor copied from the existing synthetic dashboard track. |
 | `output_demo/app_shell_proof.svg` | Regenerated proof artifact. |
 | `output_demo/claims_pipeline_mapper_proof.svg` | Regenerated Claims Pipeline Mapper proof artifact. |
@@ -202,6 +237,8 @@ Expected artifact summary:
 | `output_demo/rcm_dashboard_summary.json` | Synthetic dashboard data used by the route and SVG. |
 | `output_demo/edi_validation_harness_proof.svg` | Regenerated EDI Validation Harness proof artifact. |
 | `output_demo/edi_validation_summary.json` | Synthetic EDI validation data used by the route and SVG. |
+| `output_demo/clearinghouse_responses_proof.svg` | Regenerated Clearinghouse Response Tracker proof artifact. |
+| `output_demo/clearinghouse_responses_summary.json` | Synthetic response tracker data used by the route and SVG. |
 | `output_demo/claims_pipeline_mapper_summary.json` | Synthetic mapper data used by the route and SVG. |
 | `output_demo/app_shell_summary.json` | Synthetic workspace summary, dashboard metrics, and checklist. |
 
@@ -213,6 +250,7 @@ docs/assets/app-shell-proof.svg          # Generated README visual proof
 docs/assets/claims-pipeline-mapper-proof.svg # Generated mapper visual proof
 docs/assets/rcm-dashboard-proof.svg      # Generated dashboard visual proof
 docs/assets/edi-validation-harness-proof.svg # Generated EDI validation visual proof
+docs/assets/clearinghouse-responses-proof.svg # Generated response tracker visual proof
 docs/assets/dashboard-proof-anchor.svg   # Dashboard visual anchor
 docs/website-card-copy.md                # Sixth-card / Apps-page copy
 output_demo/                             # Generated synthetic artifacts

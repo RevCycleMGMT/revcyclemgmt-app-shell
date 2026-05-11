@@ -1,0 +1,649 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1460" viewBox="0 0 1280 1460" role="img" aria-labelledby="title desc">
+  <title id="title">RevCycleMGMT Clearinghouse Response Tracker proof</title>
+  <desc id="desc">Synthetic four-view response tracker: submission timeline, parser view, stuck inventory, and 30-day tracking plan.</desc>
+  <metadata>{
+  &quot;boundary&quot;: &quot;synthetic-only&quot;,
+  &quot;total_claims&quot;: 12,
+  &quot;acknowledged_within_sla&quot;: 6,
+  &quot;timeline&quot;: [
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-001&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;amount&quot;: 240,
+      &quot;submitted_at&quot;: &quot;2026-05-09 08:00&quot;,
+      &quot;current_state&quot;: &quot;277-final-status&quot;,
+      &quot;days_since_submission&quot;: 2,
+      &quot;within_sla&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-09 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-09 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 08:00&quot;,
+          &quot;status&quot;: &quot;final&quot;,
+          &quot;note&quot;: &quot;Synthetic payer status response is available.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-002&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer B&quot;,
+      &quot;amount&quot;: 360,
+      &quot;submitted_at&quot;: &quot;2026-05-10 08:00&quot;,
+      &quot;current_state&quot;: &quot;clean-and-acknowledged&quot;,
+      &quot;days_since_submission&quot;: 1,
+      &quot;within_sla&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 08:00&quot;,
+          &quot;status&quot;: &quot;final&quot;,
+          &quot;note&quot;: &quot;Synthetic payer status response is available.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-003&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer C&quot;,
+      &quot;amount&quot;: 185,
+      &quot;submitted_at&quot;: &quot;2026-05-08 08:00&quot;,
+      &quot;current_state&quot;: &quot;999-rejected&quot;,
+      &quot;days_since_submission&quot;: 3,
+      &quot;within_sla&quot;: false,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-08 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-08 16:00&quot;,
+          &quot;status&quot;: &quot;rejected&quot;,
+          &quot;note&quot;: &quot;Functional acknowledgment rejected the transaction set.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-004&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer D&quot;,
+      &quot;amount&quot;: 510,
+      &quot;submitted_at&quot;: &quot;2026-05-06 08:00&quot;,
+      &quot;current_state&quot;: &quot;277CA-rejected&quot;,
+      &quot;days_since_submission&quot;: 5,
+      &quot;within_sla&quot;: false,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-06 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-06 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-07 14:00&quot;,
+          &quot;status&quot;: &quot;rejected&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-005&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer E&quot;,
+      &quot;amount&quot;: 295,
+      &quot;submitted_at&quot;: &quot;2026-04-29 08:00&quot;,
+      &quot;current_state&quot;: &quot;277-pending&quot;,
+      &quot;days_since_submission&quot;: 12,
+      &quot;within_sla&quot;: false,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-04-29 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-04-29 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-04-30 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-006&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;amount&quot;: 415,
+      &quot;submitted_at&quot;: &quot;2026-05-07 08:00&quot;,
+      &quot;current_state&quot;: &quot;277-final-status&quot;,
+      &quot;days_since_submission&quot;: 4,
+      &quot;within_sla&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-07 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-07 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-08 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 08:00&quot;,
+          &quot;status&quot;: &quot;final&quot;,
+          &quot;note&quot;: &quot;Synthetic payer status response is available.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-007&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer B&quot;,
+      &quot;amount&quot;: 225,
+      &quot;submitted_at&quot;: &quot;2026-05-10 08:00&quot;,
+      &quot;current_state&quot;: &quot;clean-and-acknowledged&quot;,
+      &quot;days_since_submission&quot;: 1,
+      &quot;within_sla&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 08:00&quot;,
+          &quot;status&quot;: &quot;final&quot;,
+          &quot;note&quot;: &quot;Synthetic payer status response is available.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-008&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer C&quot;,
+      &quot;amount&quot;: 690,
+      &quot;submitted_at&quot;: &quot;2026-05-09 08:00&quot;,
+      &quot;current_state&quot;: &quot;999-rejected&quot;,
+      &quot;days_since_submission&quot;: 2,
+      &quot;within_sla&quot;: false,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-09 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-09 16:00&quot;,
+          &quot;status&quot;: &quot;rejected&quot;,
+          &quot;note&quot;: &quot;Functional acknowledgment rejected the transaction set.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-009&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer D&quot;,
+      &quot;amount&quot;: 330,
+      &quot;submitted_at&quot;: &quot;2026-05-04 08:00&quot;,
+      &quot;current_state&quot;: &quot;277CA-rejected&quot;,
+      &quot;days_since_submission&quot;: 7,
+      &quot;within_sla&quot;: false,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-04 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-04 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-05 14:00&quot;,
+          &quot;status&quot;: &quot;rejected&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-010&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer E&quot;,
+      &quot;amount&quot;: 455,
+      &quot;submitted_at&quot;: &quot;2026-04-26 08:00&quot;,
+      &quot;current_state&quot;: &quot;277-pending&quot;,
+      &quot;days_since_submission&quot;: 15,
+      &quot;within_sla&quot;: false,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-04-26 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-04-26 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-04-27 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-011&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;amount&quot;: 175,
+      &quot;submitted_at&quot;: &quot;2026-05-10 08:00&quot;,
+      &quot;current_state&quot;: &quot;clean-and-acknowledged&quot;,
+      &quot;days_since_submission&quot;: 1,
+      &quot;within_sla&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-11 08:00&quot;,
+          &quot;status&quot;: &quot;final&quot;,
+          &quot;note&quot;: &quot;Synthetic payer status response is available.&quot;
+        }
+      ]
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-012&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer B&quot;,
+      &quot;amount&quot;: 820,
+      &quot;submitted_at&quot;: &quot;2026-05-05 08:00&quot;,
+      &quot;current_state&quot;: &quot;277-final-status&quot;,
+      &quot;days_since_submission&quot;: 6,
+      &quot;within_sla&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;stage&quot;: &quot;Claim submitted&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-05 08:00&quot;,
+          &quot;status&quot;: &quot;submitted&quot;,
+          &quot;note&quot;: &quot;Synthetic claim left the billing queue.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;999 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-05 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Envelope and transaction set were accepted.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277CA received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-06 14:00&quot;,
+          &quot;status&quot;: &quot;accepted&quot;,
+          &quot;note&quot;: &quot;Claim acknowledgment returned from the clearinghouse route.&quot;
+        },
+        {
+          &quot;stage&quot;: &quot;277 received&quot;,
+          &quot;timestamp&quot;: &quot;2026-05-10 08:00&quot;,
+          &quot;status&quot;: &quot;final&quot;,
+          &quot;note&quot;: &quot;Synthetic payer status response is available.&quot;
+        }
+      ]
+    }
+  ],
+  &quot;state_mix&quot;: [
+    {
+      &quot;label&quot;: &quot;clean-and-acknowledged&quot;,
+      &quot;count&quot;: 3,
+      &quot;color&quot;: &quot;#00B3A4&quot;
+    },
+    {
+      &quot;label&quot;: &quot;999-rejected&quot;,
+      &quot;count&quot;: 2,
+      &quot;color&quot;: &quot;#fb7185&quot;
+    },
+    {
+      &quot;label&quot;: &quot;277CA-rejected&quot;,
+      &quot;count&quot;: 2,
+      &quot;color&quot;: &quot;#f97316&quot;
+    },
+    {
+      &quot;label&quot;: &quot;277-pending&quot;,
+      &quot;count&quot;: 2,
+      &quot;color&quot;: &quot;#facc15&quot;
+    },
+    {
+      &quot;label&quot;: &quot;277-final-status&quot;,
+      &quot;count&quot;: 3,
+      &quot;color&quot;: &quot;#7dd3d8&quot;
+    }
+  ],
+  &quot;parser_examples&quot;: [
+    {
+      &quot;response_type&quot;: &quot;999&quot;,
+      &quot;raw_segments&quot;: [
+        &quot;AK1*HC*000001~&quot;,
+        &quot;AK2*837*0001~&quot;,
+        &quot;IK5*R*5~&quot;,
+        &quot;AK9*R*1*1*0~&quot;
+      ],
+      &quot;interpretation&quot;: [
+        &quot;The functional group was received.&quot;,
+        &quot;The 837 transaction set was identified.&quot;,
+        &quot;The transaction set was rejected.&quot;,
+        &quot;The full functional group needs repair before resubmission.&quot;
+      ],
+      &quot;frequency&quot;: 5,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;response_type&quot;: &quot;277CA&quot;,
+      &quot;raw_segments&quot;: [
+        &quot;STC*A3:21*20260511*U*240~&quot;,
+        &quot;TRN*2*SYN-CH-004~&quot;,
+        &quot;BHT*0085*08*SYN277CA~&quot;
+      ],
+      &quot;interpretation&quot;: [
+        &quot;The claim reached the acknowledgment layer.&quot;,
+        &quot;The status category shows a rejected or unaccepted claim.&quot;,
+        &quot;The next action is fixing claim data, not waiting for payment.&quot;
+      ],
+      &quot;frequency&quot;: 4,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;response_type&quot;: &quot;277&quot;,
+      &quot;raw_segments&quot;: [
+        &quot;STC*F1:65*20260511*WQ*455~&quot;,
+        &quot;TRN*2*SYN-CH-010~&quot;,
+        &quot;NM1*PR*2*SYNTHETIC PAYER*****PI*SYN-PAYER~&quot;
+      ],
+      &quot;interpretation&quot;: [
+        &quot;The payer status response was received.&quot;,
+        &quot;The claim is still pending payer action.&quot;,
+        &quot;A/R follow-up should track the next response date.&quot;
+      ],
+      &quot;frequency&quot;: 6,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;
+    }
+  ],
+  &quot;stuck_inventory&quot;: [
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-013&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;stuck_stage&quot;: &quot;No 999 within 24 hours&quot;,
+      &quot;days_stuck&quot;: 2,
+      &quot;dollar_exposure&quot;: 2200,
+      &quot;recommended_action&quot;: &quot;Confirm batch receipt and rerun 999 polling.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-014&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer C&quot;,
+      &quot;stuck_stage&quot;: &quot;No 999 within 24 hours&quot;,
+      &quot;days_stuck&quot;: 3,
+      &quot;dollar_exposure&quot;: 1850,
+      &quot;recommended_action&quot;: &quot;Check submitter control log and resend if missing.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-015&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer D&quot;,
+      &quot;stuck_stage&quot;: &quot;No 999 within 24 hours&quot;,
+      &quot;days_stuck&quot;: 4,
+      &quot;dollar_exposure&quot;: 4120,
+      &quot;recommended_action&quot;: &quot;Escalate missing acknowledgment before next batch.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-016&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer B&quot;,
+      &quot;stuck_stage&quot;: &quot;No 277CA within 72 hours&quot;,
+      &quot;days_stuck&quot;: 5,
+      &quot;dollar_exposure&quot;: 3600,
+      &quot;recommended_action&quot;: &quot;Separate accepted 999 from missing claim acknowledgment queue.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-017&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer E&quot;,
+      &quot;stuck_stage&quot;: &quot;No 277CA within 72 hours&quot;,
+      &quot;days_stuck&quot;: 6,
+      &quot;dollar_exposure&quot;: 2950,
+      &quot;recommended_action&quot;: &quot;Open clearinghouse status follow-up and owner note.&quot;,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-018&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer A&quot;,
+      &quot;stuck_stage&quot;: &quot;No 277CA within 72 hours&quot;,
+      &quot;days_stuck&quot;: 7,
+      &quot;dollar_exposure&quot;: 5400,
+      &quot;recommended_action&quot;: &quot;Reconcile submitted claims against accepted acknowledgment list.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-019&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer C&quot;,
+      &quot;stuck_stage&quot;: &quot;No 277 within 14 days&quot;,
+      &quot;days_stuck&quot;: 16,
+      &quot;dollar_exposure&quot;: 6900,
+      &quot;recommended_action&quot;: &quot;Start payer-status follow-up cadence.&quot;,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-020&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer E&quot;,
+      &quot;stuck_stage&quot;: &quot;No 277 within 14 days&quot;,
+      &quot;days_stuck&quot;: 18,
+      &quot;dollar_exposure&quot;: 7800,
+      &quot;recommended_action&quot;: &quot;Move to aged status-response review queue.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;
+    },
+    {
+      &quot;claim_id&quot;: &quot;SYN-CH-021&quot;,
+      &quot;payer&quot;: &quot;Synthetic Payer D&quot;,
+      &quot;stuck_stage&quot;: &quot;No 277 within 14 days&quot;,
+      &quot;days_stuck&quot;: 21,
+      &quot;dollar_exposure&quot;: 9100,
+      &quot;recommended_action&quot;: &quot;Escalate unresolved payer-status response lane.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;
+    }
+  ],
+  &quot;action_plan&quot;: [
+    {
+      &quot;day_range&quot;: &quot;Days 1-3&quot;,
+      &quot;action&quot;: &quot;Escalate unresolved payer-status response lane.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Unblocks 8-12 synthetic claims per week and about $9K weekly exposure.&quot;,
+      &quot;source&quot;: &quot;No 277 within 14 days&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 4-7&quot;,
+      &quot;action&quot;: &quot;A/R follow-up should track the next response date.&quot;,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Reduces pending-status ambiguity before A/R follow-up starts.&quot;,
+      &quot;source&quot;: &quot;277&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 8-12&quot;,
+      &quot;action&quot;: &quot;Move to aged status-response review queue.&quot;,
+      &quot;owner&quot;: &quot;Denials specialist&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Unblocks 6-10 synthetic claims per week.&quot;,
+      &quot;source&quot;: &quot;No 277 within 14 days&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 13-18&quot;,
+      &quot;action&quot;: &quot;The full functional group needs repair before resubmission.&quot;,
+      &quot;owner&quot;: &quot;Biller&quot;,
+      &quot;effort&quot;: &quot;M&quot;,
+      &quot;impact&quot;: &quot;Cuts rejected acknowledgment rework before it ages.&quot;,
+      &quot;source&quot;: &quot;999&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 19-24&quot;,
+      &quot;action&quot;: &quot;Start payer-status follow-up cadence.&quot;,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Protects about $5K of synthetic weekly exposure.&quot;,
+      &quot;source&quot;: &quot;No 277 within 14 days&quot;
+    },
+    {
+      &quot;day_range&quot;: &quot;Days 25-30&quot;,
+      &quot;action&quot;: &quot;Review the weekly response tracker and reset SLA thresholds.&quot;,
+      &quot;owner&quot;: &quot;A/R follow-up&quot;,
+      &quot;effort&quot;: &quot;S&quot;,
+      &quot;impact&quot;: &quot;Keeps stale response queues from becoming silent A/R.&quot;,
+      &quot;source&quot;: &quot;Tracker closeout&quot;
+    }
+  ],
+  &quot;transaction_rules&quot;: {
+    &quot;999&quot;: [
+      &quot;AK1&quot;,
+      &quot;AK2&quot;,
+      &quot;IK5&quot;,
+      &quot;AK9&quot;
+    ],
+    &quot;277CA&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;TRN&quot;,
+      &quot;STC&quot;
+    ],
+    &quot;277&quot;: [
+      &quot;BHT&quot;,
+      &quot;HL&quot;,
+      &quot;NM1&quot;,
+      &quot;TRN&quot;,
+      &quot;STC&quot;
+    ]
+  }
+}</metadata>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#071012" offset="0"/><stop stop-color="#123238" offset="1"/></linearGradient>
+    <style>
+      .title { font: 900 42px Inter, Arial, sans-serif; fill: #f8fafc; }
+      .subtitle { font: 600 17px Inter, Arial, sans-serif; fill: #cbd5e1; }
+      .kicker { font: 900 12px Inter, Arial, sans-serif; fill: #7dd3d8; letter-spacing: .12em; text-transform: uppercase; }
+      .metric { font: 900 38px Inter, Arial, sans-serif; fill: #ffffff; }
+      .small { font: 800 14px Inter, Arial, sans-serif; fill: #f8fafc; }
+      .tiny { font: 650 12px Inter, Arial, sans-serif; fill: #cbd5e1; }
+      .strong { font-weight: 900; fill: #f8fafc; }
+    </style>
+  </defs>
+  <rect width="1280" height="1460" fill="url(#bg)"/>
+  <rect x="28" y="28" width="1224" height="1404" rx="18" fill="#091316" stroke="#21414a"/>
+  <text x="58" y="76" class="kicker">Clearinghouse Response Tracker | Synthetic only</text>
+  <text x="58" y="124" class="title">Know whether submitted claims are actually moving.</text>
+  <text x="58" y="154" class="subtitle">Synthetic claims tracking: 6 of 12 acknowledged within SLA across 999, 277CA, and 277 response stages.</text>
+  <rect x="58" y="176" width="268" height="106" rx="12" fill="#071316" stroke="#21414a"/><text x="76" y="208" class="kicker">Timeline claims</text><text x="76" y="248" class="metric">12</text><text x="76" y="272" class="tiny">synthetic batch</text><rect x="350" y="176" width="268" height="106" rx="12" fill="#071316" stroke="#21414a"/><text x="368" y="208" class="kicker">Within SLA</text><text x="368" y="248" class="metric">6</text><text x="368" y="272" class="tiny">acknowledged</text><rect x="642" y="176" width="268" height="106" rx="12" fill="#071316" stroke="#21414a"/><text x="660" y="208" class="kicker">Parser examples</text><text x="660" y="248" class="metric">3</text><text x="660" y="272" class="tiny">999 / 277CA / 277</text><rect x="934" y="176" width="268" height="106" rx="12" fill="#071316" stroke="#21414a"/><text x="952" y="208" class="kicker">Stuck rows</text><text x="952" y="248" class="metric">9</text><text x="952" y="272" class="tiny">owner-ready</text>
+  <rect x="58" y="304" width="1162" height="88" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="334" class="kicker">Submission Timeline</text>
+  <rect x="100" y="326" width="1080" height="38" rx="19" fill="#071316" stroke="#21414a"/>
+  <rect x="100.0" y="326" width="270.0" height="38" fill="#00B3A4"/><text x="108.0" y="351" fill="#031719" font-size="11" font-weight="900">clean-and-acknowledged 3</text><rect x="370.0" y="326" width="180.0" height="38" fill="#fb7185"/><text x="378.0" y="351" fill="#031719" font-size="11" font-weight="900">999-rejected 2</text><rect x="550.0" y="326" width="180.0" height="38" fill="#f97316"/><text x="558.0" y="351" fill="#031719" font-size="11" font-weight="900">277CA-rejected 2</text><rect x="730.0" y="326" width="180.0" height="38" fill="#facc15"/><text x="738.0" y="351" fill="#031719" font-size="11" font-weight="900">277-pending 2</text><rect x="910.0" y="326" width="270.0" height="38" fill="#7dd3d8"/><text x="918.0" y="351" fill="#031719" font-size="11" font-weight="900">277-final-status 3</text>
+  <rect x="58" y="408" width="1162" height="482" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="440" class="kicker">Synthetic Claim Lifecycle Rows</text>
+  <rect x="58" y="430" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="451" class="tiny strong">SYN-CH-001</text><text x="202" y="451" class="tiny">Synthetic Payer A</text><text x="370" y="451" class="tiny">277-final-status</text><text x="570" y="451" class="tiny">2d since submission</text><text x="770" y="451" class="tiny">$240 synthetic</text><text x="1188" y="451" class="tiny" text-anchor="end">SLA</text><rect x="58" y="468" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="489" class="tiny strong">SYN-CH-002</text><text x="202" y="489" class="tiny">Synthetic Payer B</text><text x="370" y="489" class="tiny">clean-and-acknowledged</text><text x="570" y="489" class="tiny">1d since submission</text><text x="770" y="489" class="tiny">$360 synthetic</text><text x="1188" y="489" class="tiny" text-anchor="end">SLA</text><rect x="58" y="506" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="527" class="tiny strong">SYN-CH-003</text><text x="202" y="527" class="tiny">Synthetic Payer C</text><text x="370" y="527" class="tiny">999-rejected</text><text x="570" y="527" class="tiny">3d since submission</text><text x="770" y="527" class="tiny">$185 synthetic</text><text x="1188" y="527" class="tiny" text-anchor="end">watch</text><rect x="58" y="544" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="565" class="tiny strong">SYN-CH-004</text><text x="202" y="565" class="tiny">Synthetic Payer D</text><text x="370" y="565" class="tiny">277CA-rejected</text><text x="570" y="565" class="tiny">5d since submission</text><text x="770" y="565" class="tiny">$510 synthetic</text><text x="1188" y="565" class="tiny" text-anchor="end">watch</text><rect x="58" y="582" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="603" class="tiny strong">SYN-CH-005</text><text x="202" y="603" class="tiny">Synthetic Payer E</text><text x="370" y="603" class="tiny">277-pending</text><text x="570" y="603" class="tiny">12d since submission</text><text x="770" y="603" class="tiny">$295 synthetic</text><text x="1188" y="603" class="tiny" text-anchor="end">watch</text><rect x="58" y="620" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="641" class="tiny strong">SYN-CH-006</text><text x="202" y="641" class="tiny">Synthetic Payer A</text><text x="370" y="641" class="tiny">277-final-status</text><text x="570" y="641" class="tiny">4d since submission</text><text x="770" y="641" class="tiny">$415 synthetic</text><text x="1188" y="641" class="tiny" text-anchor="end">SLA</text><rect x="58" y="658" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="679" class="tiny strong">SYN-CH-007</text><text x="202" y="679" class="tiny">Synthetic Payer B</text><text x="370" y="679" class="tiny">clean-and-acknowledged</text><text x="570" y="679" class="tiny">1d since submission</text><text x="770" y="679" class="tiny">$225 synthetic</text><text x="1188" y="679" class="tiny" text-anchor="end">SLA</text><rect x="58" y="696" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="717" class="tiny strong">SYN-CH-008</text><text x="202" y="717" class="tiny">Synthetic Payer C</text><text x="370" y="717" class="tiny">999-rejected</text><text x="570" y="717" class="tiny">2d since submission</text><text x="770" y="717" class="tiny">$690 synthetic</text><text x="1188" y="717" class="tiny" text-anchor="end">watch</text><rect x="58" y="734" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="755" class="tiny strong">SYN-CH-009</text><text x="202" y="755" class="tiny">Synthetic Payer D</text><text x="370" y="755" class="tiny">277CA-rejected</text><text x="570" y="755" class="tiny">7d since submission</text><text x="770" y="755" class="tiny">$330 synthetic</text><text x="1188" y="755" class="tiny" text-anchor="end">watch</text><rect x="58" y="772" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="793" class="tiny strong">SYN-CH-010</text><text x="202" y="793" class="tiny">Synthetic Payer E</text><text x="370" y="793" class="tiny">277-pending</text><text x="570" y="793" class="tiny">15d since submission</text><text x="770" y="793" class="tiny">$455 synthetic</text><text x="1188" y="793" class="tiny" text-anchor="end">watch</text><rect x="58" y="810" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="831" class="tiny strong">SYN-CH-011</text><text x="202" y="831" class="tiny">Synthetic Payer A</text><text x="370" y="831" class="tiny">clean-and-acknowledged</text><text x="570" y="831" class="tiny">1d since submission</text><text x="770" y="831" class="tiny">$175 synthetic</text><text x="1188" y="831" class="tiny" text-anchor="end">SLA</text><rect x="58" y="848" width="1162" height="32" rx="7" fill="#071316" stroke="#1f3941"/><text x="74" y="869" class="tiny strong">SYN-CH-012</text><text x="202" y="869" class="tiny">Synthetic Payer B</text><text x="370" y="869" class="tiny">277-final-status</text><text x="570" y="869" class="tiny">6d since submission</text><text x="770" y="869" class="tiny">$820 synthetic</text><text x="1188" y="869" class="tiny" text-anchor="end">SLA</text>
+  <rect x="58" y="900" width="1162" height="214" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="932" class="kicker">Response Parser View</text>
+  <rect x="58" y="918" width="370" height="176" rx="12" fill="#101b20" stroke="#21414a"/><text x="76" y="950" class="kicker">999 Parser</text><text x="76" y="980" class="tiny">AK1*HC*000001~ AK2*837*0001~ IK5*R*5~ AK9*R*1*1*0~</text><text x="76" y="1010" class="small">The functional group was received. The 837 transaction set was identified. The transaction set w</text><text x="76" y="1062" class="tiny">Owner: Biller | Frequency: 5</text><rect x="454" y="918" width="370" height="176" rx="12" fill="#101b20" stroke="#21414a"/><text x="472" y="950" class="kicker">277CA Parser</text><text x="472" y="980" class="tiny">STC*A3:21*20260511*U*240~ TRN*2*SYN-CH-004~ BHT*0085*08*SYN277CA~</text><text x="472" y="1010" class="small">The claim reached the acknowledgment layer. The status category shows a rejected or unaccepted c</text><text x="472" y="1062" class="tiny">Owner: Biller | Frequency: 4</text><rect x="850" y="918" width="370" height="176" rx="12" fill="#101b20" stroke="#21414a"/><text x="868" y="950" class="kicker">277 Parser</text><text x="868" y="980" class="tiny">STC*F1:65*20260511*WQ*455~ TRN*2*SYN-CH-010~ NM1*PR*2*SYNTHETIC PAYER*****PI*SYN-PAYER~</text><text x="868" y="1010" class="small">The payer status response was received. The claim is still pending payer action. A/R follow-up s</text><text x="868" y="1062" class="tiny">Owner: A/R follow-up | Frequency: 6</text>
+  <rect x="58" y="1128" width="562" height="276" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="82" y="1160" class="kicker">Stuck-in-Clearinghouse Inventory</text>
+  <rect x="58" y="1148" width="562" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="74" y="1170" class="tiny strong">SYN-CH-013</text><text x="178" y="1170" class="tiny">No 999 within 24 hours</text><text x="498" y="1170" class="tiny" text-anchor="end">2d</text><rect x="58" y="1188" width="562" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="74" y="1210" class="tiny strong">SYN-CH-014</text><text x="178" y="1210" class="tiny">No 999 within 24 hours</text><text x="498" y="1210" class="tiny" text-anchor="end">3d</text><rect x="58" y="1228" width="562" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="74" y="1250" class="tiny strong">SYN-CH-015</text><text x="178" y="1250" class="tiny">No 999 within 24 hours</text><text x="498" y="1250" class="tiny" text-anchor="end">4d</text><rect x="58" y="1268" width="562" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="74" y="1290" class="tiny strong">SYN-CH-016</text><text x="178" y="1290" class="tiny">No 277CA within 72 hours</text><text x="498" y="1290" class="tiny" text-anchor="end">5d</text><rect x="58" y="1308" width="562" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="74" y="1330" class="tiny strong">SYN-CH-017</text><text x="178" y="1330" class="tiny">No 277CA within 72 hours</text><text x="498" y="1330" class="tiny" text-anchor="end">6d</text><rect x="58" y="1348" width="562" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="74" y="1370" class="tiny strong">SYN-CH-018</text><text x="178" y="1370" class="tiny">No 277CA within 72 hours</text><text x="498" y="1370" class="tiny" text-anchor="end">7d</text>
+  <rect x="650" y="1128" width="570" height="276" rx="14" fill="#101b20" stroke="#21414a"/>
+  <text x="674" y="1160" class="kicker">30-Day Tracking Plan</text>
+  <rect x="650" y="1148" width="570" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="666" y="1163" class="tiny strong">Days 1-3 | Denials specialist | M</text><text x="666" y="1177" class="tiny">Escalate unresolved payer-status response lane. Unblocks 8-12 synthetic claims per week and </text><rect x="650" y="1188" width="570" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="666" y="1203" class="tiny strong">Days 4-7 | A/R follow-up | S</text><text x="666" y="1217" class="tiny">A/R follow-up should track the next response date. Reduces pending-status ambiguity before A</text><rect x="650" y="1228" width="570" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="666" y="1243" class="tiny strong">Days 8-12 | Denials specialist | M</text><text x="666" y="1257" class="tiny">Move to aged status-response review queue. Unblocks 6-10 synthetic claims per week.</text><rect x="650" y="1268" width="570" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="666" y="1283" class="tiny strong">Days 13-18 | Biller | M</text><text x="666" y="1297" class="tiny">The full functional group needs repair before resubmission. Cuts rejected acknowledgment rew</text><rect x="650" y="1308" width="570" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="666" y="1323" class="tiny strong">Days 19-24 | A/R follow-up | S</text><text x="666" y="1337" class="tiny">Start payer-status follow-up cadence. Protects about $5K of synthetic weekly exposure.</text><rect x="650" y="1348" width="570" height="34" rx="7" fill="#071316" stroke="#21414a"/><text x="666" y="1363" class="tiny strong">Days 25-30 | A/R follow-up | S</text><text x="666" y="1377" class="tiny">Review the weekly response tracker and reset SLA thresholds. Keeps stale response queues fro</text>
+  <rect x="58" y="1390" width="1162" height="30" rx="15" fill="#00B3A4"/>
+  <text x="640" y="1410" text-anchor="middle" fill="#021415" font-size="14" font-weight="900">All claim IDs, payer labels, segment values, dates, dollar figures, response timestamps, and status codes are synthetic demo data.</text>
+</svg>

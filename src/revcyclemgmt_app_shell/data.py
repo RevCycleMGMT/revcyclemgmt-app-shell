@@ -39,8 +39,8 @@ ROADMAP_MODULES = [
     {
         "slug": "clearinghouse-responses",
         "label": "Clearinghouse Response Tracker",
-        "status": "Requires agreement",
-        "description": "Submission movement, acknowledgments, payer status, and follow-up controls.",
+        "status": "Live workspace",
+        "description": "Synthetic 999, 277CA, and 277 response timeline, parser, stuck inventory, and tracking plan.",
     },
     {
         "slug": "835-matchback",
