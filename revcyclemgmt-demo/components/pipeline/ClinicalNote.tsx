@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 import {
   Card,
@@ -14,6 +17,8 @@ import type {
 
 interface ClinicalNoteProps {
   scenario: Scenario;
+  activeHighlightIndex?: number | null;
+  revealedHighlightIndexes?: number[];
 }
 
 const sectionLabels: Record<string, string> = {
@@ -46,16 +51,22 @@ function renderMarkdownInline(text: string, keyPrefix: string): ReactNode[] {
 
 function renderSectionContent(
   section: ClinicalNoteSection,
-  highlights: HighlightedPhrase[]
+  highlights: HighlightedPhrase[],
+  activeHighlightIndex?: number | null,
+  revealedHighlightIndexes: number[] = []
 ) {
   const sortedHighlights = highlights
-    .filter((highlight) => highlight.noteSectionId === section.id)
-    .sort((a, b) => a.startOffset - b.startOffset);
+    .map((highlight, highlightIndex) => ({ highlight, highlightIndex }))
+    .filter(({ highlight }) => highlight.noteSectionId === section.id)
+    .sort((a, b) => a.highlight.startOffset - b.highlight.startOffset);
 
   const nodes: ReactNode[] = [];
   let cursor = 0;
 
-  sortedHighlights.forEach((highlight, index) => {
+  sortedHighlights.forEach(({ highlight, highlightIndex }, index) => {
+    const isActive = activeHighlightIndex === highlightIndex;
+    const isRevealed = revealedHighlightIndexes.includes(highlightIndex);
+
     if (highlight.startOffset > cursor) {
       nodes.push(
         ...renderMarkdownInline(
@@ -66,15 +77,38 @@ function renderSectionContent(
     }
 
     nodes.push(
-      <span
+      <motion.span
         key={`${section.id}-highlight-${highlight.linksToCodeId}-${index}`}
-        className="rounded-sm border-b border-teal-200 transition-colors duration-200 hover:cursor-help hover:bg-teal-50"
+        className="inline-block rounded-sm border-b border-teal-200 transition-colors duration-200 hover:cursor-help hover:bg-teal-50"
+        animate={
+          isActive
+            ? {
+                backgroundColor: [
+                  "rgba(240, 253, 250, 0)",
+                  "rgb(204, 251, 241)",
+                  "rgb(240, 253, 250)",
+                ],
+                scale: [1, 1.05, 1],
+              }
+            : {
+                backgroundColor: isRevealed
+                  ? "rgb(240, 253, 250)"
+                  : "rgba(240, 253, 250, 0)",
+                scale: 1,
+              }
+        }
+        transition={
+          isActive
+            ? { duration: 0.5, ease: "easeInOut", times: [0, 0.5, 1] }
+            : { duration: 0.2, ease: "easeOut" }
+        }
         data-code-id={highlight.linksToCodeId}
+        data-highlight-index={highlightIndex}
         data-note-section-id={highlight.noteSectionId}
         data-reveals={highlight.reveals}
       >
         {renderMarkdownInline(highlight.text, `${section.id}-highlight-text-${index}`)}
-      </span>
+      </motion.span>
     );
 
     cursor = highlight.endOffset;
@@ -92,7 +126,11 @@ function renderSectionContent(
   return nodes;
 }
 
-export function ClinicalNote({ scenario }: ClinicalNoteProps) {
+export function ClinicalNote({
+  scenario,
+  activeHighlightIndex = null,
+  revealedHighlightIndexes = [],
+}: ClinicalNoteProps) {
   return (
     <Card className="rounded-xl border-slate-200 bg-white p-8 shadow-sm">
       <CardHeader className="p-0">
@@ -110,7 +148,9 @@ export function ClinicalNote({ scenario }: ClinicalNoteProps) {
             <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-slate-700">
               {renderSectionContent(
                 section,
-                scenario.encounter.highlightedPhrases
+                scenario.encounter.highlightedPhrases,
+                activeHighlightIndex,
+                revealedHighlightIndexes
               )}
             </p>
           </section>
