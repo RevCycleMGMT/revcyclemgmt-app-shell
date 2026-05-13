@@ -1,4 +1,4 @@
-# Ticket 1 Source Of Truth
+# Dr. Kim Training Demo Source Of Truth
 
 Date: 2026-05-12
 
@@ -20,11 +20,26 @@ Active branch:
 ticket-1-next-demo-scaffold
 ```
 
-Current scaffold commit:
+Demo code baseline:
 
 ```text
-236674c ticket-1: scaffold Next demo app
+653a7ea fix: respect reduced motion and polish spacing
 ```
+
+Tickets 1-10 are implemented. The demo routes are:
+
+```text
+/
+/demo
+/demo/[scenarioId]/encounter
+/demo/[scenarioId]/coding
+/demo/[scenarioId]/claim
+/demo/[scenarioId]/forms
+/demo/[scenarioId]/submit
+/demo/[scenarioId]/complete
+```
+
+Latest build verification: `npm run build` passed from a temp copy. X12 SE counts were verified as Sarah `23` and James `29`; copy-ready EDI strips teaching comments; CMS-1500 PDFs generated as valid one-page PDFs.
 
 Do not continue development from `/mnt/agent_8/RevCycleMGMT/revcyclemgmt-demo` or another scratch copy. Those paths were temporary staging only.
 
