@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import {
   Card,
@@ -53,7 +53,8 @@ function renderSectionContent(
   section: ClinicalNoteSection,
   highlights: HighlightedPhrase[],
   activeHighlightIndex?: number | null,
-  revealedHighlightIndexes: number[] = []
+  revealedHighlightIndexes: number[] = [],
+  prefersReducedMotion = false
 ) {
   const sortedHighlights = highlights
     .map((highlight, highlightIndex) => ({ highlight, highlightIndex }))
@@ -81,7 +82,15 @@ function renderSectionContent(
         key={`${section.id}-highlight-${highlight.linksToCodeId}-${index}`}
         className="inline-block rounded-sm border-b border-teal-200 transition-colors duration-200 hover:cursor-help hover:bg-teal-50"
         animate={
-          isActive
+          prefersReducedMotion
+            ? {
+                backgroundColor:
+                  isActive || isRevealed
+                    ? "rgb(240, 253, 250)"
+                    : "rgba(240, 253, 250, 0)",
+                scale: 1,
+              }
+            : isActive
             ? {
                 backgroundColor: [
                   "rgba(240, 253, 250, 0)",
@@ -98,7 +107,9 @@ function renderSectionContent(
               }
         }
         transition={
-          isActive
+          prefersReducedMotion
+            ? { duration: 0 }
+            : isActive
             ? { duration: 0.5, ease: "easeInOut", times: [0, 0.5, 1] }
             : { duration: 0.2, ease: "easeOut" }
         }
@@ -131,8 +142,10 @@ export function ClinicalNote({
   activeHighlightIndex = null,
   revealedHighlightIndexes = [],
 }: ClinicalNoteProps) {
+  const prefersReducedMotion = Boolean(useReducedMotion());
+
   return (
-    <Card className="rounded-xl border-slate-200 bg-white p-8 shadow-sm">
+    <Card className="rounded-xl border-slate-200 bg-white p-6 shadow-sm">
       <CardHeader className="p-0">
         <CardTitle className="text-xl font-semibold tracking-[0] text-slate-900">
           Clinical Note
@@ -150,7 +163,8 @@ export function ClinicalNote({
                 section,
                 scenario.encounter.highlightedPhrases,
                 activeHighlightIndex,
-                revealedHighlightIndexes
+                revealedHighlightIndexes,
+                prefersReducedMotion
               )}
             </p>
           </section>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CheckCircle, Loader2, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -51,10 +51,17 @@ const timelineNodes = [
 ];
 
 export function SubmissionTimeline() {
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const [activeStep, setActiveStep] = useState(1);
   const [completedStep, setCompletedStep] = useState(1);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setActiveStep(timelineNodes.length);
+      setCompletedStep(timelineNodes.length);
+      return undefined;
+    }
+
     const timers = timelineNodes.map((node, index) =>
       window.setTimeout(() => {
         const step = index + 1;
@@ -67,7 +74,7 @@ export function SubmissionTimeline() {
     return () => {
       timers.forEach((timer) => window.clearTimeout(timer));
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <Card className="rounded-xl border-slate-200 bg-white p-6 shadow-sm">
@@ -102,12 +109,15 @@ export function SubmissionTimeline() {
               ) : null}
 
               <motion.div
-                initial={{ scale: 0, opacity: 0 }}
+                initial={prefersReducedMotion ? false : { scale: 0, opacity: 0 }}
                 animate={{
                   scale: isFuture ? 0.9 : 1,
                   opacity: isFuture ? 0.45 : 1,
                 }}
-                transition={{ duration: 0.28, ease: "easeOut" }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.28,
+                  ease: "easeOut",
+                }}
                 className={cn(
                   "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border shadow-sm",
                   isComplete
@@ -116,7 +126,7 @@ export function SubmissionTimeline() {
                   isActive && "ring-4 ring-teal-100"
                 )}
               >
-                {isActive ? (
+                {isActive && !prefersReducedMotion ? (
                   <motion.span
                     className="absolute inset-0 rounded-full bg-teal-400/20"
                     animate={{ scale: [1, 1.35, 1], opacity: [0.4, 0, 0.4] }}
@@ -134,12 +144,15 @@ export function SubmissionTimeline() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 8 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
                 animate={{
                   opacity: isFuture ? 0.5 : 1,
                   y: 0,
                 }}
-                transition={{ duration: 0.28, delay: isFuture ? 0 : 0.05 }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.28,
+                  delay: prefersReducedMotion || isFuture ? 0 : 0.05,
+                }}
                 className="min-h-[82px] flex-1 pb-5"
               >
                 <div className="flex items-start justify-between gap-4">

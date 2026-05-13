@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -37,9 +37,22 @@ function formatDate(isoDate: string) {
 }
 
 export function ClaimTable({ scenario }: ClaimTableProps) {
-  const [visibleRowCount, setVisibleRowCount] = useState(0);
-  const [displayedTotal, setDisplayedTotal] = useState(0);
-  const displayedTotalRef = useRef(0);
+  const prefersReducedMotion = Boolean(useReducedMotion());
+  const fullTotal = useMemo(
+    () =>
+      scenario.procedures.reduce(
+        (sum, procedure) => sum + procedure.charge * procedure.units,
+        0
+      ),
+    [scenario.procedures]
+  );
+  const [visibleRowCount, setVisibleRowCount] = useState(() =>
+    prefersReducedMotion ? scenario.procedures.length : 0
+  );
+  const [displayedTotal, setDisplayedTotal] = useState(() =>
+    prefersReducedMotion ? fullTotal : 0
+  );
+  const displayedTotalRef = useRef(prefersReducedMotion ? fullTotal : 0);
 
   const diagnosisLetters = useMemo(() => {
     return new Map(
@@ -55,6 +68,13 @@ export function ClaimTable({ scenario }: ClaimTableProps) {
     displayedTotalRef.current = 0;
     setDisplayedTotal(0);
 
+    if (prefersReducedMotion) {
+      setVisibleRowCount(scenario.procedures.length);
+      displayedTotalRef.current = fullTotal;
+      setDisplayedTotal(fullTotal);
+      return undefined;
+    }
+
     const timers = scenario.procedures.map((_, index) =>
       setTimeout(() => {
         setVisibleRowCount(index + 1);
@@ -64,13 +84,17 @@ export function ClaimTable({ scenario }: ClaimTableProps) {
     return () => {
       timers.forEach((timer) => clearTimeout(timer));
     };
-  }, [scenario.procedures]);
+  }, [fullTotal, prefersReducedMotion, scenario.procedures]);
 
   const targetTotal = scenario.procedures
     .slice(0, visibleRowCount)
     .reduce((sum, procedure) => sum + procedure.charge * procedure.units, 0);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      return undefined;
+    }
+
     const startTotal = displayedTotalRef.current;
     const delta = targetTotal - startTotal;
     const duration = 300;
@@ -107,7 +131,7 @@ export function ClaimTable({ scenario }: ClaimTableProps) {
     return () => {
       cancelAnimationFrame(animationFrame);
     };
-  }, [targetTotal]);
+  }, [prefersReducedMotion, targetTotal]);
 
   return (
     <TooltipProvider delayDuration={150}>
@@ -131,13 +155,16 @@ export function ClaimTable({ scenario }: ClaimTableProps) {
                 return (
                   <motion.tr
                     key={procedure.id}
-                    initial={{ x: -10, opacity: 0 }}
+                    initial={prefersReducedMotion ? false : { x: -10, opacity: 0 }}
                     animate={
-                      isVisible
+                      prefersReducedMotion || isVisible
                         ? { x: 0, opacity: 1 }
                         : { x: -10, opacity: 0 }
                     }
-                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    transition={{
+                      duration: prefersReducedMotion ? 0 : 0.3,
+                      ease: "easeOut",
+                    }}
                     className={cn(
                       "border-b border-slate-100",
                       index % 2 === 0 ? "bg-white" : "bg-slate-50/50"
@@ -206,9 +233,12 @@ export function ClaimTable({ scenario }: ClaimTableProps) {
             <span className="text-sm text-slate-600">Total Charges:</span>
             <motion.span
               key={targetTotal}
-              initial={{ opacity: 0.5, y: 4 }}
+              initial={prefersReducedMotion ? false : { opacity: 0.5, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 0.2,
+                ease: "easeOut",
+              }}
               className="font-mono text-2xl font-semibold text-slate-900"
             >
               {formatCurrency(displayedTotal)}

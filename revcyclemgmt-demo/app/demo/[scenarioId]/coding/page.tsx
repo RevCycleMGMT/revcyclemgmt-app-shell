@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FastForward } from "lucide-react";
 
 import { ClinicalNote } from "@/components/pipeline/ClinicalNote";
@@ -93,6 +93,7 @@ function CodingPanel({
   diagnosisCount: number;
   procedureCount: number;
 }) {
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const visibleCodes = revealedCodeIds
     .map((codeId) => codeItems.get(codeId))
     .filter((item): item is CodeItem => Boolean(item));
@@ -114,9 +115,10 @@ function CodingPanel({
         {visibleCodes.length === 0 && !isComplete ? (
           <motion.div
             key="loading"
-            initial={{ opacity: 0 }}
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
             className="mt-6 flex items-center gap-2 text-sm text-slate-500"
           >
             <span className="size-2 rounded-full bg-teal-600 motion-safe:animate-pulse" />
@@ -130,10 +132,13 @@ function CodingPanel({
           {visibleCodes.map((item) => (
             <motion.div
               key={item.id}
-              initial={{ x: 20, opacity: 0 }}
+              initial={prefersReducedMotion ? false : { x: 20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: 20, opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              exit={prefersReducedMotion ? undefined : { x: 20, opacity: 0 }}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 0.5,
+                ease: "easeOut",
+              }}
             >
               <CodeCard
                 type={item.type}
@@ -151,10 +156,13 @@ function CodingPanel({
         {isComplete ? (
           <motion.div
             key="summary"
-            initial={{ y: 18, opacity: 0 }}
+            initial={prefersReducedMotion ? false : { y: 18, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 18, opacity: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
+            exit={prefersReducedMotion ? undefined : { y: 18, opacity: 0 }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.45,
+              ease: "easeOut",
+            }}
             className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50 p-4"
           >
             <p className="text-sm font-semibold text-emerald-800">
@@ -170,6 +178,7 @@ function CodingPanel({
 
 export default function CodingPage({ params }: CodingPageProps) {
   const scenario = getScenarioById(params.scenarioId);
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const [activeHighlightIndex, setActiveHighlightIndex] = useState<number | null>(
     null
   );
@@ -234,6 +243,19 @@ export default function CodingPage({ params }: CodingPageProps) {
     setRevealedCodeIds([]);
     setIsComplete(false);
 
+    if (prefersReducedMotion) {
+      setRevealedHighlightIndexes(
+        scenario.encounter.highlightedPhrases.map((_, index) => index)
+      );
+      revealCodes(
+        scenario.encounter.highlightedPhrases.flatMap((highlight) =>
+          codeIdsForHighlight(scenario, highlight.linksToCodeId)
+        )
+      );
+      setIsComplete(true);
+      return clearScheduledAnimation;
+    }
+
     let cursor = INITIAL_DELAY_MS;
 
     scenario.encounter.highlightedPhrases.forEach((highlight, index) => {
@@ -273,7 +295,7 @@ export default function CodingPage({ params }: CodingPageProps) {
     );
 
     return clearScheduledAnimation;
-  }, [clearScheduledAnimation, revealCodes, scenario]);
+  }, [clearScheduledAnimation, prefersReducedMotion, revealCodes, scenario]);
 
   if (!scenario) {
     return (

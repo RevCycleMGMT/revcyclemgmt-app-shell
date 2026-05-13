@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -119,7 +119,12 @@ function ServiceLineRow({
 }
 
 export function Cms1500Form({ formData }: Cms1500FormProps) {
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const fields = useMemo(() => buildCms1500Fields(formData), [formData]);
+  const completeValues = useMemo(
+    () => Object.fromEntries(fields.map((field) => [field.id, field.value])),
+    [fields]
+  );
   const [animatedValues, setAnimatedValues] = useState<Record<string, string>>(
     {}
   );
@@ -129,10 +134,19 @@ export function Cms1500Form({ formData }: Cms1500FormProps) {
   useEffect(() => {
     let cancelled = false;
 
+    skipRequestedRef.current = false;
+
+    if (prefersReducedMotion) {
+      setAnimatedValues(completeValues);
+      setIsComplete(true);
+      return () => {
+        cancelled = true;
+      };
+    }
+
     async function runTypewriter() {
       const nextValues: Record<string, string> = {};
 
-      skipRequestedRef.current = false;
       setIsComplete(false);
       setAnimatedValues({});
 
@@ -166,13 +180,11 @@ export function Cms1500Form({ formData }: Cms1500FormProps) {
     return () => {
       cancelled = true;
     };
-  }, [fields]);
+  }, [completeValues, fields, prefersReducedMotion]);
 
   const skipAnimation = () => {
     skipRequestedRef.current = true;
-    setAnimatedValues(
-      Object.fromEntries(fields.map((field) => [field.id, field.value]))
-    );
+    setAnimatedValues(completeValues);
     setIsComplete(true);
   };
 
@@ -202,9 +214,9 @@ export function Cms1500Form({ formData }: Cms1500FormProps) {
 
       <div className="overflow-x-auto pb-2">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.4, ease: "easeOut" }}
           className="mx-auto aspect-[8.5/11] w-[920px] bg-white font-sans text-black shadow-sm ring-1 ring-black"
         >
           <div className="flex h-full flex-col border-l border-t border-black">

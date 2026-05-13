@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -52,6 +52,7 @@ function getProcedure(
 }
 
 export function RemittanceCard({ scenario }: RemittanceCardProps) {
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const procedureMap = getProcedureMap(scenario.procedures);
   const totalAllowed = scenario.expectedRemittance.lines.reduce(
     (sum, line) => sum + line.allowed,
@@ -61,11 +62,11 @@ export function RemittanceCard({ scenario }: RemittanceCardProps) {
   return (
     <TooltipProvider delayDuration={150}>
       <motion.div
-        initial={{ y: 30, opacity: 0 }}
+        initial={prefersReducedMotion ? false : { y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: "easeOut" }}
       >
-        <Card className="rounded-xl border-slate-200 bg-white p-8 shadow-md">
+        <Card className="rounded-xl border-slate-200 bg-white p-6 shadow-md">
           <div className="mb-6 rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-emerald-700">
             <div className="flex items-center gap-3">
               <CheckCircle className="size-5 shrink-0" aria-hidden="true" />
