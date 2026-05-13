@@ -133,7 +133,7 @@ export const scenario02Laceration: Scenario = {
       modifiers: ["25"],
       description:
         "Office or other outpatient visit, established patient, low complexity",
-      diagnosisPointers: ["dx-s51811a"],
+      diagnosisPointers: ["dx-e119"],
       charge: 125,
       units: 1,
       why: "Modifier 25 separates the E&M from the laceration repair when the provider documents separately identifiable assessment work.",
@@ -143,7 +143,7 @@ export const scenario02Laceration: Scenario = {
       cpt: "12002",
       modifiers: [],
       description: "Simple repair of superficial wounds, 2.6-7.5 cm",
-      diagnosisPointers: ["dx-s51811a"],
+      diagnosisPointers: ["dx-s51811a", "dx-w260xxa"],
       charge: 190,
       units: 1,
       why: "A 4 cm simple forearm repair falls in the 2.6-7.5 cm simple repair range.",

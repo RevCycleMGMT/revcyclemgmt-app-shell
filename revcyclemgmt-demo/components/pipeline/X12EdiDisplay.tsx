@@ -10,6 +10,13 @@ interface X12EdiDisplayProps {
   edi: string;
 }
 
+function getParserReadyEdi(edi: string) {
+  return edi
+    .split("\n")
+    .filter((line) => !line.trimStart().startsWith("//"))
+    .join("\n");
+}
+
 function HighlightedEdiLine({ line }: { line: string }) {
   if (line.startsWith("//")) {
     return <div className="italic text-slate-500">{line}</div>;
@@ -56,10 +63,11 @@ export function X12EdiDisplay({ edi }: X12EdiDisplayProps) {
   const [copied, setCopied] = useState(false);
 
   const copyEdi = async () => {
+    const parserReadyEdi = getParserReadyEdi(edi);
     const fallbackCopy = () => {
       const textarea = document.createElement("textarea");
 
-      textarea.value = edi;
+      textarea.value = parserReadyEdi;
       textarea.setAttribute("readonly", "true");
       textarea.style.position = "fixed";
       textarea.style.left = "-9999px";
@@ -71,7 +79,7 @@ export function X12EdiDisplay({ edi }: X12EdiDisplayProps) {
 
     try {
       if (navigator.clipboard) {
-        await navigator.clipboard.writeText(edi);
+        await navigator.clipboard.writeText(parserReadyEdi);
       } else {
         fallbackCopy();
       }

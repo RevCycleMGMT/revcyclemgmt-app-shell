@@ -105,6 +105,23 @@ const styles = StyleSheet.create({
     fontFamily: "Courier",
     fontSize: 7,
   },
+  serviceCodeCell: {
+    flexDirection: "row",
+    padding: 0,
+  },
+  serviceCodeSubCell: {
+    padding: 3,
+    minHeight: 24,
+  },
+  serviceCodeSubCellBordered: {
+    borderLeftWidth: 1,
+    borderColor: "#000000",
+  },
+  serviceCodeSubLabel: {
+    marginBottom: 2,
+    fontSize: 4,
+    textTransform: "uppercase",
+  },
 });
 
 function PdfBox({
@@ -144,10 +161,6 @@ function PdfServiceLine({
   const cells = [
     { width: "15%", value: formData.encounter.dateDisplay },
     { width: "8%", value: line.placeOfService },
-    {
-      width: "20%",
-      value: `${line.cpt}${line.modifiers.length ? ` ${line.modifiers.join(" ")}` : ""}`,
-    },
     { width: "12%", value: line.diagnosisPointerLetters },
     { width: "12%", value: line.charge.toFixed(2) },
     { width: "8%", value: String(line.units) },
@@ -157,8 +170,39 @@ function PdfServiceLine({
 
   return (
     <View style={styles.row}>
-      {cells.map((cell, index) => (
-        <View key={index} style={[styles.serviceCell, { width: cell.width }]}>
+      <View style={[styles.serviceCell, { width: cells[0].width }]}>
+        <Text style={styles.serviceValue}>{cells[0].value}</Text>
+      </View>
+      <View style={[styles.serviceCell, { width: cells[1].width }]}>
+        <Text style={styles.serviceValue}>{cells[1].value}</Text>
+      </View>
+      <View
+        style={[
+          styles.serviceCell,
+          styles.serviceCodeCell,
+          { width: "20%" },
+        ]}
+      >
+        <View style={[styles.serviceCodeSubCell, { width: "60%" }]}>
+          <Text style={styles.serviceCodeSubLabel}>CPT</Text>
+          <Text style={styles.serviceValue}>{line.cpt}</Text>
+        </View>
+        <View
+          style={[
+            styles.serviceCodeSubCell,
+            styles.serviceCodeSubCellBordered,
+            { width: "40%" },
+          ]}
+        >
+          <Text style={styles.serviceCodeSubLabel}>Mod</Text>
+          <Text style={styles.serviceValue}>{line.modifiers.join(" ")}</Text>
+        </View>
+      </View>
+      {cells.slice(2).map((cell, index) => (
+        <View
+          key={`${cell.width}-${index}`}
+          style={[styles.serviceCell, { width: cell.width }]}
+        >
           <Text style={styles.serviceValue}>{cell.value}</Text>
         </View>
       ))}

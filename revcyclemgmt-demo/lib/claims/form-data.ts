@@ -259,7 +259,7 @@ function buildX12EdiContent(
     `HI*${diagnosisSegment}~`,
     ...serviceSegments,
     "// SE: Transaction set trailer",
-    `SE*${26 + scenario.procedures.length * 3}*${transactionId}~`,
+    `SE*${17 + scenario.procedures.length * 3}*${transactionId}~`,
     "// GE: Functional group trailer",
     "GE*1*1~",
     "// IEA: Interchange envelope trailer",
