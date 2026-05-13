@@ -155,7 +155,7 @@ export function ClaimTable({ scenario }: ClaimTableProps) {
                           procedure.modifiers.map((modifier) => (
                             <Tooltip key={modifier}>
                               <TooltipTrigger asChild>
-                                <span className="inline-flex">
+                                <span className="inline-flex cursor-help">
                                   <Badge
                                     variant="outline"
                                     className="rounded-lg border-teal-200 bg-teal-50 text-teal-700"

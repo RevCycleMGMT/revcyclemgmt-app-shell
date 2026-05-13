@@ -55,7 +55,7 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
     >
       <Link
         href={`/demo/${scenario.id}/encounter`}
-        className="group block h-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2"
+        className="group block h-full cursor-pointer rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2"
         aria-label={`Start ${scenario.patient.name} scenario`}
       >
         <Card className="flex h-full flex-col rounded-xl border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 ease-in-out group-hover:border-teal-200 group-hover:shadow-md">

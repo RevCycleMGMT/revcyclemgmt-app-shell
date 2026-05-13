@@ -57,7 +57,7 @@ export function CodeCard({
 
       <button
         type="button"
-        className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-600 hover:underline"
+        className="mt-3 inline-flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-teal-600 hover:underline"
         onClick={() => setIsExpanded((value) => !value)}
         aria-expanded={isExpanded}
       >

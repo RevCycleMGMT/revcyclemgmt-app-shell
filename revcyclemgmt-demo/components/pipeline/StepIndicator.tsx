@@ -14,18 +14,22 @@ const stepLabels = [
 
 interface StepIndicatorProps {
   currentStep?: number;
+  complete?: boolean;
 }
 
-export function StepIndicator({ currentStep = 1 }: StepIndicatorProps) {
+export function StepIndicator({
+  currentStep = 1,
+  complete = false,
+}: StepIndicatorProps) {
   return (
     <div className="w-full" aria-label="Demo progress">
       <div className="grid grid-cols-7 items-start">
         {stepLabels.map((label, index) => {
           const step = index + 1;
-          const isCompleted = step < currentStep;
-          const isCurrent = step === currentStep;
-          const isFuture = step > currentStep;
-          const isLineActive = step < currentStep;
+          const isCompleted = complete || step < currentStep;
+          const isCurrent = !complete && step === currentStep;
+          const isFuture = !complete && step > currentStep;
+          const isLineActive = complete || step < currentStep;
 
           return (
             <div key={label} className="relative flex min-w-0 flex-col items-center">
@@ -58,7 +62,7 @@ export function StepIndicator({ currentStep = 1 }: StepIndicatorProps) {
               <p
                 className={cn(
                   "mt-3 max-w-24 text-center text-xs font-medium leading-4",
-                  isCurrent ? "text-slate-900" : "text-slate-500"
+                  isCurrent || complete ? "text-slate-900" : "text-slate-500"
                 )}
               >
                 {label}

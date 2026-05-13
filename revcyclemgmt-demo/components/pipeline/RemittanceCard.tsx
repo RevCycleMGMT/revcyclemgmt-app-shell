@@ -138,7 +138,7 @@ export function RemittanceCard({ scenario }: RemittanceCardProps) {
                             {line.adjustments.map((adjustment) => (
                               <Tooltip key={`${line.procedureId}-${adjustment.code}`}>
                                 <TooltipTrigger asChild>
-                                  <span className="inline-flex">
+                                  <span className="inline-flex cursor-help">
                                     <Badge
                                       variant="outline"
                                       className="rounded-lg border-slate-200 bg-slate-50 font-mono text-slate-700"

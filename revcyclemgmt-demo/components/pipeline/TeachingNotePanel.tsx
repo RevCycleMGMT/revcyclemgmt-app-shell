@@ -19,7 +19,7 @@ export function TeachingNotePanel({ text }: TeachingNotePanelProps) {
       <button
         type="button"
         className={cn(
-          "flex size-11 items-center justify-center rounded-l-lg border border-r-0 border-teal-200 bg-white text-teal-700 shadow-sm transition-colors duration-200 hover:bg-teal-50",
+          "flex size-11 cursor-pointer items-center justify-center rounded-l-lg border border-r-0 border-teal-200 bg-white text-teal-700 shadow-sm transition-colors duration-200 hover:bg-teal-50",
           isOpen && "border-teal-600 bg-teal-50"
         )}
         onClick={() => setIsOpen((value) => !value)}
@@ -45,7 +45,7 @@ export function TeachingNotePanel({ text }: TeachingNotePanelProps) {
                 </h2>
                 <button
                   type="button"
-                  className="rounded-md p-1 text-slate-500 transition-colors duration-200 hover:bg-white hover:text-slate-900"
+                  className="cursor-pointer rounded-md p-1 text-slate-500 transition-colors duration-200 hover:bg-white hover:text-slate-900"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close teaching note"
                 >
